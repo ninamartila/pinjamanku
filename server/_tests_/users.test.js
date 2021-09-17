@@ -10,8 +10,10 @@ const userToRegister = {
   address: "Jakarta",
 };
 
+let access_token;
+
 describe("POST /register [SUCCESS CASE]", () => {
-  test("Should return object about User", (done) => {
+  test("Should return object about details User", (done) => {
     request(app)
       .post("/register")
       .send(userToRegister)
@@ -180,6 +182,162 @@ describe("POST /login [FAIL CASE]", () => {
         expect(status).toBe(401);
         expect(body).toHaveProperty("message");
         expect(body.message).toContain("wrong email/password");
+        done();
+      })
+      .catch((err) => done(err));
+  });
+});
+
+describe("PATCH /users [SUCCESS CASE]", () => {
+  test("Should return object about details User", (done) => {
+    const updatedUser = {
+      phoneNumber: "0898765",
+      address: "Sabang",
+    };
+    request(app)
+      .patch("/users")
+      .set("access_token", access_token)
+      .send(updatedUser)
+      .then(({ status, body }) => {
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("id", expect.any(Number));
+        expect(body).toHaveProperty("firstName");
+        expect(body).toHaveProperty("lastName");
+        expect(body).toHaveProperty("email");
+        expect(body).toHaveProperty("phoneNumber");
+        expect(body).toHaveProperty("address");
+        expect(body).not.toHaveProperty("password");
+        done();
+      })
+      .catch((err) => done(err));
+  });
+});
+
+describe("PATCH /users [FAIL CASE]", () => {
+  test("Should return object with property message", (done) => {
+    const updatedUser = {
+      phoneNumber: "0898765",
+      address: "Sabang",
+    };
+    request(app)
+      .patch("/users")
+      .set("access_token", access_token_fail)
+      .send(updatedUser)
+      .then(({ status, body }) => {
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "invalid user token");
+        done();
+      })
+      .catch((err) => done(err));
+  });
+});
+
+describe("DELETE /users/:userId [SUCCESS CASE]", () => {
+  test("Should return object with property message", (done) => {
+    request(app)
+      .delete(`/users/${userId}`)
+      .then(({ status, body }) => {
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("message", "user has been deleted");
+        done();
+      })
+      .catch((err) => done(err));
+  });
+});
+
+describe("DELETE /users/:userId [FAIL CASE]", () => {
+  test("Should return object with property message", (done) => {
+    request(app)
+      .delete(`/users/${userId}`)
+      .then(({ status, body }) => {
+        expect(status).toBe(404);
+        expect(body).toHaveProperty("message", `user with id ${userId} not found`);
+        done();
+      })
+      .catch((err) => done(err));
+  });
+});
+
+describe("POST /verification [SUCCESS CASE]", () => {
+  test("Should return object with properties date, time", (done) => {
+    request(app)
+      .post("/verification")
+      .set("access_token", access_token)
+      .then(({ status, body }) => {
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("date");
+        expect(body).toHaveProperty("time");
+        done();
+      })
+      .catch((err) => done(err));
+  });
+});
+
+describe("POST /verification [FAIL CASE]", () => {
+  test("Should return object with property message", (done) => {
+    request(app)
+      .post("/verification")
+      .set("access_token", access_token_fail)
+      .then(({ status, body }) => {
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "invalid user token");
+        done();
+      })
+      .catch((err) => done(err));
+  });
+});
+
+describe("PATCH /verification [SUCCESS CASE]", () => {
+  test("Should return object with properties date, time", (done) => {
+    request(app)
+      .patch("/verification")
+      .set("access_token", access_token)
+      .then(({ status, body }) => {
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("date");
+        expect(body).toHaveProperty("time");
+        done();
+      })
+      .catch((err) => done(err));
+  });
+});
+
+describe("PATCH /verification [FAIL CASE]", () => {
+  test("Should return object with property message", (done) => {
+    request(app)
+      .patch("/verification")
+      .set("access_token", access_token_fail)
+      .then(({ status, body }) => {
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "invalid user token");
+        done();
+      })
+      .catch((err) => done(err));
+  });
+});
+
+describe("DELETE /verification [SUCCESS CASE]", () => {
+  test("Should return object with property message", (done) => {
+    request(app)
+      .delete("/verification")
+      .set("access_token", access_token)
+      .then(({ status, body }) => {
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("message", "schedule has been deleted");
+        done();
+      })
+      .catch((err) => done(err));
+  });
+});
+
+describe("DELETE /verification [FAIL CASE]", () => {
+  test("Should return object with property message", (done) => {
+    request(app)
+      .delete("/verification")
+      .set("access_token", access_token_fail)
+      .then(({ status, body }) => {
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "invalid user token");
         done();
       })
       .catch((err) => done(err));
