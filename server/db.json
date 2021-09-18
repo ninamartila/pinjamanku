@@ -1,20 +1,20 @@
 {
-  "lander": [
-    {
-      "id": 1,
-      "firstName": "Nina",
-      "LastName": "Martila",
-      "phoneNumber": "0881023042036",
-      "address": "Jalan jalan"
-    }
-  ],
-  "borrower": [
+  "users": [
     {
       "id": 1,
       "firstName": "Devy",
       "LastName": "azkia putri",
       "phoneNumber": "0881023042036",
-      "address": "Jalan jalan 2"
+      "address": "Jalan jalan 2",
+      "role": "borrower"
+    },
+    {
+      "id": 1,
+      "firstName": "Nina",
+      "LastName": "Martila",
+      "phoneNumber": "0881023042036",
+      "address": "Jalan jalan",
+      "role": "lender"
     }
   ],
   "pinjaman": [

@@ -1,26 +1,31 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { message } from 'antd'
-import { fetchBorrower } from "../../store/Borrower/action";
+import { fetchUser } from "../../store/user/action";
+import { useState } from "react";
 
 export default function Register() {
   const dispatch = useDispatch()
-  const { isBorrowerLoading, isBorrowerSucces, isBorrowerError } = useSelector((state) => state.borrower)
+  const { isUserLoading, isUserSuccess, isUserError } = useSelector((state) => state.user)
 
   useEffect(() => {
-    dispatch(fetchBorrower())
+    dispatch(fetchUser())
   }, [])
 
   useEffect(() => {
-    if (!!isBorrowerError) {
-      message.error(isBorrowerError?.message ?? 'something went wrong');
+    if (!!isUserError) {
+      message.error(isUserError?.message ?? 'something went wrong');
     }
-  }, [isBorrowerError])
+  }, [isUserError])
 
+  // console.log(isUserSuccess, '-------');
   return (
     <section className="register d-flex flex-column justify-content-center">
       <div className="container">
         <div className="row justify-content-end ">
+          <div>
+            <p>{isUserSuccess?.toString()}</p>
+          </div>
           <div className="col-md-6 m-3 card register-card">
             <div className="p-5">
               <h1>PinjamanKu</h1>
