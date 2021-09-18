@@ -8,35 +8,36 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      externalId: {
-        allowNull: false,
-        unique: true,
-        type: Sequelize.INTEGER,
+      externalID: {
+        type: Sequelize.STRING,
       },
-      UserId: {
-        allowNull: false,
+      lenderID: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Users",
+          model: "Lenders",
           key: "id",
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      initialLoan: {
-        allowNull: false,
+      borrowerID: {
         type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: "Borrowers",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       status: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
-      amountPaid: {
-        allowNull: false,
+      initialLoan: {
         type: Sequelize.INTEGER,
       },
       tenor: {
-        allowNull: false,
         type: Sequelize.INTEGER,
       },
       createdAt: {

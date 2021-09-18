@@ -2,7 +2,7 @@
 const { Model } = require("sequelize");
 const { hashPassword } = require("../helpers/bcrypt");
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Lender extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -10,10 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.Loan);
+      Lender.hasMany(models.Loan, {foreignKey: "lenderID"})
     }
   }
-  User.init(
+  Lender.init(
     {
       firstName: {
         type: DataTypes.STRING,
@@ -70,18 +70,6 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      phoneNumber: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "phone number cannot be null",
-          },
-          notEmpty: {
-            msg: "phone number cannot be empty",
-          },
-        },
-      },
       address: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -103,18 +91,6 @@ module.exports = (sequelize, DataTypes) => {
           },
           notEmpty: {
             msg: "birth date cannot be empty",
-          },
-        },
-      },
-      role: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "role cannot be null",
-          },
-          notEmpty: {
-            msg: "role cannot be empty",
           },
         },
       },
@@ -154,18 +130,6 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      occupation: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "occupation cannot be null",
-          },
-          notEmpty: {
-            msg: "occupation cannot be empty",
-          },
-        },
-      },
     },
     {
       hooks: {
@@ -174,8 +138,8 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       sequelize,
-      modelName: "User",
+      modelName: "Lender",
     }
   );
-  return User;
+  return Lender;
 };

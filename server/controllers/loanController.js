@@ -1,19 +1,20 @@
-const { User, Loan } = require("../models");
+const {Loan, Borrower} = require("../models/index");
 const { XenditInvoice, XenditDisbursement } = require('../helpers/Xendit');
-const loan = require("../models/loan");
 
 class LoanController {
 	static async CreateInvoiceLender(req, res, next) {
-		const { userID, email } = req.user.email;
+		// const { userID, email } = req.user.email; //tunggu auth
+		const lenderID = 1
+		const email = "dharmasatrya10@gmail.com"
 		const {amount, tenor} = req.body
 		const randomID = Math.random().toString(36).slice(2)
 		try {
 			const loanData = {
 				externalID: randomID,
-				UserId: userID,
-				initialLoan: amount,
+				lenderID: lenderID,
+				borrowerID: null,
 				status: "pending",
-				amountPaid: 500000,
+				initialLoan: amount,
 				tenor: tenor
 			}
 
@@ -36,12 +37,13 @@ class LoanController {
 	}
 
 	static async CreateInvoiceBorrower(req, res, next) {
-		const {email} = req.user.email
+		// const {email} = req.user.email
+		const email = "dharmasatrya10@gmail.com"
 		const { loanID } = req.body;
 		try {
 			const loanData = await Loan.findOne({where: {id: loanID}})
 
-			const amountWithInterest = loanData.initialLoan * 0.07
+			const amountWithInterest = loanData.initialLoan + loanData.initialLoan * 0.07
 
 			const invoice = await XenditInvoice.createInvoice({
 				externalID: `invoice-borrower-${loanData.externalID}`,
@@ -91,21 +93,26 @@ class LoanController {
 
 	static async CreateDisbursement(req, res, next) { //disburse ke borrower
 		const {loanID} = req.body;
-		const borrowerID = req.userID
+		// const borrowerID = req.userID
+		const borrowerID = 1
 		try {
-			const loan = await Loan.findOne({where: {id:loanID}})
-			const userData = await User.findOne({where: {id: borrowerID}})
+			const loanData = await Loan.findOne({where: {id:loanID}})
+			const borrowerData = await Borrower.findOne({where: {id: borrowerID}})
 
-			const loanData = {
-				externalID: `disburse-borrower-${loan.id}`,
-				bankCode: userData.bankCode,
-				accountHolderName: userData.holderName,
-				accountNumber: userData.accountNumber,
-				description: `loan disbursement for ${loan.id}`,
-				amount: loan.initialLoan
+			const amountWithInterest = loanData.initialLoan + loanData.initialLoan * 0.07
+
+			const loanDataInput = {
+				externalID: `disburse-borrower-${loanData.externalID}`,
+				bankCode: borrowerData.bankCode,
+				accountHolderName: borrowerData.holderName,
+				accountNumber: `${borrowerData.accountNumber}`,
+				description: `loan disbursement for ${loanData.externalID}`,
+				amount: amountWithInterest
 			};
 
-			const disbursement = await XenditDisbursement.create(loanData);
+			console.log(loanDataInput)
+
+			const disbursement = await XenditDisbursement.create(loanDataInput);
 			res.status(200).json(disbursement);
 		} catch (error) {
 			console.log(error);
@@ -119,12 +126,12 @@ class LoanController {
 				res.status(200).json({ status: 'failed' });
 			} else if (status === 'PAID') {
 				if(external_id.includes("borrower")){
-					const loanID = external_id.slice(-11)
-					const loanData = await Loan.update({status: "complete"}, {where: {external_id: loanID}})
+					const loanID = external_id.split("-")[2]
+					const loanData = await Loan.update({status: "complete"}, {where: {externalID: loanID}})
 					res.status(200).json({ status: 'complete', id: loanID });
 				} else {
-					const loanID = external_id.slice(-11)
-					const loanData = await Loan.update({status: "active"}, {where: {external_id: loanID}})
+					const loanID = external_id.split("-")[2]
+					const loanData = await Loan.update({ status: "active" }, {where: {externalID: loanID}, returning: true})
 					res.status(200).json({ status: 'active', id: loanID });
 				}
 			}
@@ -138,27 +145,19 @@ class LoanController {
 		try {
 			if (status === 'FAILED') {
 				res.status(200).json({ status: 'failed' });
-			} else if (status === 'PAID') {
+			} else if (status === 'COMPLETED') {
 				if(external_id.includes("borrower")){
-					const loanID = external_id.slice(-11)
-					const loanData = await Loan.update({status: "borrowed"}, {where: {external_id: loanID}})
+					const loanID = external_id.split("-")[2]
+					const loanData = await Loan.update({status: "borrowed"}, {where: {externalID: loanID}})
 					res.status(200).json({ status: 'borrower', id: loanID });
 				} else {
-					const loanID = external_id.slice(-11)
-					const loanData = await Loan.update({status: "withdrawn"}, {where: {external_id: loanID}})
+					const loanID = external_id.split("-")[2]
+					const loanData = await Loan.update({status: "withdrawn"}, {where: {externalID: loanID}})
 					res.status(200).json({ status: 'lender', id: loanID });
 				}
 			}
 		} catch (error) {
 			console.log(error);
-		}
-	}
-
-	static Test(req, res, next) {
-		try {
-			res.status(200).json({ msg: 'ok' });
-		} catch (error) {
-			res.status(500);
 		}
 	}
 }
