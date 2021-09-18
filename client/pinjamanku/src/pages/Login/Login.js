@@ -1,54 +1,57 @@
+import { useState } from "react";
+import {  LoginBorrower } from "../../store/Borrower/action";
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  
+  function submitLogin(e) {
+    e.preventDefault();
+    let newPayload = {
+      email: email,
+      password: password,
+    };
+    dispatch( LoginBorrower(newPayload)).then().catch();
+  }
   return (
-    <section className="login d-flex flex-column justify-content-center">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6 m-3 card login-card">
-            <div className="p-5">
-              <h1>PinjamanKu</h1>
-              <form>
-                <div className="mb-3">
-                  <label for="exampleInputEmail1" className="form-label">
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                  />
-                  <div id="emailHelp" className="form-text">
-                    We'll never share your email with anyone else.
-                  </div>
-                </div>
-                <div className="mb-3">
-                  <label for="exampleInputPassword1" className="form-label">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="exampleInputPassword1"
-                  />
-                </div>
-                <div className="mb-3 form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="exampleCheck1"
-                  />
-                  <label className="form-check-label" for="exampleCheck1">
-                    Check me out
-                  </label>
-                </div>
-                <button type="submit" className="btn btn-primary">
-                  Login
-                </button>
-              </form>
-            </div>
+    <section class="login d-flex flex-column justify-content-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 m-3 card login-card">
+          <div class="p-5">
+            <h1>PinjamanKu</h1>
+            <form onSubmit={(e) => submitLogin(e)}>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="exampleInputPassword1"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+
+              <button type="submit" class="btn btn-primary">
+                Login
+              </button>
+            </form>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
   );
 }

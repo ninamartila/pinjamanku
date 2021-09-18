@@ -62,3 +62,70 @@ export function fetchBorrower() {
         }
     }
 }
+
+export function LoginBorrower(payload) {
+    const {email, password} = payload
+    return async function (dispatch, getState) {
+        try {
+            dispatch(getAllBorrowerLoading(true))
+            return fetch('http://localhost:3000/borrower/login',  {
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'},
+                body: JSON.stringify({email,password}), 
+                method: "POST"}
+                )
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json()
+                    } else {
+                        return Promise.reject('something went wrong')
+                    }
+                })
+                .then((data) => {
+                    console.log(data, '========Success_LOGIN');
+                    return data
+                })
+                .catch(err => {
+                    console.log(err, '========Err_LOGIN');
+                    return data
+                })
+                // .finally(() => dispatch(getAllBorrowerLoading(false)))
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+export function RegisterBorrower(payload) {
+    const {email, password, bank, norek } = payload
+    return async function (dispatch, getState) {
+        try {
+            dispatch(getAllBorrowerLoading(true))
+            return fetch('http://localhost:3000/borrower/register',  {
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'},
+                body: JSON.stringify({email,password, bank,norek}), 
+                method: "POST"}
+                )
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json()
+                    } else {
+                        return Promise.reject('something went wrong')
+                    }
+                })
+                .then((data) => {
+                    console.log(data, '========Success_LOGIN');
+                    return data
+                })
+                .catch(err => {
+                    console.log(err, '========Err_LOGIN');
+                    return data
+                })
+                // .finally(() => dispatch(getAllBorrowerLoading(false)))
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
