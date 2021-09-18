@@ -8,9 +8,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      externalId: {
+        allowNull: false,
+        unique: true,
+        type: Sequelize.INTEGER,
+      },
       UserId: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       initialLoan: {
         allowNull: false,

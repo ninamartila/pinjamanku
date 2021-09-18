@@ -17,6 +17,7 @@ class UserController {
         holderName,
         accountNumber,
         occupation,
+        role,
       } = req.body;
 
       let newUser = {
@@ -31,12 +32,12 @@ class UserController {
         holderName,
         accountNumber,
         occupation,
-        role: "borrower",
+        role,
       };
       const result = await User.create(newUser);
       res.status(200).json(result);
     } catch (error) {
-      res.status(500).json(error, "internal server error");
+      res.status(500).json(error);
     }
   }
 
@@ -53,7 +54,7 @@ class UserController {
         res.status(404).json({ message: "salah password" });
       }
     } catch (error) {
-      res.status(500).json(error, "internal server error");
+      res.status(500).json(error);
     }
   }
 }
