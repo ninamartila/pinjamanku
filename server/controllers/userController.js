@@ -37,7 +37,7 @@ class UserController {
       const result = await User.create(newUser);
       res.status(200).json(result);
     } catch (error) {
-      res.status(500).json(error, "internal server error");
+      res.status(500).json(error);
     }
   }
 
