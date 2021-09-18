@@ -1,6 +1,6 @@
 import { ListItemStatusPinjam } from "../../components";
 
-export default function Lander() {
+export default function DasboardBorower() {
   return (
     <div>
       <section className="hero-borrower d-flex flex-column justify-content-center">
@@ -23,7 +23,6 @@ export default function Lander() {
           <h4>Pinjaman Active :</h4>
         </div>
         <ListItemStatusPinjam type={'active'} />
-
         <div className="m-5">
           <h4>Pinjaman Selesai :</h4>
         </div>

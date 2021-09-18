@@ -1,6 +1,6 @@
-import { ListItemStatusPinjam } from "../../components";
+import { ListItemPinjam } from "../../components";
 
-export default function Lander() {
+export default function TempatMinjam() {
   return (
     <div>
       <section className="hero-borrower d-flex flex-column justify-content-center">
@@ -19,15 +19,10 @@ export default function Lander() {
         </div>
       </section>
       <section className="container">
-        <div className="m-5">
-          <h4>Pinjaman Active :</h4>
+        <div className="m-5 text-center">
+          <h1>Silahkan Pilih Sesuka hati anda</h1>
         </div>
-        <ListItemStatusPinjam type={'active'} />
-
-        <div className="m-5">
-          <h4>Pinjaman Selesai :</h4>
-        </div>
-        <ListItemStatusPinjam type={'done'} />
+        <ListItemPinjam />
       </section>
     </div>
   );

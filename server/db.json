@@ -1,0 +1,36 @@
+{
+  "lander": [
+    {
+      "id": 1,
+      "firstName": "Nina",
+      "LastName": "Martila",
+      "phoneNumber": "0881023042036",
+      "address": "Jalan jalan"
+    }
+  ],
+  "borrower": [
+    {
+      "id": 1,
+      "firstName": "Devy",
+      "LastName": "azkia putri",
+      "phoneNumber": "0881023042036",
+      "address": "Jalan jalan 2"
+    }
+  ],
+  "pinjaman": [
+    {
+      "id": 1,
+      "idLander": 1,
+      "total": 1200000,
+      "bunga": 8,
+      "jangka": 6
+    },
+    {
+      "id": 1,
+      "idLander": 1,
+      "total": 1200000,
+      "bunga": 8,
+      "jangka": 6
+    }
+  ]
+}

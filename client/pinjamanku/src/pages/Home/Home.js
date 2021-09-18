@@ -1,11 +1,20 @@
+import { useHistory } from "react-router-dom";
+import { ListItemPinjam } from "../../components";
+
 export default function Home() {
+  const history = useHistory()
+
+  function register() {
+    history.push(`/register`)
+  }
+
   return (
     <div>
       {/* Hero Section */}
-      <section class="hero d-flex flex-column justify-content-center">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6 m-3">
+      <section className="hero d-flex flex-column justify-content-center">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6 m-3">
               <h1>hii there!</h1>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
@@ -13,9 +22,9 @@ export default function Home() {
                 nobis alias dolor vero architecto veniam ab doloremque illo
                 quas. Magnam, atque?
               </p>
-              <a href="index.html" class="btn1">
+              <button onClick={() => register()} className="btn1">
                 Register
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -23,45 +32,44 @@ export default function Home() {
       {/*Akhir Hero Section */}
 
       {/* Banner Section */}
-
-      <section class="mt-3">
-        <div class="m-5 text-center">
+      <section className="mt-3">
+        <div className="m-5 text-center">
           <h1>Why Choose Us?</h1>
         </div>
-        <div class="row justify-content-center text-center">
-          <div class="col-md-3 m-1">
-            <div class="">
-              <div class="card-body ">
-                <h5 class="card-title">
+        <div className="row justify-content-center text-center">
+          <div className="col-md-3 m-1">
+            <div className="">
+              <div className="card-body ">
+                <h5 className="card-title">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="60"
                     height="60"
                     fill="currentColor"
-                    class="bi bi-cash-stack"
+                    className="bi bi-cash-stack"
                     viewBox="0 0 16 16"
                   >
                     <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1H1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
                     <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z" />
                   </svg>
                 </h5>
-                <p class="card-text">
+                <p className="card-text">
                   With supporting text below as a natural lead-in to additional
                   content.
                 </p>
               </div>
             </div>
           </div>
-          <div class="col-md-3 m-1">
-            <div class="">
-              <div class="card-body">
-                <h5 class="card-title">
+          <div className="col-md-3 m-1">
+            <div className="">
+              <div className="card-body">
+                <h5 className="card-title">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="60"
                     height="60"
                     fill="currentColor"
-                    class="bi bi-shield-shaded"
+                    className="bi bi-shield-shaded"
                     viewBox="0 0 16 16"
                   >
                     <path
@@ -70,23 +78,23 @@ export default function Home() {
                     />
                   </svg>
                 </h5>
-                <p class="card-text">
+                <p className="card-text">
                   With supporting text below as a natural lead-in to additional
                   content.
                 </p>
               </div>
             </div>
           </div>
-          <div class="col-md-3 m-1">
-            <div class="">
-              <div class="card-body">
-                <h5 class="card-title">
+          <div className="col-md-3 m-1">
+            <div className="">
+              <div className="card-body">
+                <h5 className="card-title">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="60"
                     height="60"
                     fill="currentColor"
-                    class="bi bi-person-circle"
+                    className="bi bi-person-circle"
                     viewBox="0 0 16 16"
                   >
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -96,7 +104,7 @@ export default function Home() {
                     />
                   </svg>
                 </h5>
-                <p class="card-text">
+                <p className="card-text">
                   With supporting text below as a natural lead-in to additional
                   content.
                 </p>
@@ -108,112 +116,11 @@ export default function Home() {
       {/* Akhir Banner Section */}
 
       {/* Lander Section */}
-      <section class="mt-3">
-        <div class="m-5 text-center">
+      <section className="mt-3">
+        <div className="m-5 text-center">
           <h1>Wanna Lander Now?</h1>
         </div>
-        <div class="row justify-content-center ">
-          <div class="card col-md-8  m-3">
-            <div class="card-body  m-3">
-              <div class="row justify-content-between">
-                <div class="col-md-2">
-                  <h5>Lander :</h5>
-                  <p>dewa@mail.com</p>
-                </div>
-                <div class="col-md-2">
-                  <h5>Total :</h5>
-                  <p>Rp. 1.200.000</p>
-                </div>
-                <div class="col-md-2">
-                  <h5>Bunga :</h5>
-                  <p>8%</p>
-                </div>
-                <div class="col-md-2">
-                  <h5>Jangka :</h5>
-                  <p>6-bulan</p>
-                </div>
-                <div class="col-md-2  justify-content-center text-center">
-                  <button class="btn btn-primary">GasPinjam</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card col-md-8  m-3">
-            <div class="card-body  m-3">
-              <div class="row justify-content-between">
-                <div class="col-md-2">
-                  <h5>Lander :</h5>
-                  <p>dewa@mail.com</p>
-                </div>
-                <div class="col-md-2">
-                  <h5>Total :</h5>
-                  <p>Rp. 1.200.000</p>
-                </div>
-                <div class="col-md-2">
-                  <h5>Bunga :</h5>
-                  <p>8%</p>
-                </div>
-                <div class="col-md-2">
-                  <h5>Jangka :</h5>
-                  <p>6-bulan</p>
-                </div>
-                <div class="col-md-2  justify-content-center text-center">
-                  <button class="btn btn-primary">GasPinjam</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card col-md-8  m-3">
-            <div class="card-body  m-3">
-              <div class="row justify-content-between">
-                <div class="col-md-2">
-                  <h5>Lander :</h5>
-                  <p>dewa@mail.com</p>
-                </div>
-                <div class="col-md-2">
-                  <h5>Total :</h5>
-                  <p>Rp. 1.200.000</p>
-                </div>
-                <div class="col-md-2">
-                  <h5>Bunga :</h5>
-                  <p>8%</p>
-                </div>
-                <div class="col-md-2">
-                  <h5>Jangka :</h5>
-                  <p>6-bulan</p>
-                </div>
-                <div class="col-md-2  justify-content-center text-center">
-                  <button class="btn btn-primary">GasPinjam</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card col-md-8  m-3">
-            <div class="card-body  m-3">
-              <div class="row justify-content-between">
-                <div class="col-md-2">
-                  <h5>Lander :</h5>
-                  <p>dewa@mail.com</p>
-                </div>
-                <div class="col-md-2">
-                  <h5>Total :</h5>
-                  <p>Rp. 1.200.000</p>
-                </div>
-                <div class="col-md-2">
-                  <h5>Bunga :</h5>
-                  <p>8%</p>
-                </div>
-                <div class="col-md-2">
-                  <h5>Jangka :</h5>
-                  <p>6-bulan</p>
-                </div>
-                <div class="col-md-2  justify-content-center text-center">
-                  <button class="btn btn-primary">GasPinjam</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ListItemPinjam />
       </section>
       {/* Lander Section */}
     </div>

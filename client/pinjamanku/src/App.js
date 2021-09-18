@@ -1,13 +1,8 @@
 import { Provider } from "react-redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/Navbar/navbar";
-import DasboardBorower from "./pages/Brower/DasboardBorower";
-import TempatMinjam from "./pages/Brower/TempatMinjam";
-import Home from "./pages/Home/Home";
-import Lander from "./pages/Lander/Lander";
-import Login from "./pages/Login/Login";
-import Register from "./pages/Register/Register";
+import { Navbar } from "./components";
+import { DasboardBorower, Home, Lander, Login, Register, TempatMinjam } from "./pages";
 import store from "./store";
 export default function App() {
   return (

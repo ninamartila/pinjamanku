@@ -2,7 +2,7 @@ const initialState = {
 
 }
 
-function reducer(state = initialState, action) {
+function landerReducer(state = initialState, action) {
     switch (action.type) {
         case 'value':
 
@@ -13,4 +13,4 @@ function reducer(state = initialState, action) {
     }
 }
 
-export default reducer
+export default landerReducer
