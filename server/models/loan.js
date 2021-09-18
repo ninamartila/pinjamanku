@@ -14,6 +14,22 @@ module.exports = (sequelize, DataTypes) => {
   }
   Loan.init(
     {
+      externalId: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: {
+          args: true,
+          msg: "external id is already exists",
+        },
+        validate: {
+          notNull: {
+            msg: "external id cannot be null",
+          },
+          notEmpty: {
+            msg: "external id cannot be empty",
+          },
+        },
+      },
       UserId: {
         type: DataTypes.INTEGER,
         allowNull: false,

@@ -17,6 +17,7 @@ class UserController {
         holderName,
         accountNumber,
         occupation,
+        role,
       } = req.body;
 
       let newUser = {
@@ -31,7 +32,7 @@ class UserController {
         holderName,
         accountNumber,
         occupation,
-        role: "borrower",
+        role,
       };
       const result = await User.create(newUser);
       res.status(200).json(result);
