@@ -12,4 +12,8 @@ app.use(express.json())
 
 app.use(routes)
 
+app.listen(3000, () => {
+    console.log("now running")
+})
+
 module.exports = app
