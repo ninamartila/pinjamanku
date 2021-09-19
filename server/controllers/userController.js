@@ -1,6 +1,7 @@
 const { User } = require("../models");
 const { comparePassword } = require("../helpers/bcrypt");
 const { generateToken } = require("../helpers/jwt");
+const createRoom = require("../helpers/dailyCo");
 const sendMail = require("../helpers/NodeMailer");
 
 class UserController {
@@ -46,12 +47,15 @@ class UserController {
       };
       const result = await User.create(newUser);
       const { password: resultPassword, ...toSend } = result;
+      //   if (result) {
+      //     if (sendMail(result.email)) {
+      //       res.status(500).json(error);
+      //     } else {
+      //     }
       if (result) {
-        if (sendMail(result.email)) {
-          res.status(500).json(error);
-        } else {
-          res.status(200).json(toSend);
-        }
+        let email = result.email;
+        createRoom(`${result.id}test`, email);
+        res.status(200).json(toSend);
       }
     } catch (error) {
       res.status(500).json(error);
