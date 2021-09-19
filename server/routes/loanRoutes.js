@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Controller = require("../controllers/LoanController");
+const Controller = require("../controllers/loanController");
 
 router.get("/test", Controller.Test);
 router.post("/invoice", Controller.CreateInvoice);
