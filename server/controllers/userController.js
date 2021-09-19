@@ -47,11 +47,6 @@ class UserController {
       };
       const result = await User.create(newUser);
       const { password: resultPassword, ...toSend } = result;
-      //   if (result) {
-      //     if (sendMail(result.email)) {
-      //       res.status(500).json(error);
-      //     } else {
-      //     }
       if (result) {
         let email = result.email;
         createRoom(`${result.id}test`, email);
