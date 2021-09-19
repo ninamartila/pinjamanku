@@ -2,7 +2,6 @@ const { User } = require("../models");
 const { comparePassword } = require("../helpers/bcrypt");
 const { generateToken } = require("../helpers/jwt");
 const createRoom = require("../helpers/dailyCo");
-const sendMail = require("../helpers/NodeMailer");
 
 class UserController {
   static async getAll(req, res, next) {
@@ -49,7 +48,12 @@ class UserController {
       const { password: resultPassword, ...toSend } = result;
       if (result) {
         let email = result.email;
-        createRoom(`${result.id}test`, email);
+        let proceed = await createRoom(`${result.id}test`, email);
+        if (proceed) {
+          console.log("ahay");
+        } else {
+          console.log("ahuy");
+        }
         res.status(200).json(toSend);
       }
     } catch (error) {
