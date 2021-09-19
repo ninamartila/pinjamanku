@@ -6,7 +6,7 @@ const sendMail = require("../helpers/NodeMailer");
 class UserController {
   static async getAll(req, res, next) {
     try {
-      const result = User.findAll();
+      const result = await User.findAll();
       res.status(200).json(result);
     } catch (error) {
       res.status(500).json(error);
