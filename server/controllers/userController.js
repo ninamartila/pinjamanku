@@ -1,6 +1,7 @@
 const { User } = require("../models");
 const { comparePassword } = require("../helpers/bcrypt");
 const { generateToken } = require("../helpers/jwt");
+const sendMail = require("../helpers/NodeMailer");
 
 class UserController {
   static async getAll(req, res, next) {
@@ -45,7 +46,13 @@ class UserController {
       };
       const result = await User.create(newUser);
       const { password: resultPassword, ...toSend } = result;
-      res.status(200).json(toSend);
+      if (result) {
+        if (sendMail(result.email)) {
+          res.status(500).json(error);
+        } else {
+          res.status(200).json(toSend);
+        }
+      }
     } catch (error) {
       res.status(500).json(error);
     }
@@ -194,7 +201,7 @@ class UserController {
     }
   }
 
-  static updateUserStatus(req, res, next) {
+  static async updateUserStatus(req, res, next) {
     const { userId } = req.params;
     const { status } = req.body;
     try {
