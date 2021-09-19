@@ -1,8 +1,9 @@
-import { ListItemPinjam } from "../../components";
+import { ListItemPinjam, Navbar } from "../../components";
 
 export default function TempatMinjam() {
   return (
     <div>
+      <Navbar />
       <section className="hero-borrower d-flex flex-column justify-content-center">
         <div className="container">
           <div className="row">

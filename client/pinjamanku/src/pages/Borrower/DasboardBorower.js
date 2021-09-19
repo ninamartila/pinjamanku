@@ -1,8 +1,9 @@
-import { ListItemStatusPinjam } from "../../components";
+import { ListItemStatusPinjam, Navbar } from "../../components";
 
 export default function DasboardBorower() {
   return (
     <div>
+      <Navbar />
       <section className="hero-borrower d-flex flex-column justify-content-center">
         <div className="container">
           <div className="row">

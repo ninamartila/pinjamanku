@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import { ListItemPinjam } from "../../components";
+import { ListItemPinjam, Navbar } from "../../components";
 
 export default function Home() {
   const history = useHistory()
@@ -10,6 +10,7 @@ export default function Home() {
 
   return (
     <div>
+      <Navbar />
       {/* Hero Section */}
       <section className="hero d-flex flex-column justify-content-center">
         <div className="container">
