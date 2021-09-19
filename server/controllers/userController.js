@@ -1,6 +1,8 @@
 const { User } = require("../models");
 const { comparePassword } = require("../helpers/bcrypt");
 const { generateToken } = require("../helpers/jwt");
+const sendMail = require("../helpers/NodeMailer");
+
 
 class UserController {
   static async registerUser(req, res, next) {
@@ -35,6 +37,9 @@ class UserController {
         role,
       };
       const result = await User.create(newUser);
+      if(result){
+        sendMail(result.email)
+      }
       res.status(200).json(result);
     } catch (error) {
       res.status(500).json(error);
