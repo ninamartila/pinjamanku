@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const LoanController = require("../controllers/loanController");
 
+
+router.get("/", LoanController.GetAll)
 router.post("/invoice/borrower", LoanController.CreateInvoiceBorrower);
 router.post("/invoice/lender", LoanController.CreateInvoiceLender);
 router.post("/disburse/withdrawal", LoanController.CreateWithdrawal);

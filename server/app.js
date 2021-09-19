@@ -5,10 +5,14 @@ const express = require('express');
 const cors = require('cors');
 const routes = require('./routes');
 const app = express()
+const ScheduleController = require("./controllers/scheduleController");
+const schedule = require("node-schedule");
 
 app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+
+schedule.scheduleJob({ second: 0 }, ScheduleController.ageLoan);
 
 app.use(routes)
 

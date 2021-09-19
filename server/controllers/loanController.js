@@ -2,6 +2,34 @@ const {Loan, Borrower} = require("../models/index");
 const { XenditInvoice, XenditDisbursement } = require('../helpers/Xendit');
 
 class LoanController {
+	static async GetAll(req, res, next){
+		const {status} = req.query
+		const queries = {}
+		try {
+			if(status){
+				queries.status = status
+			}
+			const result = await Loan.findAll({where: queries})
+			res.status(200).json(result)
+		} catch (error) {
+			res.status(500).json(error)
+		}
+	}
+
+	static async GetByID(req, res, next){
+		const {loanID} = req.body
+		try {
+			const result = await Loan.findOne({where: {loanID}})
+			if(result){
+				res.status(200).json(result)
+			} else {
+				res.status(404).json({msg: "not found"})
+			}
+		} catch (error) {
+			res.status(500).json(error)
+		}
+	}
+
 	static async CreateInvoiceLender(req, res, next) {
 		// const { userID, email } = req.user.email; //tunggu auth
 		const lenderID = 1
@@ -32,7 +60,7 @@ class LoanController {
 				invoiceURL: invoice.invoice_url
 			});
 		} catch (error) {
-			console.log(error);
+			res.status(500).json(error)
 		}
 	}
 
@@ -57,7 +85,7 @@ class LoanController {
 				invoiceURL: invoice.invoice_url
 			});
 		} catch (error) {
-			console.log(error);
+			res.status(500).json(error)
 		}
 	}
 
@@ -87,7 +115,7 @@ class LoanController {
 			});
 			res.status(200).json(disbursement);
 		} catch (error) {
-			console.log(error);
+			res.status(500).json(error)
 		}
 	}
 
@@ -115,7 +143,7 @@ class LoanController {
 			const disbursement = await XenditDisbursement.create(loanDataInput);
 			res.status(200).json(disbursement);
 		} catch (error) {
-			console.log(error);
+			res.status(500).json(error)
 		}
 	}
 
@@ -136,7 +164,7 @@ class LoanController {
 				}
 			}
 		} catch (error) {
-			console.log(error);
+			res.status(500).json(error)
 		}
 	}
 
@@ -157,7 +185,7 @@ class LoanController {
 				}
 			}
 		} catch (error) {
-			console.log(error);
+			res.status(500).json(error)
 		}
 	}
 }
