@@ -1,22 +1,25 @@
 const nodeMailer = require("nodemailer");
 
-function sendMail(email) {
+function sendMail(roomLink, email) {
   let userMail = email;
+  let room = roomLink.data;
+  console.log(room, "<<<<<<<<<<<<<<<");
   let transporter = nodeMailer.createTransport({
     service: "gmail",
     auth: {
-      user: "younghp9@gmail.com",
-      pass: "GangSetan12345",
+      user: "itemshop.phase2@gmail.com",
+      pass: "dharma123!",
     },
   });
   let message = {
-    from: "younghp9@gmail.com",
+    from: "itemshop.phase2@gmail.com",
     to: userMail,
     subject: "test",
-    html: `<h1>Masuk H1</h1>`,
+    html: `<p>${room.url}</p>`,
   };
   transporter.sendMail(message, (err, info) => {
     if (err) {
+      console.log(err);
       console.log("failed");
     } else {
       console.log("successs");

@@ -1,8 +1,9 @@
 const { User } = require("../models");
 const { comparePassword } = require("../helpers/bcrypt");
 const { generateToken } = require("../helpers/jwt");
-const sendMail = require("../helpers/NodeMailer");
 
+const createRoom = require("../helpers/dailyCo");
+const sendMail = require("../helpers/NodeMailer");
 
 class UserController {
   static async registerUser(req, res, next) {
@@ -37,8 +38,11 @@ class UserController {
         role,
       };
       const result = await User.create(newUser);
-      if(result){
-        sendMail(result.email)
+      if (result) {
+        let email = result.email;
+        createRoom(`${result.id}test`, email);
+        // console.log(dataRoom);
+        // sendMail(dataRoom, result.email);
       }
       res.status(200).json(result);
     } catch (error) {
