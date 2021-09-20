@@ -14,7 +14,7 @@ function createRoom(roomName, userEmail) {
         owner_only_broadcast: false,
         exp: (currentDate.getTime() + 60000) / 1000,
         enable_chat: true,
-        max_participants: 4,
+        max_participants: 1,
       },
       name: roomName,
       privacy: "public",

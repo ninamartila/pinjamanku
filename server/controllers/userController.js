@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { Lender, Borrower, Staff } = require("../models");
 const { comparePassword } = require("../helpers/bcrypt");
 const { generateToken } = require("../helpers/jwt");
 const createRoom = require("../helpers/dailyCo");
@@ -6,8 +6,10 @@ const createRoom = require("../helpers/dailyCo");
 class UserController {
   static async getAll(req, res, next) {
     try {
-      const result = await User.findAll();
-      res.status(200).json(result);
+      const lender = await Lender.findAll();
+      const borrower = await Borrower.findAll();
+      console.log(lender, borrower);
+      // res.status(200).json(result);
     } catch (error) {
       res.status(500).json(error);
     }
@@ -43,19 +45,15 @@ class UserController {
         accountNumber,
         occupation,
         role,
+        status: "Pending",
       };
-      const result = await User.create(newUser);
-      const { password: resultPassword, ...toSend } = result;
-      if (result) {
-        let email = result.email;
-        let proceed = await createRoom(`${result.id}test`, email);
-        if (proceed) {
-          console.log("ahay");
-        } else {
-          console.log("ahuy");
-        }
-        res.status(200).json(toSend);
-      }
+      // const result = await User.create(newUser);
+      // const { password: resultPassword, ...toSend } = result;
+      // if (result) {
+      //   let email = result.email;
+      //   let proceed = await createRoom(`${result.id}test`, email);
+      //   res.status(200).json(toSend);
+      // }
     } catch (error) {
       res.status(500).json(error);
     }

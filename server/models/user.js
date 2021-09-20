@@ -166,6 +166,18 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "status cannot be null",
+          },
+          notEmpty: {
+            msg: "status cannot be empty",
+          },
+        },
+      },
     },
     {
       hooks: {

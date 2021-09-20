@@ -12,7 +12,7 @@ function sendMail(roomLink, email) {
   });
   let message = {
     from: "pinjamkuproject@gmail.com",
-    to: [userMail, "muttaqinimam76@gmail.com", "dharmasatrya10@gmail.com"],
+    to: userMail,
     subject: "test",
     html: `<p>${room.url}</p>`,
   };

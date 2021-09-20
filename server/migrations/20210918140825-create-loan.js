@@ -32,12 +32,15 @@ module.exports = {
         onDelete: "CASCADE",
       },
       status: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       initialLoan: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       tenor: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       createdAt: {

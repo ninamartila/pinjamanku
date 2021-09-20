@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Lender.hasMany(models.Loan, {foreignKey: "lenderID"})
+      Lender.hasMany(models.Loan, { foreignKey: "lenderID" });
     }
   }
   Lender.init(
@@ -67,6 +67,42 @@ module.exports = (sequelize, DataTypes) => {
           },
           notEmpty: {
             msg: "password cannot be empty",
+          },
+        },
+      },
+      ktpCard: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "ktp card cannot be null",
+          },
+          notEmpty: {
+            msg: "ktp card cannot be empty",
+          },
+        },
+      },
+      selfPicture: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "self picture cannot be null",
+          },
+          notEmpty: {
+            msg: "self picture cannot be empty",
+          },
+        },
+      },
+      phoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "phone number cannot be null",
+          },
+          notEmpty: {
+            msg: "phone number cannot be empty",
           },
         },
       },
@@ -127,6 +163,42 @@ module.exports = (sequelize, DataTypes) => {
           },
           notEmpty: {
             msg: "account number cannot be empty",
+          },
+        },
+      },
+      occupation: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "occupation cannot be null",
+          },
+          notEmpty: {
+            msg: "occupation cannot be empty",
+          },
+        },
+      },
+      role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "role cannot be null",
+          },
+          notEmpty: {
+            msg: "role cannot be empty",
+          },
+        },
+      },
+      status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "status cannot be null",
+          },
+          notEmpty: {
+            msg: "status cannot be empty",
           },
         },
       },
