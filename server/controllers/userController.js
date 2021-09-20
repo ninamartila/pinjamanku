@@ -116,13 +116,14 @@ class UserController {
           const checkRoom = await createRoom(`${email.split("@")[0]}${role}`, email);
           if (checkRoom) {
             const createdBorrower = await Borrower.create(newBorrower);
-            console.log("hasdir");
             const { password: passwordStaff, ...toSend } = createdBorrower;
             if (createdBorrower) {
               res.status(201).json(toSend);
             } else {
               throw Error("register error");
             }
+          } else {
+            throw Error("Invalid Email");
           }
         }
       }
