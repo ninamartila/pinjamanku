@@ -17,7 +17,6 @@ async function sendMail(roomLink, email) {
   };
   try {
     const result = await transporter.sendMail(message);
-    console.log(result, "hoabh");
     if (result) {
       return {
         error: null,

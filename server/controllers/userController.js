@@ -113,9 +113,10 @@ class UserController {
             role,
             status: "Pending",
           };
-          const checkRoom = await createRoom(`${email}`, email);
+          const checkRoom = await createRoom(`${email.split("@")[0]}${role}`, email);
           if (checkRoom) {
-            const createdBorrower = await Lender.create(newBorrower);
+            const createdBorrower = await Borrower.create(newBorrower);
+            console.log("hasdir");
             const { password: passwordStaff, ...toSend } = createdBorrower;
             if (createdBorrower) {
               res.status(201).json(toSend);
@@ -133,25 +134,36 @@ class UserController {
   static async loginUser(req, res, next) {
     try {
       const { email, password } = req.body;
-      const result = await User.findOne({ where: { email } });
-      const {
-        id,
-        firstName,
-        lastName,
-        email: userEmail,
-        password: userPassword,
-        phoneNumber,
-        address,
-        birthDate,
-        bankCode,
-        holderName,
-        accountNumber,
-        occupation,
-        role,
-      } = result;
-      const correctPassword = comparePassword(password, userPassword);
-      if (correctPassword) {
-        const userPayload = {
+      if (isAdmin(email)) {
+        const staffResult = await Staff.findOne({ where: { email } });
+        if (staffResult) {
+          const { id, name, email, password: staffPassword } = staffResult;
+          const correctPassword = comparePassword(password, staffPassword);
+          if (correctPassword) {
+            const staffPayload = {
+              id,
+              name,
+              email,
+            };
+            const token = generateToken(staffPayload);
+            res.status(200).json({ access_token: token, id, name, role: "admin" });
+          } else {
+            throw Error("wrong email/password");
+          }
+        } else {
+          throw Error("wrong email/password");
+        }
+      } else {
+        const lenderResult = await Lender.findOne({ where: { email } });
+        const borrowerResult = await Borrower.findOne({ where: { email } });
+        let userResult;
+        if (lenderResult) {
+          userResult = lenderResult;
+        }
+        if (borrowerResult) {
+          userResult = borrowerResult;
+        }
+        const {
           id,
           firstName,
           lastName,
@@ -165,11 +177,29 @@ class UserController {
           accountNumber,
           occupation,
           role,
-        };
-        const token = generateToken(userPayload);
-        res.status(200).json({ access_token: token, id, firstName, lastName });
-      } else {
-        res.status(404).json({ message: "salah password" });
+        } = userResult;
+        const correctPassword = comparePassword(password, userPassword);
+        if (correctPassword) {
+          const userPayload = {
+            id,
+            firstName,
+            lastName,
+            email: userEmail,
+            password: userPassword,
+            phoneNumber,
+            address,
+            birthDate,
+            bankCode,
+            holderName,
+            accountNumber,
+            occupation,
+            role,
+          };
+          const token = generateToken(userPayload);
+          res.status(200).json({ access_token: token, id, firstName, lastName, role });
+        } else {
+          res.status(404).json({ message: "salah password" });
+        }
       }
     } catch (error) {
       res.status(500).json(error);
@@ -178,12 +208,14 @@ class UserController {
 
   static async updateUser(req, res, next) {
     try {
-      const { id } = req.user;
+      const { id, userRole } = req.user;
       const {
         firstName,
         lastName,
         email,
         password,
+        ktpCard,
+        selfPicture,
         phoneNumber,
         address,
         birthDate,
@@ -198,6 +230,18 @@ class UserController {
         updatedUser = {
           ...updatedUser,
           firstName,
+        };
+      }
+      if (ktpCard !== "" && typeof ktpCard !== "undefined") {
+        updatedUser = {
+          ...updatedUser,
+          ktpCard,
+        };
+      }
+      if (selfPicture !== "" && typeof selfPicture !== "undefined") {
+        updatedUser = {
+          ...updatedUser,
+          selfPicture,
         };
       }
       if (lastName !== "" && typeof lastName !== "undefined") {
@@ -266,8 +310,15 @@ class UserController {
           role,
         };
       }
-      const result = await User.update(updatedUser, { where: { id } });
-      res.status(200).json(result);
+      if (userRole === "lender") {
+        const result = await Lender.update(updatedUser, { where: { id } });
+        res.status(200).json(result);
+      }
+
+      if (userRole === "borrower") {
+        const result = await Borrower.update(updatedUser, { where: { id } });
+        res.status(200).json(result);
+      }
     } catch (error) {
       res.status(500).json(error);
     }
@@ -280,7 +331,7 @@ class UserController {
       const userStatus = {
         status,
       };
-      const result = await User.update(userStatus, { where: { id: userId } });
+      const result = await Borrower.update(userStatus, { where: { id: userId } });
       res.status(200).json(result);
     } catch (error) {
       res.status(500).json(error);
@@ -289,9 +340,16 @@ class UserController {
 
   static async deleteUser(req, res, next) {
     const { userId } = req.params;
+    const { role } = req.query;
     try {
-      const result = await User.destroy({ where: { id: userId } });
-      res.status(200).json(result);
+      if (role === "lender") {
+        const result = await Lender.destroy({ where: { id: userId } });
+        res.status(200).json(result);
+      }
+      if (role === "borrower") {
+        const result = await Borrower.destroy({ where: { id: userId } });
+        res.status(200).json(result);
+      }
     } catch (error) {
       res.status(500).json(error);
     }
