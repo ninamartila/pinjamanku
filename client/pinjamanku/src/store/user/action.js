@@ -162,7 +162,7 @@ export function fetchUser() {
                     }
                 })
                 .then((data) => {
-                    // console.log(data, '========');
+                    console.log(data, '========');
                     dispatch(getAllUserSuccess(data))
                 })
                 .catch(err => {
