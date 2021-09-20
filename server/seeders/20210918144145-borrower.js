@@ -14,7 +14,7 @@ module.exports = {
         phoneNumber: "09192718",
         address: "jakarta",
         birthDate: new Date(),
-        bankCode: "BRI",
+        bankCode: "BCA",
         holderName: "Dharma Satrya",
         accountNumber: 1234567890,
         occupation: "Manager",

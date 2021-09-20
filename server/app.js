@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-schedule.scheduleJob({ second: 0 }, ScheduleController.ageLoan);
+schedule.scheduleJob('* 0 * * *', ScheduleController.ageLoan);
 
 app.use(routes)
 

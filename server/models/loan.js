@@ -21,8 +21,14 @@ module.exports = (sequelize, DataTypes) => {
     borrowerID: DataTypes.INTEGER,
     status: DataTypes.STRING,
     initialLoan: DataTypes.INTEGER,
-    tenor: DataTypes.INTEGER
+    tenor: DataTypes.INTEGER,
+    timeRemaining: DataTypes.INTEGER,
   }, {
+    hooks: {
+      beforeCreate: (loan) => {
+        loan.timeRemaining = loan.tenor;
+      },
+    },
     sequelize,
     modelName: 'Loan',
   });

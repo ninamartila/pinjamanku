@@ -1,4 +1,4 @@
-const { Loan, Borrower } = require("../models/index");
+const { Loan, Borrower, Lender } = require("../models/index");
 const { XenditInvoice, XenditDisbursement } = require("../helpers/Xendit");
 
 class LoanController {
@@ -9,7 +9,7 @@ class LoanController {
       if (status) {
         queries.status = status;
       }
-      const result = await Loan.findAll({ where: queries });
+      const result = await Loan.findAll({ where: queries, include: [Borrower, Lender]});
       res.status(200).json(result);
     } catch (error) {
       res.status(500).json(error);
@@ -17,9 +17,39 @@ class LoanController {
   }
 
   static async GetByID(req, res, next) {
-    const { loanID } = req.body;
+    const loanID = req.params.loanID;
     try {
-      const result = await Loan.findOne({ where: { loanID } });
+      const result = await Loan.findOne({ where: {id: loanID}, include: [Borrower, Lender]});
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json({ msg: "not found" });
+      }
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+
+  static async GetLenderLoan(req, res, next) {
+    // const lenderID = req.user.id;
+    const lenderID = 1
+    try {
+      const result = await Loan.findOne({ where: {lenderID: lenderID},include: [Borrower, Lender]});
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json({ msg: "not found" });
+      }
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+
+  static async GetBorrowerLoan(req, res, next) {
+    // const borrowerID = req.user.id
+    const borrowerID = 1
+    try {
+      const result = await Loan.findOne({ where: {borrowerID}, include: [Borrower, Lender]});
       if (result) {
         res.status(200).json(result);
       } else {
@@ -127,8 +157,8 @@ class LoanController {
     const borrowerID = 1;
     try {
       const loanData = await Loan.findOne({ where: { id: loanID } });
-      const borrowerData = await Borrower.findOne({ where: { id: borrowerID } });
-
+      const borrowerData = await Borrower.findOne({where: {id: borrowerID}})
+      await Loan.update({borrowerID: borrowerID}, {where: {id: loanID}})
       const amountWithInterest = loanData.initialLoan + loanData.initialLoan * 0.07;
 
       const loanDataInput = {
@@ -139,8 +169,6 @@ class LoanController {
         description: `loan disbursement for ${loanData.externalID}`,
         amount: amountWithInterest,
       };
-
-      console.log(loanDataInput);
 
       const disbursement = await XenditDisbursement.create(loanDataInput);
       res.status(200).json(disbursement);

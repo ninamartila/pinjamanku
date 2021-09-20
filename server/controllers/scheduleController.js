@@ -9,10 +9,11 @@ class ScheduleController {
       if (result.length !== 0) {
         result.forEach(async (data) => {
             console.log(data.dataValues)
-          if (data.dataValues.tenor - 1 === 0) {
-            const tenor = data.dataValues.tenor - 1;
+            console.log(data)
+          if (data.dataValues.timeRemaining - 1 === 0) {
+            const tenor = data.dataValues.timeRemaining - 1;
             const status = "deadline";
-            await Loan.update({ tenor, status }, { where: { id: data.id } });
+            await Loan.update({ timeRemaining, status }, { where: { externalID: data.dataValues.externalID } });
 
             const borrowerData = await Borrower.findOne({where: {id: data.borrowerID}})
             const email = borrowerData.email
@@ -36,9 +37,10 @@ class ScheduleController {
               });
 
           } else {
-            const tenor = data.dataValues.tenor - 1;
+            const timeRemaining = data.dataValues.timeRemaining - 1;
             const status = "borrowed"
-            await Loan.update({ tenor, status }, { where: { id: data.id } });
+            console.log(data.id, data.dataValues.id)
+            await Loan.update({ timeRemaining, status }, { where: { externalID: data.dataValues.externalID } });
           }
         });
         console.log("done ageing")
