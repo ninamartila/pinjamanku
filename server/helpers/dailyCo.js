@@ -9,7 +9,6 @@ async function createRoom(roomName, userEmail) {
       url: "https://api.daily.co/v1/rooms",
       headers: {
         authorization: `Bearer ${process.env.API_KEY_DAILY_CO}`,
-        // authorization: `Bearer 8b8b5a44c122c56ddf936637d5cc1b0eecec8afe030137b52b176fbec1ed0c08`,
       },
       data: {
         properties: {
@@ -23,13 +22,15 @@ async function createRoom(roomName, userEmail) {
       },
     });
     const { data } = result;
-    const emailSent = await sendMail(data, userEmail);
-    if (emailSent.accepted.length) {
+    const { error, result: nodemailerResult } = await sendMail(data, userEmail);
+
+    if (nodemailerResult) {
       return true;
     } else {
       return false;
     }
   } catch (error) {
+    console.log(error);
     return false;
   }
 }
