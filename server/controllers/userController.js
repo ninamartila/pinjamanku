@@ -48,7 +48,7 @@ class UserController {
       const { password: resultPassword, ...toSend } = result;
       if (result) {
         let email = result.email;
-        let proceed = await createRoom(`${result.id}test`, email);
+        let proceed = await createRoom(`${result.id}test`, email, nbf);
         if (proceed) {
           console.log("ahay");
         } else {

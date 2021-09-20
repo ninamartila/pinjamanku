@@ -1,7 +1,7 @@
 const axios = require("axios");
 const sendMail = require("./NodeMailer");
 
-function createRoom(roomName, userEmail) {
+function createRoom(roomName, userEmail, nbf) {
   const currentDate = new Date();
   axios({
     method: "post",
@@ -12,6 +12,7 @@ function createRoom(roomName, userEmail) {
     data: {
       properties: {
         owner_only_broadcast: false,
+        nbf: nbf, //?? kok bingung ya indra
         exp: (currentDate.getTime() + 60000) / 1000,
         enable_chat: true,
         max_participants: 4,
