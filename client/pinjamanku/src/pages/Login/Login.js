@@ -1,6 +1,30 @@
 import { Navbar } from "../../components";
+import { loginUser } from "../../store/user/action";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+import { useState } from "react";
 
 export default function Login() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  function submitLogin(e) {
+    e.preventDefault();
+    let newData = {
+      email,
+      password,
+    };
+    dispatch(loginUser(newData)).then((data) => {
+      if (data.role === "borrower") {
+        history.push("/pendana");
+      } else if (data.role === "lender") {
+        history.push("/lender");
+      }
+    });
+  }
+
   return (
     <div>
       <Navbar />
@@ -10,12 +34,17 @@ export default function Login() {
             <div className="col-md-6 m-3 card login-card">
               <div className="p-5">
                 <h1>PinjamanKu</h1>
-                <form>
+                <form
+                  onSubmit={(e) => {
+                    submitLogin(e);
+                  }}
+                >
                   <div className="mb-3">
                     <label for="exampleInputEmail1" className="form-label">
                       Email address
                     </label>
                     <input
+                      onChange={(e) => setEmail(e.target.value)}
                       type="email"
                       className="form-control"
                       id="exampleInputEmail1"
@@ -30,6 +59,7 @@ export default function Login() {
                       Password
                     </label>
                     <input
+                      onChange={(e) => setPassword(e.target.value)}
                       type="password"
                       className="form-control"
                       id="exampleInputPassword1"

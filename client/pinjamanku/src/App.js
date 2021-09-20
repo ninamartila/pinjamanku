@@ -1,7 +1,17 @@
 import { Provider } from "react-redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
-import { DasboardBorower, Home, Lander, ListLoan, ListUser, ListUserStatus, Login, Register, TempatMinjam } from "./pages";
+import {
+  DasboardBorower,
+  Home,
+  Lander,
+  ListLoan,
+  ListUser,
+  ListUserStatus,
+  Login,
+  Register,
+  TempatMinjam,
+} from "./pages";
 import store from "./store";
 export default function App() {
   return (
@@ -19,7 +29,7 @@ export default function App() {
               <ListLoan />
             </Route>
             {/* Nanti di tambah ID landernya */}
-            <Route path="/lander">
+            <Route path="/lender">
               <Lander />
             </Route>
             {/* Nanti di tambah ID borowernya */}
