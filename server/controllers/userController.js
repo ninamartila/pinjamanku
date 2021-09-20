@@ -2,14 +2,36 @@ const { Lender, Borrower, Staff } = require("../models");
 const { comparePassword } = require("../helpers/bcrypt");
 const { generateToken } = require("../helpers/jwt");
 const createRoom = require("../helpers/dailyCo");
+const { isAdmin } = require("../helpers/admin");
 
 class UserController {
   static async getAll(req, res, next) {
     try {
       const lender = await Lender.findAll();
       const borrower = await Borrower.findAll();
-      console.log(lender, borrower);
-      // res.status(200).json(result);
+
+      res.status(200).json({
+        lender,
+        borrower,
+      });
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+
+  static async userById(req, res, next) {
+    const { userId } = req.params;
+    const { role } = req.query;
+    try {
+      if (role === "lender") {
+        const lenderResult = await Lender.findOne({ where: { id: userId } });
+        res.status(200).json(lenderResult);
+      } else if (role === "borrower") {
+        const borrowerResult = await Borrower.findOne({ where: { id: userId } });
+        res.status(200).json(borrowerResult);
+      } else {
+        throw Error("role not valid");
+      }
     } catch (error) {
       res.status(500).json(error);
     }
@@ -22,6 +44,8 @@ class UserController {
         lastName,
         email,
         password,
+        ktpCard,
+        selfPicture,
         phoneNumber,
         address,
         birthDate,
@@ -32,28 +56,75 @@ class UserController {
         role,
       } = req.body;
 
-      let newUser = {
-        firstName,
-        lastName,
-        email,
-        password,
-        phoneNumber,
-        address,
-        birthDate,
-        bankCode,
-        holderName,
-        accountNumber,
-        occupation,
-        role,
-        status: "Pending",
-      };
-      // const result = await User.create(newUser);
-      // const { password: resultPassword, ...toSend } = result;
-      // if (result) {
-      //   let email = result.email;
-      //   let proceed = await createRoom(`${result.id}test`, email);
-      //   res.status(200).json(toSend);
-      // }
+      if (isAdmin(email)) {
+        const newStaff = {
+          name: `${firstName} ${lastName}`,
+          email,
+          password,
+        };
+        const createdStaff = await Staff.create(newStaff);
+        const { password: passwordStaff, ...toSend } = createdStaff;
+        if (createdStaff) {
+          res.status(201).json(toSend);
+        } else {
+          throw Error("register error");
+        }
+      } else {
+        if (role === "lender") {
+          const newLender = {
+            firstName,
+            lastName,
+            email,
+            password,
+            ktpCard,
+            selfPicture,
+            phoneNumber,
+            address,
+            birthDate,
+            bankCode,
+            holderName,
+            accountNumber,
+            occupation,
+            role,
+            status: "Verified",
+          };
+          const createdLender = await Lender.create(newLender);
+          const { password: passwordStaff, ...toSend } = createdLender;
+          if (createdLender) {
+            res.status(201).json(toSend);
+          } else {
+            throw Error("register error");
+          }
+        } else if (role === "borrower") {
+          const newBorrower = {
+            firstName,
+            lastName,
+            email,
+            password,
+            ktpCard,
+            selfPicture,
+            phoneNumber,
+            address,
+            birthDate,
+            bankCode,
+            holderName,
+            accountNumber,
+            occupation,
+            role,
+            status: "Pending",
+          };
+          const checkRoom = await createRoom(`${email}`, email);
+          if (checkRoom) {
+            const createdBorrower = await Lender.create(newBorrower);
+            const { password: passwordStaff, ...toSend } = createdBorrower;
+            if (createdBorrower) {
+              res.status(201).json(toSend);
+            } else {
+              throw Error("register error");
+            }
+          }
+        }
+      }
     } catch (error) {
       res.status(500).json(error);
     }

@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -9,19 +9,25 @@ module.exports = {
         lastName: "Lender",
         email: "dharmasatrya10@gmail.com",
         password: "rahasia",
+        ktpCard: "iniKtp",
+        selfPicture: "iniProfPic",
+        phoneNumber: "09192718",
         address: "jakarta",
         birthDate: new Date(),
         bankCode: "BCA",
         holderName: "Dharma Satrya",
         accountNumber: 1234567890,
+        occupation: "Manager",
+        role: "lender",
+        status: "Verified",
         createdAt: new Date(),
-        updatedAt: new Date()
-      }
-    ]
-    await queryInterface.bulkInsert('Lenders', data, {});
+        updatedAt: new Date(),
+      },
+    ];
+    await queryInterface.bulkInsert("Lenders", data, {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Lenders', null, {})
-  }
+    await queryInterface.bulkDelete("Lenders", null, {});
+  },
 };

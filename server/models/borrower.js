@@ -204,7 +204,6 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      //masukin hooks register disini
       hooks: {
         beforeCreate: (user) => {
           user.password = hashPassword(user.password);
