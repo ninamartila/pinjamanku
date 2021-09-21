@@ -241,7 +241,8 @@ export function getUserUpdateError(payload) {
     }
 }
 
-export function fetchUserUpdate(id, payload) {
+export function fetchUserUpdate(id, status) {
+    console.log(status, '++++++');
     return async function (dispatch, getState) {
         try {
             dispatch(getUserUpdateLoading(true))
@@ -250,7 +251,7 @@ export function fetchUserUpdate(id, payload) {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(payload),
+                body: JSON.stringify({ status }),
                 method: "PUT"
             })
                 .then((res) => {
@@ -261,13 +262,13 @@ export function fetchUserUpdate(id, payload) {
                     }
                 })
                 .then((data) => {
-                    // console.log(data, '========');
-                    dispatch(getUserByIdSuccess(data))
+                    console.log(data, '========');
+                    dispatch(getUserUpdateSuccess(data))
                 })
                 .catch(err => {
-                    dispatch(getUserByIdError(err))
+                    dispatch(getUserUpdateError(err))
                 })
-                .finally(() => dispatch(getUserByIdLoading(false)))
+                .finally(() => dispatch(getUserUpdateLoading(false)))
         } catch (err) {
             console.log(err);
         }

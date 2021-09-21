@@ -33,7 +33,7 @@ const initialState = {
     isUserByIdSucces: {},
     isUserByIdError: null,
     isUserUpdateLoading: false,
-    isUserUpdateSuccess: [],
+    isUserUpdateSuccess: null,
     isUserUpdateError: null,
     isUserDeleteLoading: false,
     isUserDeleteSuccess: [],

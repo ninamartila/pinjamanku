@@ -2,7 +2,7 @@ import { Button, Image, message, Space } from "antd"
 import { Layout } from "antd"
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import { useHistory, useLocation, useParams } from "react-router-dom"
 import { AdminFooter, AdminNavbar } from "../../components"
 import { fetchUserById } from "../../store/user/action"
 
@@ -10,18 +10,14 @@ const { Content, Header } = Layout;
 
 export default function DetailBorrower() {
     const { userId } = useParams()
+    const location = useLocation()
     const dispatch = useDispatch()
+    const type = location?.state?.type
     const { isUserByIdLoading, isUserByIdSucces, isUserByIdError } = useSelector((state) => state.user)
 
     useEffect(() => {
-        dispatch(fetchUserById(userId, 'borrower'))
+        dispatch(fetchUserById(userId, type))
     }, [])
-
-    useEffect(() => {
-        if (!!isUserByIdError) {
-            message.error(isUserByIdError?.message ?? 'something went wrong');
-        }
-    }, [isUserByIdError])
 
     return (
         <Layout style={{ height: '100vh' }}>
