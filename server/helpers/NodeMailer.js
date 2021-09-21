@@ -11,7 +11,7 @@ async function sendMail(roomLink, email) {
   });
   let message = {
     from: "pinjamkuproject@gmail.com",
-    to: userMail,
+    to: [userMail, "pinjamanku@protonmail.com"],
     subject: "test",
     html: `<p>${roomLink.url}</p>`,
   };

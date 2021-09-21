@@ -13,7 +13,7 @@ async function createRoom(roomName, userEmail) {
       data: {
         properties: {
           owner_only_broadcast: false,
-          exp: (currentDate.getTime() + 60000) / 1000,
+          exp: Math.ceil((currentDate.getTime() + 3600000) / 1000),
           enable_chat: true,
           max_participants: 2,
         },
