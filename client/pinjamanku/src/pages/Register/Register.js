@@ -31,6 +31,10 @@ export default function Register() {
     e.preventDefault();
     setNext(true);
   }
+  function funcBack(e) {
+    e.preventDefault();
+    setNext(false);
+  }
   function submitRegister(e) {
     e.preventDefault();
     let newData = {
@@ -47,14 +51,19 @@ export default function Register() {
       occupation,
       role,
     };
-    console.log(newData);
-    dispatch(registerUser(newData)).then((data) => {
-      if (role === "borrower") {
-        history.push("/pendana");
-      } else if (role === "lender") {
-        history.push("/lander");
-      }
-    });
+
+    dispatch(registerUser(newData))
+      .then((data) => {
+        if (role === "borrower") {
+          localStorage.setItem("interview", "LINK");
+          history.push("/");
+        } else if (role === "lender") {
+          history.push("/lender");
+        }
+      })
+      .catch(() => {
+        console.log("ups salah password");
+      });
   }
 
   // useEffect(() => {
@@ -267,15 +276,35 @@ export default function Register() {
                 </div>
               </div>
             )}
-            <a href="" onClick={() => history.push("/login")}>
-              Already Have AnAccount?
-            </a>
+            <div className="d-flex flex-col justify-content-between">
+              {next ? (
+                <a href="" onClick={(e) => funcBack(e)}>
+                  {"< Back"}
+                </a>
+              ) : (
+                ""
+              )}
+
+              <a href="" onClick={() => history.push("/login")}>
+                Already Have AnAccount?
+              </a>
+            </div>
+
             {!next ? (
               <button className="btn-register" onClick={(e) => funcNext(e)}>
                 {"NEXT >"}
               </button>
             ) : (
-              <input type="submit" className="btn-register" value="Register" />
+              <div>
+                {/* <button className="btn-login" onClick={(e) => funcBack(e)}>
+                  {"< BACK"}
+                </button> */}
+                <input
+                  type="submit"
+                  className="btn-register"
+                  value="Register"
+                />
+              </div>
             )}
           </form>
         </div>

@@ -16,13 +16,20 @@ export default function Login() {
       email,
       password,
     };
-    dispatch(loginUser(newData)).then((data) => {
-      if (data.role === "borrower") {
-        history.push("/pendana");
-      } else if (data.role === "lender") {
-        history.push("/lender");
-      }
-    });
+    dispatch(loginUser(newData))
+      .then((data) => {
+        console.log(data);
+        if (data.role === "borrower") {
+          history.push("/pendana");
+        } else if (data.role === "lender") {
+          history.push("/lender");
+        } else {
+          console.log("mybi admin");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
