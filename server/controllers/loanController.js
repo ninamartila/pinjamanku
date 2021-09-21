@@ -34,7 +34,7 @@ class LoanController {
     // const lenderID = req.user.id;
     const lenderID = 1
     try {
-      const result = await Loan.findOne({ where: {lenderID: lenderID},include: [Borrower, Lender]});
+      const result = await Loan.findAll({ where: {lenderID: lenderID},include: [Borrower, Lender]});
       if (result) {
         res.status(200).json(result);
       } else {
@@ -49,7 +49,7 @@ class LoanController {
     // const borrowerID = req.user.id
     const borrowerID = 1
     try {
-      const result = await Loan.findOne({ where: {borrowerID}, include: [Borrower, Lender]});
+      const result = await Loan.findAll({ where: {borrowerID}, include: [Borrower, Lender]});
       if (result) {
         res.status(200).json(result);
       } else {
