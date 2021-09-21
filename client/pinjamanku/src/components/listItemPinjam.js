@@ -32,7 +32,7 @@ export default function ListItemPinjam(props) {
             </div>
             <div className="col-md-2">
               <h5>Jangka :</h5>
-              <p>{item?.tenor}-bulan</p>
+              <p>{Math.floor(item?.tenor / 30)}-bulan</p>
             </div>
             {localStorage.getItem("role") === "lender" ? (
               ""
