@@ -67,9 +67,9 @@ export default function AddLoan() {
                   <option selected disabled>
                     Loan Value
                   </option>
-                  <option value="1000.000">1.000.000</option>
-                  <option value="3000.000">3.000.000</option>
-                  <option value="5000.000">5.000.000</option>
+                  <option value={1000000}>1.000.000</option>
+                  <option value={3000000}>3.000.000</option>
+                  <option value={5000000}>5.000.000</option>
                 </select>
               </div>
             </div>
@@ -84,7 +84,7 @@ export default function AddLoan() {
                   placeholder="Jangka Waktu dalam Bulan"
                   value={tenor}
                   onChange={(e) => {
-                    setTenor(e.target.value);
+                    setTenor(+e.target.value);
                   }}
                 />
               </div>

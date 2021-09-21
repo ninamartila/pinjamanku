@@ -81,7 +81,7 @@ export default function App() {
                 <TempatMinjam />
               </Route>
 
-              <Route path="/pendana">
+              <Route exact path="/pendana">
                 <DasboardBorower />
               </Route>
               <GuardedRoute

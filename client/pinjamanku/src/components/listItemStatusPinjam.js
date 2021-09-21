@@ -24,7 +24,7 @@ export default function ListItemStatusPinjam(props) {
                         </div>
                         <div className="col-md-2">
                             <h5>Bunga :</h5>
-                            <p>8%</p>
+                            <p>7%</p>
                         </div>
                     </div>
                     <div className="row justify-content-between">
@@ -34,8 +34,8 @@ export default function ListItemStatusPinjam(props) {
                         </div>
 
                         <div className="col-md-2">
-                            <h5>Deadline :</h5>
-                            <p>21-09-2021</p>
+                            <h5>Waktu tersisa :</h5>
+                            <p>30 Hari</p>
                         </div>
                     </div>
                     <div className="row justify-content-between">

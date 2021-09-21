@@ -23,7 +23,7 @@ export default function ListItemPinjam(props) {
                         </div>
                         <div className="col-md-2">
                             <h5>Bunga :</h5>
-                            <p>8%</p>
+                            <p>7%</p>
                         </div>
                         <div className="col-md-2">
                             <h5>Jangka :</h5>

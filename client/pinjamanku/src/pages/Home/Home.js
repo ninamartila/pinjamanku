@@ -135,7 +135,7 @@ export default function Home() {
       {/* Lander Section */}
       <section className="mt-3">
         <div className="m-5 text-center">
-          <h1>Wanna Lander Now?</h1>
+          <h1>Wanna Lend Now?</h1>
         </div>
         <List
           dataSource={isLoanSuccess.filter(item => item?.status === 'active')}
