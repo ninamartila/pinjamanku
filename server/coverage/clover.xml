@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1632215668690" clover="3.2.0">
-  <project timestamp="1632215668690" name="All files">
-    <metrics statements="470" coveredstatements="167" conditionals="159" coveredconditionals="15" methods="51" coveredmethods="20" elements="680" coveredelements="202" complexity="0" loc="470" ncloc="470" packages="6" files="22" classes="22"/>
+<coverage generated="1632235670867" clover="3.2.0">
+  <project timestamp="1632235670868" name="All files">
+    <metrics statements="468" coveredstatements="221" conditionals="158" coveredconditionals="34" methods="51" coveredmethods="28" elements="677" coveredelements="283" complexity="0" loc="468" ncloc="468" packages="6" files="22" classes="22"/>
     <package name="server">
       <metrics statements="16" coveredstatements="16" conditionals="2" coveredconditionals="1" methods="0" coveredmethods="0"/>
       <file name="app.js" path="D:\KAIM\Hacktiv8\Phase-3\Week-3\group-project\pinjamanku\server\app.js">
@@ -25,7 +25,7 @@
       </file>
     </package>
     <package name="server.controllers">
-      <metrics statements="275" coveredstatements="25" conditionals="124" coveredconditionals="5" methods="22" coveredmethods="1"/>
+      <metrics statements="275" coveredstatements="69" conditionals="124" coveredconditionals="18" methods="22" coveredmethods="4"/>
       <file name="loanController.js" path="D:\KAIM\Hacktiv8\Phase-3\Week-3\group-project\pinjamanku\server\controllers\loanController.js">
         <metrics statements="93" coveredstatements="3" conditionals="20" coveredconditionals="0" methods="10" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -174,45 +174,45 @@
         <line num="114" count="1" type="stmt"/>
       </file>
       <file name="userController.js" path="D:\KAIM\Hacktiv8\Phase-3\Week-3\group-project\pinjamanku\server\controllers\userController.js">
-        <metrics statements="134" coveredstatements="19" conditionals="94" coveredconditionals="5" methods="7" coveredmethods="1"/>
+        <metrics statements="134" coveredstatements="63" conditionals="94" coveredconditionals="18" methods="7" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
         <line num="29" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="30" count="0" type="stmt"/>
         <line num="31" count="0" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
         <line num="38" count="0" type="stmt"/>
-        <line num="43" count="1" type="stmt"/>
-        <line num="59" count="1" type="stmt"/>
-        <line num="61" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="68" count="0" type="stmt"/>
-        <line num="69" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="70" count="0" type="stmt"/>
+        <line num="43" count="19" type="stmt"/>
+        <line num="59" count="19" type="stmt"/>
+        <line num="61" count="19" type="cond" truecount="2" falsecount="0"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="69" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="70" count="1" type="stmt"/>
         <line num="72" count="0" type="stmt"/>
-        <line num="76" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="77" count="0" type="stmt"/>
-        <line num="94" count="0" type="stmt"/>
-        <line num="95" count="0" type="stmt"/>
-        <line num="96" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="97" count="0" type="stmt"/>
+        <line num="76" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="77" count="16" type="stmt"/>
+        <line num="94" count="16" type="stmt"/>
+        <line num="95" count="1" type="stmt"/>
+        <line num="96" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="97" count="1" type="stmt"/>
         <line num="99" count="0" type="stmt"/>
-        <line num="103" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="103" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="104" count="1" type="stmt"/>
         <line num="105" count="1" type="stmt"/>
         <line num="122" count="1" type="stmt"/>
@@ -223,33 +223,33 @@
         <line num="127" count="1" type="stmt"/>
         <line num="129" count="0" type="stmt"/>
         <line num="134" count="0" type="stmt"/>
-        <line num="139" count="0" type="stmt"/>
-        <line num="144" count="0" type="stmt"/>
-        <line num="149" count="0" type="stmt"/>
-        <line num="150" count="0" type="stmt"/>
-        <line num="151" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="152" count="0" type="stmt"/>
-        <line num="153" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="154" count="0" type="stmt"/>
-        <line num="155" count="0" type="stmt"/>
-        <line num="156" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="157" count="0" type="stmt"/>
-        <line num="163" count="0" type="stmt"/>
-        <line num="164" count="0" type="stmt"/>
+        <line num="139" count="1" type="stmt"/>
+        <line num="144" count="15" type="stmt"/>
+        <line num="149" count="2" type="stmt"/>
+        <line num="150" count="2" type="stmt"/>
+        <line num="151" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="152" count="1" type="stmt"/>
+        <line num="153" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="154" count="1" type="stmt"/>
+        <line num="155" count="1" type="stmt"/>
+        <line num="156" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="157" count="1" type="stmt"/>
+        <line num="163" count="1" type="stmt"/>
+        <line num="164" count="1" type="stmt"/>
         <line num="166" count="0" type="stmt"/>
         <line num="171" count="0" type="stmt"/>
-        <line num="176" count="0" type="stmt"/>
-        <line num="177" count="0" type="stmt"/>
-        <line num="179" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="180" count="0" type="stmt"/>
-        <line num="182" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="176" count="1" type="stmt"/>
+        <line num="177" count="1" type="stmt"/>
+        <line num="179" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="180" count="1" type="stmt"/>
+        <line num="182" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="183" count="0" type="stmt"/>
-        <line num="199" count="0" type="stmt"/>
-        <line num="200" count="0" type="stmt"/>
-        <line num="201" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="202" count="0" type="stmt"/>
-        <line num="217" count="0" type="stmt"/>
-        <line num="218" count="0" type="stmt"/>
+        <line num="199" count="1" type="stmt"/>
+        <line num="200" count="1" type="stmt"/>
+        <line num="201" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="202" count="1" type="stmt"/>
+        <line num="217" count="1" type="stmt"/>
+        <line num="218" count="1" type="stmt"/>
         <line num="220" count="0" type="stmt"/>
         <line num="226" count="0" type="stmt"/>
         <line num="231" count="0" type="stmt"/>
@@ -312,7 +312,7 @@
       </file>
     </package>
     <package name="server.helpers">
-      <metrics statements="53" coveredstatements="37" conditionals="8" coveredconditionals="3" methods="7" coveredmethods="3"/>
+      <metrics statements="53" coveredstatements="34" conditionals="8" coveredconditionals="4" methods="7" coveredmethods="4"/>
       <file name="NodeMailer.js" path="D:\KAIM\Hacktiv8\Phase-3\Week-3\group-project\pinjamanku\server\helpers\NodeMailer.js">
         <metrics statements="11" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -339,54 +339,54 @@
         <line num="11" count="1" type="stmt"/>
       </file>
       <file name="admin.js" path="D:\KAIM\Hacktiv8\Phase-3\Week-3\group-project\pinjamanku\server\helpers\admin.js">
-        <metrics statements="8" coveredstatements="6" conditionals="4" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <metrics statements="8" coveredstatements="8" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
+        <line num="2" count="21" type="cond" truecount="2" falsecount="0"/>
+        <line num="3" count="20" type="stmt"/>
+        <line num="4" count="20" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="7" count="18" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
       </file>
       <file name="bcrypt.js" path="D:\KAIM\Hacktiv8\Phase-3\Week-3\group-project\pinjamanku\server\helpers\bcrypt.js">
-        <metrics statements="8" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
+        <line num="4" count="7" type="stmt"/>
+        <line num="5" count="7" type="stmt"/>
+        <line num="6" count="7" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
       </file>
       <file name="dailyCo.js" path="D:\KAIM\Hacktiv8\Phase-3\Week-3\group-project\pinjamanku\server\helpers\dailyCo.js">
-        <metrics statements="12" coveredstatements="10" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <metrics statements="12" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="27" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="28" count="1" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="27" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="28" count="0" type="stmt"/>
         <line num="30" count="0" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
         <line num="36" count="1" type="stmt"/>
       </file>
       <file name="jwt.js" path="D:\KAIM\Hacktiv8\Phase-3\Week-3\group-project\pinjamanku\server\helpers\jwt.js">
-        <metrics statements="6" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
-        <line num="4" count="0" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
         <line num="8" count="0" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
       </file>
     </package>
     <package name="server.middlewares">
-      <metrics statements="38" coveredstatements="5" conditionals="16" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <metrics statements="36" coveredstatements="16" conditionals="15" coveredconditionals="5" methods="3" coveredmethods="2"/>
       <file name="authentication.js" path="D:\KAIM\Hacktiv8\Phase-3\Week-3\group-project\pinjamanku\server\middlewares\authentication.js">
         <metrics statements="11" coveredstatements="3" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -402,23 +402,23 @@
         <line num="18" count="1" type="stmt"/>
       </file>
       <file name="errorHandler.js" path="D:\KAIM\Hacktiv8\Phase-3\Week-3\group-project\pinjamanku\server\middlewares\errorHandler.js">
-        <metrics statements="27" coveredstatements="2" conditionals="12" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <metrics statements="25" coveredstatements="13" conditionals="11" coveredconditionals="5" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="2" count="0" type="stmt"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="5" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="9" count="0" type="cond" truecount="0" falsecount="10"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
+        <line num="2" count="16" type="stmt"/>
+        <line num="3" count="16" type="stmt"/>
+        <line num="5" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="16" type="stmt"/>
+        <line num="9" count="16" type="cond" truecount="3" falsecount="6"/>
+        <line num="11" count="14" type="stmt"/>
+        <line num="12" count="14" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
         <line num="15" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
         <line num="20" count="0" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
         <line num="27" count="0" type="stmt"/>
         <line num="29" count="0" type="stmt"/>
@@ -427,13 +427,11 @@
         <line num="33" count="0" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="43" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
       </file>
     </package>
     <package name="server.models">
-      <metrics statements="57" coveredstatements="53" conditionals="9" coveredconditionals="6" methods="19" coveredmethods="16"/>
+      <metrics statements="57" coveredstatements="55" conditionals="9" coveredconditionals="6" methods="19" coveredmethods="18"/>
       <file name="borrower.js" path="D:\KAIM\Hacktiv8\Phase-3\Week-3\group-project\pinjamanku\server\models\borrower.js">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="2" count="1" type="stmt"/>
@@ -442,7 +440,7 @@
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
-        <line num="210" count="1" type="stmt"/>
+        <line num="210" count="2" type="stmt"/>
         <line num="217" count="1" type="stmt"/>
       </file>
       <file name="history.js" path="D:\KAIM\Hacktiv8\Phase-3\Week-3\group-project\pinjamanku\server\models\history.js">
@@ -476,14 +474,14 @@
         <line num="37" count="1" type="stmt"/>
       </file>
       <file name="lender.js" path="D:\KAIM\Hacktiv8\Phase-3\Week-3\group-project\pinjamanku\server\models\lender.js">
-        <metrics statements="8" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
-        <line num="210" count="0" type="stmt"/>
+        <line num="210" count="3" type="stmt"/>
         <line num="217" count="1" type="stmt"/>
       </file>
       <file name="loan.js" path="D:\KAIM\Hacktiv8\Phase-3\Week-3\group-project\pinjamanku\server\models\loan.js">
@@ -504,12 +502,12 @@
         <line num="25" count="1" type="stmt"/>
       </file>
       <file name="staff.js" path="D:\KAIM\Hacktiv8\Phase-3\Week-3\group-project\pinjamanku\server\models\staff.js">
-        <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
         <line num="31" count="1" type="stmt"/>
       </file>
     </package>

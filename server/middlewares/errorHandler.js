@@ -16,9 +16,6 @@ const errorHandler = function (err, req, res, nex) {
     case "SequelizeUniqueConstraintError":
       res.status(400).json({ message: resultError });
       break;
-    case "ImageInvalid":
-      res.status(400).json({ message: err.message });
-      break;
     case "Unauthorized":
       res.status(401).json({ message: "Email/password invalid" });
       break;
