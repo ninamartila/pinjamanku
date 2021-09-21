@@ -23,7 +23,7 @@ export default function ListUserBorrower() {
     }, [isUserError])
 
     function onClick(userId) {
-        history.push(`/borrowerDetail/${userId}`, {
+        history.push(`/admin-dashboard/borrowerDetail/${userId}`, {
             type: 'borrower'
         })
     }

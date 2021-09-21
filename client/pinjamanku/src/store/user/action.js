@@ -17,136 +17,137 @@ import {
     DELETE_USER_LOADING,
     DELETE_USER_SUCCESS,
     DELETE_USER_ERROR,
-} from './actionType'
+} from "./actionType";
 
 export function getRegisterUserLoading(payload) {
     return {
         type: REGISTER_USER_LOADING,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getRegisterUserSuccess(payload) {
     return {
         type: REGISTER_USER_SUCCESS,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getRegisterUserError(payload) {
     return {
         type: REGISTER_USER_ERROR,
-        payload
-    }
+        payload,
+    };
 }
 
 export function registerUser(payload) {
     return async function (dispatch, getState) {
         try {
-            dispatch(getRegisterUserLoading(true))
-            return fetch('http://localhost:3000/users/register', {
+            dispatch(getRegisterUserLoading(true));
+            return fetch("http://localhost:3000/users/register", {
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(payload),
-                method: "POST"
-            }
-            )
+                method: "POST",
+            })
                 .then((res) => {
                     if (res.ok) {
-                        return res.json()
+                        return res.json();
                     } else {
-                        return Promise.reject('something went wrong')
+                        return Promise.reject("something went wrong");
                     }
                 })
                 .then((data) => {
-                    dispatch(getRegisterUserSuccess(data))
+                    dispatch(getRegisterUserSuccess(data));
                 })
-                .catch(err => {
-                    dispatch(getRegisterUserError(err))
+                .catch((err) => {
+                    dispatch(getRegisterUserError(err));
                 })
-                .finally(() => dispatch(getRegisterUserLoading(false)))
+                .finally(() => dispatch(getRegisterUserLoading(false)));
         } catch (err) {
             console.log(err);
         }
-    }
+    };
 }
 
 export function getLoginUserLoading(payload) {
     return {
         type: LOGIN_USER_LOADING,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getLoginUserSuccess(payload) {
     return {
         type: LOGIN_USER_SUCCESS,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getLoginUserError(payload) {
     return {
         type: LOGIN_USER_ERROR,
-        payload
-    }
+        payload,
+    };
 }
 
 export function loginUser(payload) {
-    const { email, password } = payload
+    const { email, password } = payload;
     return async function (dispatch, getState) {
         try {
-            dispatch(getLoginUserLoading(true))
-            return fetch('http://localhost:3000/users/login', {
+            dispatch(getLoginUserLoading(true));
+            return fetch("http://localhost:3000/users/login", {
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ email, password }),
-                method: "POST"
-            }
-            )
+                method: "POST",
+            })
                 .then((res) => {
                     if (res.ok) {
-                        return res.json()
+                        return res.json();
                     } else {
-                        return Promise.reject('something went wrong')
+                        return Promise.reject("something went wrong");
                     }
                 })
                 .then((data) => {
-                    dispatch(getLoginUserSuccess(data))
+                    localStorage.setItem("access_token", data.access_token);
+                    localStorage.setItem("role", data.role);
+                    dispatch(getLoginUserSuccess(data));
+                    return data;
                 })
-                .catch(err => {
-                    dispatch(getLoginUserError(err))
+                .catch((err) => {
+                    dispatch(getLoginUserError(err));
                 })
-                .finally(() => dispatch(getAllUserLoading(false)))
+                .finally(() => dispatch(getAllUserLoading(false)));
         } catch (err) {
             console.log(err);
         }
-    }
+    };
 }
 
 export function getAllUserLoading(payload) {
     return {
         type: USER_LOADING,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getAllUserSuccess(payload) {
     return {
         type: USER_SUCCESS,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getAllUserError(payload) {
     return {
         type: USER_ERROR,
-        payload
-    }
+        payload,
+    };
 }
 
 export function fetchUser() {
@@ -171,27 +172,27 @@ export function fetchUser() {
             console.log(err);
         }
     }
-}
+};
 
 export function getUserByIdLoading(payload) {
     return {
         type: USER_BY_ID_LOADING,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getUserByIdSuccess(payload) {
     return {
         type: USER_BY_ID_SUCCESS,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getUserByIdError(payload) {
     return {
         type: USER_BY_ID_ERROR,
-        payload
-    }
+        payload,
+    };
 }
 
 export function fetchUserById(id, role) {
@@ -218,31 +219,30 @@ export function fetchUserById(id, role) {
             console.log(err);
         }
     }
-}
+};
 
 export function getUserUpdateLoading(payload) {
     return {
         type: EDIT_USER_LOADING,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getUserUpdateSuccess(payload) {
     return {
         type: EDIT_USER_SUCCESS,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getUserUpdateError(payload) {
     return {
         type: EDIT_USER_ERROR,
-        payload
-    }
+        payload,
+    };
 }
 
 export function fetchUserUpdate(id, status) {
-    console.log(status, '++++++');
     return async function (dispatch, getState) {
         try {
             dispatch(getUserUpdateLoading(true))
@@ -273,57 +273,57 @@ export function fetchUserUpdate(id, status) {
             console.log(err);
         }
     }
-}
+};
 
 export function getUserDeleteLoading(payload) {
     return {
         type: DELETE_USER_LOADING,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getUserDeleteSuccess(payload) {
     return {
         type: DELETE_USER_SUCCESS,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getUserDeleteError(payload) {
     return {
         type: DELETE_USER_ERROR,
-        payload
-    }
+        payload,
+    };
 }
 
 export function fetchUserDelete(id, payload) {
     return async function (dispatch, getState) {
         try {
-            dispatch(getUserDeleteLoading(true))
+            dispatch(getUserDeleteLoading(true));
             return fetch(`http://localhost:3000/users/${id}`, {
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
                 },
-                method: "DELETE"
+                method: "DELETE",
             })
                 .then((res) => {
                     if (res.ok) {
-                        return res.json()
+                        return res.json();
                     } else {
-                        return Promise.reject('something went wrong')
+                        return Promise.reject("something went wrong");
                     }
                 })
                 .then((data) => {
                     // console.log(data, '========');
-                    dispatch(getUserDeleteSuccess(data))
+                    dispatch(getUserDeleteSuccess(data));
                 })
-                .catch(err => {
-                    dispatch(getUserDeleteError(err))
+                .catch((err) => {
+                    dispatch(getUserDeleteError(err));
                 })
-                .finally(() => dispatch(getUserDeleteLoading(false)))
+                .finally(() => dispatch(getUserDeleteLoading(false)));
         } catch (err) {
             console.log(err);
         }
-    }
+    };
 }

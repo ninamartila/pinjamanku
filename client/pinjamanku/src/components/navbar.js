@@ -1,61 +1,36 @@
 import { useHistory } from "react-router-dom";
 export default function Navbar() {
-  const history = useHistory()
+  const history = useHistory();
 
   function home() {
-    history.push(`/home`)
+    history.push(`/home`);
   }
 
   function login() {
-    history.push(`/login`)
+    history.push(`/login`);
   }
 
   function logout() {
-    history.push(`/`)
+    history.push(`/`);
   }
 
   return (
-    <header>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container">
-          <a className="navbar-brand m-2 " href="#">
-            PinjamanKu
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div
-            className="collapse navbar-collapse justify-content-end"
-            id="navbarNav"
-          >
-            <ul className="navbar-nav">
-              <li className="nav-item m-2">
-                <a className="nav-link active" aria-current="page" onClick={() => home()}>
-                  Home
-                </a>
-              </li>
-              <li className="nav-item m-2">
-                <a className="nav-link" onClick={() => login()}>
-                  Login
-                </a>
-              </li>
-              <li className="nav-item m-2">
-                <a className="nav-link" onClick={() => logout()}>
-                  LOG-OUT
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+    <nav class="navbar">
+      <h1>PinjamanKu</h1>
+      <div class="nav-menu">
+        <a class="nav-link" href="">
+          Home
+        </a>
+        <a class="nav-link" href="">
+          My Portofolio
+        </a>
+        <a class="nav-link" href="">
+          Login
+        </a>
+        <a class="nav-link" href="">
+          Logout
+        </a>
+      </div>
+    </nav>
   );
 }

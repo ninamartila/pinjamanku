@@ -157,7 +157,6 @@ export function borrowerAmount(id) {
                     }
                 })
                 .then((data) => {
-                    console.log(data, '========');
                     dispatch(getBorrowerAmountSuccess(data))
                 })
                 .catch(err => {
@@ -195,13 +194,12 @@ export function borrowerPay(id) {
     return async function (dispatch, getState) {
         try {
             dispatch(getBorrowerPayLoading(true))
-            fetch('http://localhost:3000/loan/invoice', {
+            fetch('http://localhost:3000/loans/invoice/borrower', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'auth_key': '!!!!!!!!!!!!!!!!'
                 },
-                body: JSON.stringify({ IdUser: id }),
+                body: JSON.stringify({ loanID: id }),
                 method: "POST"
             })
                 .then((res) => {
