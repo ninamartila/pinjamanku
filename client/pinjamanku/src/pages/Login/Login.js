@@ -2,7 +2,7 @@ import { Navbar } from "../../components";
 import { loginUser } from "../../store/user/action";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-
+import login from "./img/login.svg";
 import { useState } from "react";
 
 export default function Login() {
@@ -27,63 +27,56 @@ export default function Login() {
 
   return (
     <div>
-      <Navbar />
-      <section className="login d-flex flex-column justify-content-center">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6 m-3 card login-card">
-              <div className="p-5">
-                <h1>PinjamanKu</h1>
-                <form
-                  onSubmit={(e) => {
-                    submitLogin(e);
-                  }}
-                >
-                  <div className="mb-3">
-                    <label for="exampleInputEmail1" className="form-label">
-                      Email address
-                    </label>
-                    <input
-                      onChange={(e) => setEmail(e.target.value)}
-                      type="email"
-                      className="form-control"
-                      id="exampleInputEmail1"
-                      aria-describedby="emailHelp"
-                    />
-                    <div id="emailHelp" className="form-text">
-                      We'll never share your email with anyone else.
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <label for="exampleInputPassword1" className="form-label">
-                      Password
-                    </label>
-                    <input
-                      onChange={(e) => setPassword(e.target.value)}
-                      type="password"
-                      className="form-control"
-                      id="exampleInputPassword1"
-                    />
-                  </div>
-                  <div className="mb-3 form-check">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="exampleCheck1"
-                    />
-                    <label className="form-check-label" for="exampleCheck1">
-                      Check me out
-                    </label>
-                  </div>
-                  <button type="submit" className="btn btn-primary">
-                    Login
-                  </button>
-                </form>
+      <div class="container-user">
+        <div class="img">
+          <img src={login} />
+        </div>
+        <div class="login-content">
+          <form
+            onSubmit={(e) => {
+              submitLogin(e);
+            }}
+          >
+            <h2 class="title">LOGIN</h2>
+
+            <div class="input-div one">
+              <div class="i">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="div">
+                <input
+                  type="email"
+                  class="input"
+                  placeholder="Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
             </div>
-          </div>
+            <div class="input-div one">
+              <div class="i">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="div">
+                <input
+                  type="password"
+                  class="input"
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+            </div>
+            <a
+              href=""
+              onClick={() => {
+                history.push("/register");
+              }}
+            >
+              Already Have AnAccount?
+            </a>
+            <input type="submit" class="btn-login" value="LOGIN" />
+          </form>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

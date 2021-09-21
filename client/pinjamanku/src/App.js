@@ -1,5 +1,6 @@
 import { Provider } from "react-redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { GuardProvider, GuardedRoute } from "react-router-guards";
 import "./App.css";
 import {
   DasboardBorower,
@@ -14,12 +15,39 @@ import {
 } from "./pages";
 import store from "./store";
 export default function App() {
+  console.log(localStorage.getItem("access_token"));
+  const Guard = (to, from, next) => {
+    console.log(to);
+    if (to.meta.auth) {
+      if (
+        localStorage.getItem("access_token") &&
+        to.match.path === "/register"
+      ) {
+        next.redirect("/");
+      }
+      if (localStorage.getItem("access_token") && to.match.path === "/login") {
+        next.redirect("/");
+      }
+      next();
+    } else {
+      next();
+    }
+    // if (localStorage.getItem("access_token")) {
+    //   console.log("masuk");
+    //   next("/login");
+    // }
+    // if (localStorage.getItem("access_token") && to === "/register") {
+    //   next().redirect("/");
+    // }
+    // next();
+  };
   return (
     <div>
       <Provider store={store}>
         <BrowserRouter>
-          <Switch>
-            <Route path="/listUser">
+          <GuardProvider guards={Guard} loading={""} error={""}>
+            <Switch>
+              {/* <Route path="/listUser">
               <ListUser />
             </Route>
             <Route path="/listUserStatus">
@@ -28,28 +56,42 @@ export default function App() {
             <Route path="/listLoan">
               <ListLoan />
             </Route>
-            {/* Nanti di tambah ID landernya */}
+          
             <Route path="/lender">
               <Lander />
             </Route>
-            {/* Nanti di tambah ID borowernya */}
+           
             <Route path="/pendana/tempat-minjam">
               <TempatMinjam />
             </Route>
-            {/* Nanti di tambah ID borowernya */}
+            
             <Route path="/pendana">
               <DasboardBorower />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
+            </Route> */}
+              <GuardedRoute
+                path="/register"
+                exact
+                component={Register}
+                meta={{ auth: true }}
+              />
+              <GuardedRoute
+                path="/login"
+                exact
+                component={Login}
+                meta={{ auth: true }}
+              />
+              {/* <Route path="/register">
+                <Register />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route> */}
+              <GuardedRoute path="/" exact component={Home} />
+              {/* <Route path="/">
+                <Home />
+              </Route> */}
+            </Switch>
+          </GuardProvider>
         </BrowserRouter>
       </Provider>
     </div>
