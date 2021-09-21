@@ -3,7 +3,7 @@ import { List, PageHeader, Button, Statistic, Descriptions } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ListItemStatusPinjam, Navbar } from "../../components";
-import { fetchLoan } from "../../store/Pinjaman/action";
+import { fetchLoanLender } from "../../store/Pinjaman/action";
 import LenderAmountModal from "./LenderAmountModal";
 import BorrowerPayModal from "../Borrower/borrowerPayModal";
 
@@ -14,9 +14,9 @@ export default function Lender() {
   const [showModalVisible, setShowModalVisible] = useState(false)
   const [showModalPayVisible, setShowModalPayVisible] = useState(false)
   const {
-    isLoanLoading,
-    isLoanSuccess,
-    isLoanError,
+    isLenderLoanLoading,
+    isLenderLoanSuccess,
+    isLenderLoanError,
     isLanderGetAmountLoading,
     isLanderGetAmountSuccess,
     isLanderGetAmountError,
@@ -53,14 +53,14 @@ export default function Lender() {
   }, [isLanderGetAmountError]);
 
   useEffect(() => {
-    dispatch(fetchLoan());
+    dispatch(fetchLoanLender());
   }, []);
 
   useEffect(() => {
-    if (!!isLoanError) {
-      message.error(isLoanError?.message ?? "something went wrong on User");
+    if (!!isLenderLoanError) {
+      message.error(isLenderLoanLoading?.message ?? "something went wrong on User");
     }
-  }, [isLoanError]);
+  }, [isLenderLoanError]);
 
   const renderContent = (column = 2) => (
     <Descriptions size="small" column={column}></Descriptions>
@@ -73,54 +73,65 @@ export default function Lender() {
         <div className="card col-md-12  m-3">
           <div className="card-body  m-3">
             <div className="row d-flex flex-row">
-              <h2>Hi..... "Dewa Indra"</h2>
+              <h2>Hi, Dharma!</h2>
             </div>
             <div className="row justify-content-between">
               <div className="col-md-4">
-                <h5>No Rek : 1234567789 (BRI)</h5>
+                <h5>Acc. Number: 1234567789 (BRI)</h5>
               </div>
 
               <div className="col-md-4 d-flex flex-col">
-                <h5>Email : </h5>
+                <h5>Email: </h5>
                 <p> madun@gmail.com</p>
               </div>
               <div className="col-md-4 d-flex flex-col">
-                <h5>Terkumpul : </h5>
-                <p> Rp. 200.000</p>
+                <h5>Available Balance : </h5>
+                <p> IDR 200.000</p>
               </div>
             </div>
           </div>
         </div>
       </div>
       <Tabs defaultActiveKey="1" style={{ paddingLeft: 10 }}>
-        <TabPane tab="List Pinjaman Pending" key="1">
+        <TabPane tab="Pending" key="1">
           <section className="container">
             <div className="m-3">
-              <h4>Pinjaman Panding :</h4>
+              <h4>Pending Loans :</h4>
+              <p>Loan investment that you need to pay</p>
             </div>
+            {isLenderLoanSuccess.filter((el)=> console.log(el.status))}
             <List
-              dataSource={isLoanSuccess.filter(
+              dataSource={isLenderLoanSuccess.filter(
                 (item) => item?.status === "pending"
               )}
-              loading={isLoanLoading}
+              loading={isLenderLoanLoading}
               renderItem={(item) => <ListItemStatusPinjam item={item} />}
             ></List>
           </section>
         </TabPane>
-        <TabPane tab="List Sedang Dipinjam" key="2">
+        <TabPane tab="Active" key="2">
           <section className="container">
             <div className="m-3">
-              <h4>Pinjaman Active :</h4>
+              <h4>Active Loans :</h4>
+              <p>Available loan that is not yet borrowed</p>
             </div>
             <List
-              dataSource={isLoanSuccess.filter(
+              dataSource={isLenderLoanSuccess.filter(
                 (item) => item?.status === "active"
               )}
-            >
-            </List>
+              loading={isLenderLoanLoading}
+              renderItem={(item) => <ListItemStatusPinjam item={item} />}
+            ></List>
+          </section>
+        </TabPane>
+        <TabPane tab="Borrowed" key="3">
+          <section className="container">
+            <div className="m-3">
+              <h4>Loaned funds :</h4>
+            </div>
             <List
-              dataSource={isLoanSuccess.filter(item => item?.status === 'borrowed')}
-              loading={isLoanLoading}
+              dataSource={isLenderLoanSuccess.filter(item => item?.status === 'borrowed' || item?.status === "deadline")}
+              loading={isLenderLoanLoading}
               renderItem={item => (
                 <ListItemStatusPinjam item={item} />
               )}
@@ -128,20 +139,14 @@ export default function Lender() {
             </List>
           </section>
         </TabPane>
-        <TabPane tab="List Pinjaman Selesai" key="3">
+        <TabPane tab="Completed" key="4">
           <section className="container">
             <div className="m-3">
-              <h4>Pinjaman Selesai :</h4>
+              <h4>Completed Loans :</h4>
             </div>
             <List
-              dataSource={isLoanSuccess.filter(
-                (item) => item?.status === "completed"
-              )}
-            >
-            </List>
-            <List
-              dataSource={isLoanSuccess.filter(item => item?.status === 'withdrawn')}
-              loading={isLoanLoading}
+              dataSource={isLenderLoanSuccess.filter(item => item?.status === 'complete' || item?.status === 'withdrawn')}
+              loading={isLenderLoanLoading}
               renderItem={item => (
                 <ListItemStatusPinjam item={item} />
               )}

@@ -32,7 +32,7 @@ class LoanController {
 
   static async GetLenderLoan(req, res, next) {
     // const lenderID = req.user.id;
-    const lenderID = 1
+    const lenderID = 3
     try {
       const result = await Loan.findAll({ where: {lenderID: lenderID},include: [Borrower, Lender]});
       if (result) {
