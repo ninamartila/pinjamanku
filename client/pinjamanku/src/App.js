@@ -1,25 +1,91 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import { Provider } from "react-redux";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { GuardProvider, GuardedRoute } from "react-router-guards";
+import "./App.css";
+import {
+  DasboardBorower,
+  Home,
+  Lander,
+  ListLoan,
+  ListUser,
+  ListUserStatus,
+  Login,
+  Register,
+  TempatMinjam,
+} from "./pages";
+import store from "./store";
+export default function App() {
+  console.log(localStorage.getItem("access_token"));
+  const Guard = (to, from, next) => {
+    console.log(to);
+    if (to.meta.auth) {
+      if (
+        localStorage.getItem("access_token") &&
+        to.match.path === "/register"
+      ) {
+        next.redirect("/");
+      }
+      if (localStorage.getItem("access_token") && to.match.path === "/login") {
+        next.redirect("/");
+      }
+      next();
+    } else {
+      next();
+    }
+    // if (localStorage.getItem("access_token")) {
+    //   console.log("masuk");
+    //   next("/login");
+    // }
+    // if (localStorage.getItem("access_token") && to === "/register") {
+    //   next().redirect("/");
+    // }
+    // next();
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Provider store={store}>
+        <BrowserRouter>
+          <GuardProvider guards={Guard} loading={""} error={""}>
+            <Switch>
+              {/* <Route path="/listUser">
+              <ListUser />
+            </Route>
+            <Route path="/listUserStatus">
+              <ListUserStatus />
+            </Route>
+            <Route path="/listLoan">
+              <ListLoan />
+            </Route> */}
+
+              <Route path="/lender">
+                <Lander />
+              </Route>
+
+              {/* <Route path="/pendana/tempat-minjam">
+              <TempatMinjam />
+            </Route>
+            
+            <Route path="/pendana">
+              <DasboardBorower />
+            </Route> */}
+              <GuardedRoute
+                path="/register"
+                exact
+                component={Register}
+                meta={{ auth: true }}
+              />
+              <GuardedRoute
+                path="/login"
+                exact
+                component={Login}
+                meta={{ auth: true }}
+              />
+
+              <GuardedRoute path="/" exact component={Home} />
+            </Switch>
+          </GuardProvider>
+        </BrowserRouter>
+      </Provider>
     </div>
   );
 }
-
-export default App;
