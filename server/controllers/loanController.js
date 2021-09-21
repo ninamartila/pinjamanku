@@ -9,7 +9,7 @@ class LoanController {
       if (status) {
         queries.status = status;
       }
-      const result = await Loan.findAll({ where: queries, include: [Borrower, Lender]});
+      const result = await Loan.findAll({ where: queries, include: [Borrower, Lender] });
       res.status(200).json(result);
     } catch (error) {
       res.status(500).json(error);
@@ -19,7 +19,7 @@ class LoanController {
   static async GetByID(req, res, next) {
     const loanID = req.params.loanID;
     try {
-      const result = await Loan.findOne({ where: {id: loanID}, include: [Borrower, Lender]});
+      const result = await Loan.findOne({ where: { id: loanID }, include: [Borrower, Lender] });
       if (result) {
         res.status(200).json(result);
       } else {
@@ -31,10 +31,13 @@ class LoanController {
   }
 
   static async GetLenderLoan(req, res, next) {
-    // const lenderID = req.user.id;
-    const lenderID = 1
+    const lenderID = +req.user.id;
+    // const lenderID = 1;
     try {
-      const result = await Loan.findOne({ where: {lenderID: lenderID},include: [Borrower, Lender]});
+      const result = await Loan.findOne({
+        where: { lenderID: lenderID },
+        include: [Borrower, Lender],
+      });
       if (result) {
         res.status(200).json(result);
       } else {
@@ -46,10 +49,10 @@ class LoanController {
   }
 
   static async GetBorrowerLoan(req, res, next) {
-    // const borrowerID = req.user.id
-    const borrowerID = 1
+    const borrowerID = +req.user.id;
+    // const borrowerID = 1;
     try {
-      const result = await Loan.findOne({ where: {borrowerID}, include: [Borrower, Lender]});
+      const result = await Loan.findOne({ where: { borrowerID }, include: [Borrower, Lender] });
       if (result) {
         res.status(200).json(result);
       } else {
@@ -61,9 +64,9 @@ class LoanController {
   }
 
   static async CreateInvoiceLender(req, res, next) {
-    // const { userID, email } = req.user.email; //tunggu auth
-    const lenderID = 1;
-    const email = "dharmasatrya10@gmail.com";
+    const { id: lenderID, email } = req.user; //tunggu auth
+    // const lenderID = 1;
+    // const email = "dharmasatrya10@gmail.com";
     const { amount, tenor } = req.body;
     const randomID = Math.random().toString(36).slice(2);
     try {
@@ -95,8 +98,8 @@ class LoanController {
   }
 
   static async CreateInvoiceBorrower(req, res, next) {
-    // const {email} = req.user.email
-    const email = "dharmasatrya10@gmail.com";
+    const { email } = req.user;
+    // const email = "dharmasatrya10@gmail.com";
     const { loanID } = req.body;
     try {
       const loanData = await Loan.findOne({ where: { id: loanID } });
@@ -157,8 +160,8 @@ class LoanController {
     const borrowerID = 1;
     try {
       const loanData = await Loan.findOne({ where: { id: loanID } });
-      const borrowerData = await Borrower.findOne({where: {id: borrowerID}})
-      await Loan.update({borrowerID: borrowerID}, {where: {id: loanID}})
+      const borrowerData = await Borrower.findOne({ where: { id: borrowerID } });
+      await Loan.update({ borrowerID: borrowerID }, { where: { id: loanID } });
       const amountWithInterest = loanData.initialLoan + loanData.initialLoan * 0.07;
 
       const loanDataInput = {

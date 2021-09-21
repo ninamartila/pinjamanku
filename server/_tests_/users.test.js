@@ -1,345 +1,440 @@
 const app = require("../app");
 const request = require("supertest");
+const nodemailer = require("../helpers/NodeMailer");
+const { Lender, Borrower, Staff, sequelize } = require("../models");
+const { queryInterface } = sequelize;
 
-const userToRegister = {
+const lenderRegister = {
   firstName: "Adang",
   lastName: "Sarbin",
   email: "adangsarbin@mail.com",
   password: "adangsarbin",
-  phoneNumber: "0812345",
-  address: "Jakarta",
+  ktpCard: "ktpCard",
+  selfPicture: "selfPicture",
+  phoneNumber: "09182723",
+  address: "jakarta",
+  birthDate: "07/07/1998",
+  bankCode: "BRI",
+  holderName: "Adang Sarbin",
+  accountNumber: "0192071247",
+  occupation: "Manager",
+  role: "lender",
 };
 
-let access_token;
+const borrowerRegister = {
+  firstName: "Ujang",
+  lastName: "Sarden",
+  email: "ujangsarden@mail.com",
+  password: "ujangsarden",
+  ktpCard: "ktp card",
+  selfPicture: "self picture",
+  phoneNumber: "09347989",
+  address: "Jakarta",
+  birthDate: "09/09/2000",
+  bankCode: "BCA",
+  holderName: "Ujang Sarden",
+  accountNumber: "091347234",
+  occupation: "Staff",
+  role: "borrower",
+};
 
-describe("POST /register [SUCCESS CASE]", () => {
-  test("Should return object about details User", (done) => {
+const staffRegister = {
+  firstName: "Admin",
+  lastName: "Jago",
+  email: "adminjago@protonmail.com",
+  password: "adminjago",
+};
+
+jest.mock("../helpers/NodeMailer");
+
+afterAll((done) => {
+  queryInterface
+    .bulkDelete("Lenders", {})
+    .then(() => queryInterface.bulkDelete("Borrowers", {}))
+    .then(() => queryInterface.bulkDelete("Staffs", {}))
+    .then(() => done())
+    .catch((err) => done(err));
+});
+
+describe("POST /users/register [SUCCESS CASE]", () => {
+  // test("201 success register lender", (done) => {
+  //   request(app)
+  //     .post("/users/register")
+  //     .send(lenderRegister)
+  //     .end((err, res) => {
+  //       if (err) return done(err);
+  //       const { body, status } = res;
+  //       expect(status).toBe(201);
+  //       expect(body).toHaveProperty("dataValues");
+  //       done();
+  //     });
+  // });
+  test("201 success register borrower", (done) => {
+    nodemailer.mockReturnValue({
+      error: null,
+      result: "testing",
+    });
     request(app)
-      .post("/register")
-      .send(userToRegister)
-      .then(({ status, body }) => {
+      .post("/users/register")
+      .send(borrowerRegister)
+      .end((err, res) => {
+        if (err) return done(err);
+        const { body, status } = res;
         expect(status).toBe(201);
-        expect(body).toHaveProperty("id", expect.any(Number));
-        expect(body).toHaveProperty("firstName", userToRegister.firstName);
-        expect(body).toHaveProperty("lastName", userToRegister.lastName);
-        expect(body).toHaveProperty("email", userToRegister.email);
-        expect(body).toHaveProperty("phoneNumber", userToRegister.phoneNumber);
-        expect(body).toHaveProperty("address", userToRegister.address);
-        expect(body).not.toHaveProperty("password");
+        expect(body).toHaveProperty("dataValues");
         done();
-      })
-      .catch((err) => done(err));
+      });
   });
 });
+//   test("201 success register staff", (done) => {
+//     request(app)
+//       .post("/users/register")
+//       .send(staffRegister)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(201);
+//         expect(body).toHaveProperty("dataValues");
+//         done();
+//       });
+//   });
+// });
 
-describe("POST /register [FAIL CASE]", () => {
-  test("Should return object with property message", (done) => {
-    let newUser = {
-      ...userToRegister,
-      firstName: null,
-    };
-    request(app)
-      .post("/register")
-      .send(newUser)
-      .then(({ status, body }) => {
-        expect(status).toBe(400);
-        expect(body).toHaveProperty("message");
-        expect(body.message).toContain("first name cannot be null");
-        done();
-      })
-      .catch((err) => done(err));
-  });
+// describe("POST /users/register [FAIL CASE]", () => {
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       firstName: "",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("first name cannot be empty");
+//         done();
+//       });
+//   });
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       lastName: "",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("last name cannot be empty");
+//         done();
+//       });
+//   });
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       email: "",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("email cannot be empty");
+//         done();
+//       });
+//   });
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       email: "adangsarbin@mail.com",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("email is already exists");
+//         done();
+//       });
+//   });
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       email: "adangsarbinmailcom",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("invalid email");
+//         done();
+//       });
+//   });
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       password: "",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("password cannot be empty");
+//         done();
+//       });
+//   });
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       ktpCard: "",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("ktp card cannot be empty");
+//         done();
+//       });
+//   });
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       selfPicture: "",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("self picture cannot be empty");
+//         done();
+//       });
+//   });
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       phoneNumber: "",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("phone number cannot be empty");
+//         done();
+//       });
+//   });
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       address: "",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("address cannot be empty");
+//         done();
+//       });
+//   });
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       birthDate: "",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("birth date cannot be empty");
+//         done();
+//       });
+//   });
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       bankCode: "",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("bank code cannot be empty");
+//         done();
+//       });
+//   });
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       holderName: "",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("holder name cannot be empty");
+//         done();
+//       });
+//   });
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       accountNumber: "",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("account number cannot be empty");
+//         done();
+//       });
+//   });
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       occupation: "",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("occupation cannot be empty");
+//         done();
+//       });
+//   });
+//   test("400 fail register", (done) => {
+//     const newUser = {
+//       ...lenderRegister,
+//       role: "",
+//     };
+//     request(app)
+//       .post("/users/register")
+//       .send(newUser)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { body, status } = res;
+//         expect(status).toBe(400);
+//         expect(body).toHaveProperty("message");
+//         expect(body.message).toContain("role cannot be empty");
+//         done();
+//       });
+//   });
+// });
 
-  test("Should return object with property message", (done) => {
-    let newUser = {
-      ...userToRegister,
-      lastName: null,
-    };
-    request(app)
-      .post("/register")
-      .send(newUser)
-      .then(({ status, body }) => {
-        expect(status).toBe(400);
-        expect(body).toHaveProperty("message");
-        expect(body.message).toContain("last name cannot be null");
-        done();
-      })
-      .catch((err) => done(err));
-  });
+// describe("POST /users/login [SUCCESS CASE]", () => {
+//   test("200 success login lender", (done) => {
+//     request(app)
+//       .post("/users/login")
+//       .send(lenderRegister)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { status, body } = res;
+//         expect(status).toBe(200);
+//         expect(body).toHaveProperty("access_token", expect.any(String));
+//         expect(body).toHaveProperty("id", expect.any(Number));
+//         expect(body).toHaveProperty("firstName", lenderRegister.firstName);
+//         expect(body).toHaveProperty("lastName", lenderRegister.lastName);
+//         expect(body).toHaveProperty("role", lenderRegister.role);
+//         done();
+//       });
+//   });
+//   test("200 success login Staff", (done) => {
+//     request(app)
+//       .post("/users/login")
+//       .send(staffRegister)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { status, body } = res;
+//         expect(status).toBe(200);
+//         expect(body).toHaveProperty("access_token", expect.any(String));
+//         expect(body).toHaveProperty("id", expect.any(Number));
+//         expect(body).toHaveProperty("name", `${staffRegister.firstName} ${staffRegister.lastName}`);
+//         expect(body).toHaveProperty("role", "admin");
+//         done();
+//       });
+//   });
+// });
 
-  test("Should return object with property message", (done) => {
-    let newUser = {
-      ...userToRegister,
-      email: null,
-    };
-    request(app)
-      .post("/register")
-      .send(newUser)
-      .then(({ status, body }) => {
-        expect(status).toBe(400);
-        expect(body).toHaveProperty("message");
-        expect(body.message).toContain("email cannot be null");
-        done();
-      })
-      .catch((err) => done(err));
-  });
+// describe("GET /users [SUCCESS CASE]", () => {
+//   test("200 success get all users", (done) => {
+//     request(app)
+//       .get("/users")
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { status, body } = res;
+//         expect(status).toBe(200);
+//         expect(body).toHaveProperty("lender");
+//         expect(body).toHaveProperty("borrower");
+//         done();
+//       });
+//   });
+// });
 
-  test("Should return object with property message", (done) => {
-    let newUser = {
-      ...userToRegister,
-      password: null,
-    };
-    request(app)
-      .post("/register")
-      .send(newUser)
-      .then(({ status, body }) => {
-        expect(status).toBe(400);
-        expect(body).toHaveProperty("message");
-        expect(body.message).toContain("password cannot be null");
-      })
-      .catch((err) => done(err));
-  });
-
-  test("Should return object with property message", (done) => {
-    let newUser = {
-      ...userToRegister,
-      phoneNumber: null,
-    };
-    request(app)
-      .post("/register")
-      .send(newUser)
-      .then(({ status, body }) => {
-        expect(status).toBe(400);
-        expect(body).toHaveProperty("message");
-        expect(body.message).toContain("phone number cannot be null");
-      })
-      .catch((err) => done(err));
-  });
-
-  test("Should return object with property message", (done) => {
-    let newUser = {
-      ...userToRegister,
-      address: null,
-    };
-    request(app)
-      .post("/register")
-      .send(newUser)
-      .then(({ status, body }) => {
-        expect(status).toBe(400);
-        expect(body).toHaveProperty("message");
-        expect(body.message).toContain("address cannot be null");
-      })
-      .catch((err) => done(err));
-  });
-});
-
-describe("POST /login [SUCCESS CASE]", () => {
-  test("Should return object with properties access_token, id, firstName, lastName", (done) => {
-    const { firstName, lastName, phoneNumber, address, ...newUser } = userToRegister;
-    request(app)
-      .post("/login")
-      .send(newUser)
-      .then(({ status, body }) => {
-        expect(status).toBe(200);
-        expect(body).toHaveProperty("access_token", expect.any(String));
-        expect(body).toHaveProperty("id", expect.any(Number));
-        expect(body).toHaveProperty("firstName", firstName);
-        expect(body).toHaveProperty("lastName", lastName);
-        expect(body).not.toHaveProperty("password");
-        done();
-      })
-      .catch((err) => done(err));
-  });
-});
-
-describe("POST /login [FAIL CASE]", () => {
-  test("Should return object with property message", (done) => {
-    let userLogin = {
-      email: "adangsarbin@mail.com",
-      password: "adang",
-    };
-    request(app)
-      .post("/login")
-      .send(userLogin)
-      .then(({ status, body }) => {
-        expect(status).toBe(401);
-        expect(body).toHaveProperty("message");
-        expect(body.message).toContain("wrong email/password");
-        done();
-      })
-      .catch((err) => done(err));
-  });
-
-  test("Should return object with property message", (done) => {
-    let userLogin = {
-      email: "adangwakwaw@mail.com",
-      password: "adangsarbin",
-    };
-    request(app)
-      .post("/login")
-      .send(userLogin)
-      .then(({ status, body }) => {
-        expect(status).toBe(401);
-        expect(body).toHaveProperty("message");
-        expect(body.message).toContain("wrong email/password");
-        done();
-      })
-      .catch((err) => done(err));
-  });
-});
-
-describe("PATCH /users [SUCCESS CASE]", () => {
-  test("Should return object about details User", (done) => {
-    const updatedUser = {
-      phoneNumber: "0898765",
-      address: "Sabang",
-    };
-    request(app)
-      .patch("/users")
-      .set("access_token", access_token)
-      .send(updatedUser)
-      .then(({ status, body }) => {
-        expect(status).toBe(200);
-        expect(body).toHaveProperty("id", expect.any(Number));
-        expect(body).toHaveProperty("firstName");
-        expect(body).toHaveProperty("lastName");
-        expect(body).toHaveProperty("email");
-        expect(body).toHaveProperty("phoneNumber");
-        expect(body).toHaveProperty("address");
-        expect(body).not.toHaveProperty("password");
-        done();
-      })
-      .catch((err) => done(err));
-  });
-});
-
-describe("PATCH /users [FAIL CASE]", () => {
-  test("Should return object with property message", (done) => {
-    const updatedUser = {
-      phoneNumber: "0898765",
-      address: "Sabang",
-    };
-    request(app)
-      .patch("/users")
-      .set("access_token", access_token_fail)
-      .send(updatedUser)
-      .then(({ status, body }) => {
-        expect(status).toBe(401);
-        expect(body).toHaveProperty("message", "invalid user token");
-        done();
-      })
-      .catch((err) => done(err));
-  });
-});
-
-describe("DELETE /users/:userId [SUCCESS CASE]", () => {
-  test("Should return object with property message", (done) => {
-    request(app)
-      .delete(`/users/${userId}`)
-      .then(({ status, body }) => {
-        expect(status).toBe(200);
-        expect(body).toHaveProperty("message", "user has been deleted");
-        done();
-      })
-      .catch((err) => done(err));
-  });
-});
-
-describe("DELETE /users/:userId [FAIL CASE]", () => {
-  test("Should return object with property message", (done) => {
-    request(app)
-      .delete(`/users/${userId}`)
-      .then(({ status, body }) => {
-        expect(status).toBe(404);
-        expect(body).toHaveProperty("message", `user with id ${userId} not found`);
-        done();
-      })
-      .catch((err) => done(err));
-  });
-});
-
-describe("POST /verification [SUCCESS CASE]", () => {
-  test("Should return object with properties date, time", (done) => {
-    request(app)
-      .post("/verification")
-      .set("access_token", access_token)
-      .then(({ status, body }) => {
-        expect(status).toBe(200);
-        expect(body).toHaveProperty("date");
-        expect(body).toHaveProperty("time");
-        done();
-      })
-      .catch((err) => done(err));
-  });
-});
-
-describe("POST /verification [FAIL CASE]", () => {
-  test("Should return object with property message", (done) => {
-    request(app)
-      .post("/verification")
-      .set("access_token", access_token_fail)
-      .then(({ status, body }) => {
-        expect(status).toBe(401);
-        expect(body).toHaveProperty("message", "invalid user token");
-        done();
-      })
-      .catch((err) => done(err));
-  });
-});
-
-describe("PATCH /verification [SUCCESS CASE]", () => {
-  test("Should return object with properties date, time", (done) => {
-    request(app)
-      .patch("/verification")
-      .set("access_token", access_token)
-      .then(({ status, body }) => {
-        expect(status).toBe(200);
-        expect(body).toHaveProperty("date");
-        expect(body).toHaveProperty("time");
-        done();
-      })
-      .catch((err) => done(err));
-  });
-});
-
-describe("PATCH /verification [FAIL CASE]", () => {
-  test("Should return object with property message", (done) => {
-    request(app)
-      .patch("/verification")
-      .set("access_token", access_token_fail)
-      .then(({ status, body }) => {
-        expect(status).toBe(401);
-        expect(body).toHaveProperty("message", "invalid user token");
-        done();
-      })
-      .catch((err) => done(err));
-  });
-});
-
-describe("DELETE /verification [SUCCESS CASE]", () => {
-  test("Should return object with property message", (done) => {
-    request(app)
-      .delete("/verification")
-      .set("access_token", access_token)
-      .then(({ status, body }) => {
-        expect(status).toBe(200);
-        expect(body).toHaveProperty("message", "schedule has been deleted");
-        done();
-      })
-      .catch((err) => done(err));
-  });
-});
-
-describe("DELETE /verification [FAIL CASE]", () => {
-  test("Should return object with property message", (done) => {
-    request(app)
-      .delete("/verification")
-      .set("access_token", access_token_fail)
-      .then(({ status, body }) => {
-        expect(status).toBe(401);
-        expect(body).toHaveProperty("message", "invalid user token");
-        done();
-      })
-      .catch((err) => done(err));
-  });
-});
+// describe("GET /users/:userId [SUCCESS CASE]", () => {
+//   test("200 success get user by id", (done) => {
+//     request(app)
+//       .get(`/users/${1}?role=lender`)
+//       .end((err, res) => {
+//         if (err) return done(err);
+//         const { status, body } = res;
+//         expect(status).toBe(200);
+//         expect(body).toHaveProperty("lender");
+//         expect(body).toHaveProperty("borrower");
+//         done();
+//       });
+//   });
+// });

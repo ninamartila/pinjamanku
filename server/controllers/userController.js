@@ -15,7 +15,7 @@ class UserController {
         borrower,
       });
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   }
 
@@ -30,10 +30,12 @@ class UserController {
         const borrowerResult = await Borrower.findOne({ where: { id: userId } });
         res.status(200).json(borrowerResult);
       } else {
-        throw Error("role not valid");
+        next({
+          name: "InvalidRole",
+        });
       }
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   }
 
@@ -67,68 +69,79 @@ class UserController {
         if (createdStaff) {
           res.status(201).json(toSend);
         } else {
-          throw Error("register error");
+          next({
+            name: "InvalidRegister",
+          });
         }
-      } else {
-        if (role === "lender") {
-          const newLender = {
-            firstName,
-            lastName,
-            email,
-            password,
-            ktpCard,
-            selfPicture,
-            phoneNumber,
-            address,
-            birthDate,
-            bankCode,
-            holderName,
-            accountNumber,
-            occupation,
-            role,
-            status: "Verified",
-          };
-          const createdLender = await Lender.create(newLender);
-          const { password: passwordStaff, ...toSend } = createdLender;
-          if (createdLender) {
+      } else if (role === "lender") {
+        const newLender = {
+          firstName,
+          lastName,
+          email,
+          password,
+          ktpCard,
+          selfPicture,
+          phoneNumber,
+          address,
+          birthDate,
+          bankCode,
+          holderName,
+          accountNumber,
+          occupation,
+          role,
+          status: "Verified",
+        };
+        const createdLender = await Lender.create(newLender);
+        const { password: passwordStaff, ...toSend } = createdLender;
+        if (createdLender) {
+          res.status(201).json(toSend);
+        } else {
+          next({
+            name: "InvalidRegister",
+          });
+        }
+      } else if (role === "borrower") {
+        const currentDate = new Date();
+        const newBorrower = {
+          firstName,
+          lastName,
+          email,
+          password,
+          ktpCard,
+          selfPicture,
+          phoneNumber,
+          address,
+          birthDate,
+          bankCode,
+          holderName,
+          accountNumber,
+          occupation,
+          role,
+          status: "Pending",
+        };
+        const checkRoom = await createRoom(`${firstName}${currentDate.getTime()}`, email);
+        if (checkRoom) {
+          const createdBorrower = await Borrower.create(newBorrower);
+          const { password: passwordStaff, ...toSend } = createdBorrower;
+          if (createdBorrower) {
             res.status(201).json(toSend);
           } else {
-            throw Error("register error");
+            next({
+              name: "InvalidRegister",
+            });
           }
-        } else if (role === "borrower") {
-          const newBorrower = {
-            firstName,
-            lastName,
-            email,
-            password,
-            ktpCard,
-            selfPicture,
-            phoneNumber,
-            address,
-            birthDate,
-            bankCode,
-            holderName,
-            accountNumber,
-            occupation,
-            role,
-            status: "Pending",
-          };
-          const checkRoom = await createRoom(`${email.split("@")[0]}${role}`, email);
-          if (checkRoom) {
-            const createdBorrower = await Borrower.create(newBorrower);
-            const { password: passwordStaff, ...toSend } = createdBorrower;
-            if (createdBorrower) {
-              res.status(201).json(toSend);
-            } else {
-              throw Error("register error");
-            }
-          } else {
-            throw Error("Invalid Email");
-          }
+        } else {
+          next({
+            name: "DailyCoError",
+          });
         }
+      } else {
+        next({
+          name: "InvalidEmail",
+        });
       }
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   }
 
@@ -138,21 +151,26 @@ class UserController {
       if (isAdmin(email)) {
         const staffResult = await Staff.findOne({ where: { email } });
         if (staffResult) {
-          const { id, name, email, password: staffPassword } = staffResult;
+          const { id, name, email, password: staffPassword, role } = staffResult;
           const correctPassword = comparePassword(password, staffPassword);
           if (correctPassword) {
             const staffPayload = {
               id,
               name,
               email,
+              role,
             };
             const token = generateToken(staffPayload);
             res.status(200).json({ access_token: token, id, name, role: "admin" });
           } else {
-            throw Error("wrong email/password");
+            next({
+              name: "Unauthorized",
+            });
           }
         } else {
-          throw Error("wrong email/password");
+          next({
+            name: "Unauthorized",
+          });
         }
       } else {
         const lenderResult = await Lender.findOne({ where: { email } });
@@ -199,11 +217,13 @@ class UserController {
           const token = generateToken(userPayload);
           res.status(200).json({ access_token: token, id, firstName, lastName, role });
         } else {
-          res.status(404).json({ message: "salah password" });
+          next({
+            name: "Unauthorized",
+          });
         }
       }
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   }
 
@@ -321,7 +341,7 @@ class UserController {
         res.status(200).json(result);
       }
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   }
 
@@ -335,7 +355,7 @@ class UserController {
       const result = await Borrower.update(userStatus, { where: { id: userId } });
       res.status(200).json(result);
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   }
 
@@ -345,14 +365,14 @@ class UserController {
     try {
       if (role === "lender") {
         const result = await Lender.destroy({ where: { id: userId } });
-        res.status(200).json(result);
+        res.status(200).json({ message: `Lender with id ${userId} has been deleted` });
       }
       if (role === "borrower") {
         const result = await Borrower.destroy({ where: { id: userId } });
-        res.status(200).json(result);
+        res.status(200).json({ message: `Lender with id ${userId} has been deleted` });
       }
     } catch (error) {
-      res.status(500).json(error);
+      next(error);
     }
   }
 }

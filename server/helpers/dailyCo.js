@@ -30,7 +30,6 @@ async function createRoom(roomName, userEmail) {
       return false;
     }
   } catch (error) {
-    console.log(error);
     return false;
   }
 }
