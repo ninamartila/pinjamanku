@@ -1,5 +1,13 @@
+import { useDispatch } from "react-redux"
+import { landerGetAmount } from "../store/Pinjaman/action"
+
 export default function ListItemStatusPinjam(props) {
+    const dispatch = useDispatch()
     const { item } = props
+
+    function onCompleted(data) {
+        dispatch(landerGetAmount(data))
+    }
     return (
         <div className="row justify-content-center">
             <div className="card col-md-12  m-3">
@@ -34,10 +42,10 @@ export default function ListItemStatusPinjam(props) {
                         <div className="col-md-2">
                             <h5>Status :</h5>
                             {
-                                item.status === 'pending' ? <button className="btn btn-warning">Pending</button>
+                                item.status === 'pending' ? <button className="btn btn-warning" onClick={() => onCompleted({ loanID: item?.id, lenderID: item?.lenderID })}>Pending</button>
                                     : item?.status === 'active' ?
                                         <button className="btn btn-success">Active</button>
-                                        : <button className="btn btn-danger">Completed</button>
+                                        : <button className="btn btn-danger" onClick={() => onCompleted({ loanID: item?.id, lenderID: item?.lenderID })}>Completed</button>
                             }
                         </div>
                     </div>

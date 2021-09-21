@@ -1,5 +1,13 @@
+import { useDispatch } from "react-redux"
+import { borrowerAmount } from "../store/Pinjaman/action"
+
 export default function ListItemPinjam(props) {
+    const dispatch = useDispatch()
     const { item } = props
+
+    function onClick(loanId) {
+        dispatch(borrowerAmount(loanId))
+    }
     return (
         <div className="row justify-content-center ">
             <div className="card col-md-8  m-3">
@@ -22,7 +30,7 @@ export default function ListItemPinjam(props) {
                             <p>{item?.tenor}-bulan</p>
                         </div>
                         <div className="col-md-2  justify-content-center text-center">
-                            <button className="btn btn-primary">Pinjam</button>
+                            <button className="btn btn-primary" onClick={() => onClick(item?.id)}>Pinjam</button>
                         </div>
                     </div>
                 </div>

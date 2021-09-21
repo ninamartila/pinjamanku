@@ -27,10 +27,10 @@ const initialState = {
     isLanderInvestSuccess: [],
     isLanderInvestError: null,
     isBorrowerAmountLoading: false,
-    isBorrowerAmountSucces: [],
+    isBorrowerAmountSuccess: null,
     isBorrowerAmountError: null,
     isLanderGetAmountLoading: false,
-    isLanderGetAmountSucces: [],
+    isLanderGetAmountSuccess: null,
     isLanderGetAmountError: null
 }
 
@@ -43,7 +43,7 @@ function pinjamanReducer(state = initialState, action) {
             }
 
         case ALL_LOAN_SUCCESS:
-            console.log(action.payload, 'mana');
+            // console.log(action.payload, 'mana');
             return {
                 ...state,
                 isLoanSuccess: action.payload
@@ -99,7 +99,6 @@ function pinjamanReducer(state = initialState, action) {
             }
 
         case BORROWER_AMOUNT_SUCCESS:
-            // console.log(action.payload, 'mana');
             return {
                 ...state,
                 isBorrowerAmountSuccess: action.payload
@@ -118,7 +117,6 @@ function pinjamanReducer(state = initialState, action) {
             }
 
         case LANDER_GET_AMOUNT_SUCCESS:
-            // console.log(action.payload, 'mana');
             return {
                 ...state,
                 isLanderGetAmountSuccess: action.payload

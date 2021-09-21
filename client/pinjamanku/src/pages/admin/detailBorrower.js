@@ -19,6 +19,12 @@ export default function DetailBorrower() {
         dispatch(fetchUserById(userId, type))
     }, [])
 
+    // useEffect(() => {
+    //     if (!!isUserByIdError) {
+    //         message.error(isUserByIdError?.message ?? 'something went wrong');
+    //     }
+    // }, [isUserByIdError])
+
     return (
         <Layout style={{ height: '100vh' }}>
             <AdminNavbar />

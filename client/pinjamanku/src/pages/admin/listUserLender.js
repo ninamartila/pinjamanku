@@ -3,10 +3,12 @@ import { Layout, List, message, Avatar } from 'antd'
 import { AdminFooter, AdminNavbar } from '../../components'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from '../../store/user/action';
+import { useHistory } from 'react-router-dom';
 
 const { Content, Header } = Layout;
 
 export default function ListUserLender() {
+    const history = useHistory()
     const dispatch = useDispatch()
     const { isUserLoading, isUserSuccess, isUserError } = useSelector((state) => state.user)
 
@@ -20,6 +22,12 @@ export default function ListUserLender() {
         }
     }, [isUserError])
 
+    function onClick(userId) {
+        history.push(`/borrowerDetail/${userId}`, {
+            type: 'lender'
+        })
+    }
+
     return (
         <Layout style={{ height: '100vh' }}>
             <AdminNavbar />
@@ -32,7 +40,7 @@ export default function ListUserLender() {
                                 dataSource={isUserSuccess?.lender}
                                 loading={isUserLoading}
                                 renderItem={item => (
-                                    <List.Item key={item?.id}>
+                                    <List.Item key={item?.id} onClick={() => onClick(item?.id)}>
                                         <List.Item.Meta
                                             avatar={
                                                 <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />

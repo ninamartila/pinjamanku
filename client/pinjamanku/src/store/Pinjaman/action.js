@@ -116,6 +116,60 @@ export function landerInvest(payload) {
     }
 }
 
+export function getBorrowerAmountLoading(payload) {
+    return {
+        type: BORROWER_AMOUNT_LOADING,
+        payload
+    }
+}
+
+export function getBorrowerAmountSuccess(payload) {
+    return {
+        type: BORROWER_AMOUNT_SUCCESS,
+        payload
+    }
+}
+
+export function getBorrowerAmountError(payload) {
+    return {
+        type: BORROWER_AMOUNT_ERROR,
+        payload
+    }
+}
+
+export function borrowerAmount(id) {
+    return async function (dispatch, getState) {
+        try {
+            dispatch(getBorrowerPayLoading(true))
+            fetch('http://localhost:3000/loans/disburse/loan', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ loanID: id }),
+                method: "POST"
+            })
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json()
+                    } else {
+                        return Promise.reject('something went wrong')
+                    }
+                })
+                .then((data) => {
+                    console.log(data, '========');
+                    dispatch(getBorrowerAmountSuccess(data))
+                })
+                .catch(err => {
+                    dispatch(getBorrowerAmountError(err))
+                })
+                .finally(() => dispatch(getBorrowerAmountLoading(false)))
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+
 export function getBorrowerPayLoading(payload) {
     return {
         type: BORROWER_PAY_LOADING,
@@ -171,61 +225,6 @@ export function borrowerPay(id) {
     }
 }
 
-export function getBorrowerAmountLoading(payload) {
-    return {
-        type: BORROWER_AMOUNT_LOADING,
-        payload
-    }
-}
-
-export function getBorrowerAmountSuccess(payload) {
-    return {
-        type: BORROWER_AMOUNT_SUCCESS,
-        payload
-    }
-}
-
-export function getBorrowerAmountError(payload) {
-    return {
-        type: BORROWER_AMOUNT_ERROR,
-        payload
-    }
-}
-
-export function borrowerAmount(id) {
-    return async function (dispatch, getState) {
-        try {
-            dispatch(getBorrowerPayLoading(true))
-            fetch('http://localhost:3000/loan/disburse', {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'auth_key': '!!!!!!!!!!!!!!!!'
-                },
-                body: JSON.stringify({ IdUser: id }),
-                method: "POST"
-            })
-                .then((res) => {
-                    if (res.ok) {
-                        return res.json()
-                    } else {
-                        return Promise.reject('something went wrong')
-                    }
-                })
-                .then((data) => {
-                    // console.log(data, '========');
-                    dispatch(getBorrowerAmountSuccess(data))
-                })
-                .catch(err => {
-                    dispatch(getBorrowerAmountError(err))
-                })
-                .finally(() => dispatch(getBorrowerAmountLoading(false)))
-        } catch (err) {
-            console.log(err);
-        }
-    }
-}
-
 export function getLenderGetAmountLoading(payload) {
     return {
         type: LANDER_GET_AMOUNT_LOADING,
@@ -247,17 +246,16 @@ export function getLenderGetAmountError(payload) {
     }
 }
 
-export function landerGetAmount(id) {
+export function landerGetAmount(data) {
     return async function (dispatch, getState) {
         try {
             dispatch(getLenderGetAmountLoading(true))
-            fetch('http://localhost:3000/loan/withdrawal', {
+            fetch('http://localhost:3000/loans/disburse/withdrawal', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'auth_key': '!!!!!!!!!!!!!!!!'
                 },
-                body: JSON.stringify({ IdUser: id }),
+                body: JSON.stringify(data),
                 method: "POST"
             })
                 .then((res) => {
@@ -274,7 +272,7 @@ export function landerGetAmount(id) {
                 .catch(err => {
                     dispatch(getLenderGetAmountError(err))
                 })
-                .finally(() => dispatch(getLanderInvestLoading(false)))
+                .finally(() => dispatch(getLenderGetAmountLoading(false)))
         } catch (err) {
             console.log(err);
         }
