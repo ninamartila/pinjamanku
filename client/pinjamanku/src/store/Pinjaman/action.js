@@ -199,7 +199,7 @@ export function borrowerPay(id) {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ loanID: id }),
+                body: JSON.stringify(id),
                 method: "POST"
             })
                 .then((res) => {
@@ -210,7 +210,6 @@ export function borrowerPay(id) {
                     }
                 })
                 .then((data) => {
-                    // console.log(data, '========');
                     dispatch(getBorrowerPaySuccess(data))
                 })
                 .catch(err => {

@@ -1,9 +1,29 @@
+import { message, List } from "antd";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ListItemPinjam, Navbar } from "../../components";
-import log from "../Register/img/log.svg";
+import { fetchLoan } from "../../store/Pinjaman/action";
+import log from "./img/log.svg";
 
 export default function Home() {
   const history = useHistory();
+  const dispatch = useDispatch()
+  const {
+    isLoanLoading,
+    isLoanSuccess,
+    isLoanError,
+  } = useSelector((state) => state.pinjamanku)
+
+  useEffect(() => {
+    dispatch(fetchLoan())
+  }, [])
+
+  useEffect(() => {
+    if (!!isLoanError) {
+      message.error(isLoanError?.message ?? 'something went wrong');
+    }
+  }, [isLoanError])
 
   function register() {
     history.push(`/register`);
@@ -14,15 +34,16 @@ export default function Home() {
       {/* ini navbar */}
       <Navbar />
       {/* ini Akhir navbar */}
-      <section class="hero-container container">
+      <section class="hero-container container mt-4">
         <div className="col-md-4 ps-5">
           <div>
             <h1>Finance Problem?</h1>
 
             {/* <section class="button-container"> */}
-            <button class="btn-puple">Register Now</button>
+
             {/* </section> */}
           </div>
+          <button class="btn-login">Register Now</button>
         </div>
 
         <img src={log} alt="hero" />
@@ -116,7 +137,14 @@ export default function Home() {
         <div className="m-5 text-center">
           <h1>Wanna Lander Now?</h1>
         </div>
-        <ListItemPinjam />
+        <List
+          dataSource={isLoanSuccess.filter(item => item?.status === 'active')}
+          loading={isLoanLoading}
+          renderItem={item => (
+            <ListItemPinjam item={item} />
+          )}
+        >
+        </List>
       </section>
       {/* Lander Section */}
     </div>

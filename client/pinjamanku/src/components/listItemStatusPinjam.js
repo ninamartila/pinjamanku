@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { landerGetAmount } from "../store/Pinjaman/action"
+import { borrowerPay, landerGetAmount } from "../store/Pinjaman/action"
 
 export default function ListItemStatusPinjam(props) {
     const dispatch = useDispatch()
@@ -8,6 +8,11 @@ export default function ListItemStatusPinjam(props) {
     function onCompleted(data) {
         dispatch(landerGetAmount(data))
     }
+
+    function onActive(data) {
+        dispatch(borrowerPay(data))
+    }
+
     return (
         <div className="row justify-content-center">
             <div className="card col-md-12  m-3">
@@ -42,10 +47,14 @@ export default function ListItemStatusPinjam(props) {
                         <div className="col-md-2">
                             <h5>Status :</h5>
                             {
-                                item.status === 'pending' ? <button className="btn btn-warning" onClick={() => onCompleted({ loanID: item?.id, lenderID: item?.lenderID })}>Pending</button>
+                                item.status === 'pending' ? <a className="btn btn-warning" >Pending</a>
                                     : item?.status === 'active' ?
-                                        <button className="btn btn-success">Active</button>
-                                        : <button className="btn btn-danger" onClick={() => onCompleted({ loanID: item?.id, lenderID: item?.lenderID })}>Completed</button>
+                                        <a className="btn btn-success">Active</a>
+                                        : item?.status === 'borrowed' ?
+                                            <button className="btn btn-success" onClick={() => onActive({ loanID: item?.id })}>Borrower</button>
+                                            : item?.status === 'completed' ?
+                                                <button className="btn btn-success" onClick={() => onCompleted({ loanID: item?.id, lenderID: item?.lenderID })}>Completed</button>
+                                                : <a className="btn btn-danger">Withdrawn</a>
                             }
                         </div>
                     </div>
