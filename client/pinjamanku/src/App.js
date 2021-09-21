@@ -2,7 +2,19 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { GuardProvider, GuardedRoute } from "react-router-guards";
 import "./App.css";
-import { DasboardBorower, DetailBorrower, Home, Lender, ListLoan, ListUserBorrower, ListUserLender, ListUserPendingBorrower, Login, Register, TempatMinjam } from "./pages";
+import {
+  DasboardBorower,
+  DetailBorrower,
+  Home,
+  Lender,
+  ListLoan,
+  ListUserBorrower,
+  ListUserLender,
+  ListUserPendingBorrower,
+  Login,
+  Register,
+  TempatMinjam,
+} from "./pages";
 
 import AddLoan from "./pages/Lender/formAddLoan";
 import store from "./store";
@@ -50,6 +62,9 @@ export default function App() {
               </Route>
               <Route path="/admin-dashboard/listLoan">
                 <ListLoan />
+              </Route>
+              <Route path="/lender/add-loan">
+                <AddLoan />
               </Route>
 
               <Route path="/lender">
