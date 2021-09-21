@@ -3,6 +3,7 @@ const request = require("supertest");
 const nodemailer = require("../helpers/NodeMailer");
 const createRoom = require("../helpers/dailyCo");
 const { Lender, Borrower, Staff, sequelize } = require("../models");
+const { generateToken } = require("../helpers/jwt");
 const { queryInterface } = sequelize;
 
 const lenderRegister = {
@@ -48,7 +49,11 @@ const staffRegister = {
   email: "adminjago@protonmail.com",
   password: "adminjago",
 };
+
 let lenderId;
+let borrowerId;
+let lenderToken;
+let borrowerToken;
 
 jest.mock("../helpers/NodeMailer");
 jest.mock("../helpers/dailyCo");
@@ -70,7 +75,15 @@ beforeAll((done) => {
     .then(() => Borrower.create(borrowerNew))
     .then(() => Staff.create(staffNew))
     .then(() => Lender.findOne({ where: { email: lenderNew.email } }))
-    .then((res) => (lenderId = res.id))
+    .then((res) => {
+      lenderId = res.id;
+      lenderToken = generateToken({ id: res.id, email: res.email, role: res.role });
+    })
+    .then(() => Borrower.findOne({ where: { email: borrowerNew.email } }))
+    .then((res) => {
+      borrowerId = res.id;
+      borrowerToken = generateToken({ id: res.id, email: res.email, role: res.role });
+    })
     .then(() => done())
     .catch((err) => done(err));
 });
@@ -102,7 +115,7 @@ describe("POST /users/register [SUCCESS CASE]", () => {
       error: null,
       result: "testing",
     });
-    createRoom.mockReturnValue(true);
+    createRoom.mockReturnValue("aku.com");
     request(app)
       .post("/users/register")
       .send(borrowerRegister)
@@ -111,6 +124,7 @@ describe("POST /users/register [SUCCESS CASE]", () => {
         const { body, status } = res;
         expect(status).toBe(201);
         expect(body).toHaveProperty("dataValues");
+        expect(body).toHaveProperty("dailyURL");
         done();
       });
   });
@@ -420,6 +434,22 @@ describe("POST /users/login [SUCCESS CASE]", () => {
         done();
       });
   });
+  test("200 success login lender", (done) => {
+    request(app)
+      .post("/users/login")
+      .send(borrowerRegister)
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("access_token", expect.any(String));
+        expect(body).toHaveProperty("id", expect.any(Number));
+        expect(body).toHaveProperty("firstName", borrowerRegister.firstName);
+        expect(body).toHaveProperty("lastName", borrowerRegister.lastName);
+        expect(body).toHaveProperty("role", borrowerRegister.role);
+        done();
+      });
+  });
   test("200 success login Staff", (done) => {
     request(app)
       .post("/users/login")
@@ -432,6 +462,73 @@ describe("POST /users/login [SUCCESS CASE]", () => {
         expect(body).toHaveProperty("id", expect.any(Number));
         expect(body).toHaveProperty("name", `${staffRegister.firstName} ${staffRegister.lastName}`);
         expect(body).toHaveProperty("role", "admin");
+        done();
+      });
+  });
+});
+
+describe("POST /users/login [FAIL CASE]", () => {
+  test("400 fail login", (done) => {
+    const newUser = {
+      email: "adminjago@protonmail.com",
+      password: "adangsarbin",
+    };
+    request(app)
+      .post("/users/login")
+      .send(newUser)
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "Email/password invalid");
+        done();
+      });
+  });
+  test("400 fail login", (done) => {
+    const newStaff = {
+      email: "abangjago@protonmail.com",
+      password: "adminjago",
+    };
+    request(app)
+      .post("/users/login")
+      .send(newStaff)
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "Email/password invalid");
+        done();
+      });
+  });
+  test("400 fail login", (done) => {
+    const newLender = {
+      email: "adangsarbin@mail.com",
+      password: "123",
+    };
+    request(app)
+      .post("/users/login")
+      .send(newLender)
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "Email/password invalid");
+        done();
+      });
+  });
+  test("400 fail login", (done) => {
+    const newBorrower = {
+      email: "adangsarden@mail.com",
+      password: "ujangsarden",
+    };
+    request(app)
+      .post("/users/login")
+      .send(newBorrower)
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "Email/password invalid");
         done();
       });
   });
@@ -462,6 +559,101 @@ describe("GET /users/:userId [SUCCESS CASE]", () => {
         const { status, body } = res;
         expect(status).toBe(200);
         expect(body).toHaveProperty("id");
+        done();
+      });
+  });
+});
+
+describe("GET /users/:userId [SUCCESS CASE]", () => {
+  test("200 success get user by id", (done) => {
+    request(app)
+      .get(`/users/${borrowerId}`)
+      .query({ role: "borrower" })
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("id");
+        done();
+      });
+  });
+});
+
+describe("PUT /users [SUCCESS CASE]", () => {
+  const updateUser = {
+    firstName: "Idin",
+    lastName: "Samak",
+    phoneNumber: "01892127",
+    address: "Jonggol",
+    bankCode: "BNI",
+    holderName: "Idin Samak",
+    accountNumber: "91829",
+  };
+  test("200 success update user", (done) => {
+    request(app)
+      .put("/users")
+      .set({ access_token: lenderToken })
+      .send(updateUser)
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("message", "User has been updated");
+        done();
+      });
+  });
+  test("200 success update user", (done) => {
+    request(app)
+      .put("/users")
+      .set({ access_token: borrowerToken })
+      .send(updateUser)
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("message", "User has been updated");
+        done();
+      });
+  });
+});
+
+describe("PUT /users/:userId [SUCCESS CASE]", () => {
+  test("200 success update user by id", (done) => {
+    request(app)
+      .put(`/users/${borrowerId}`)
+      .send({ status: "Verified" })
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("message", "User status has been updated");
+        done();
+      });
+  });
+});
+
+describe("DELETE /users/:userId [SUCCESS CASE]", () => {
+  test("200 success delete user by id", (done) => {
+    request(app)
+      .delete(`/users/${lenderId}`)
+      .query({ role: "lender" })
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("message", `User with id ${lenderId} has been deleted`);
+        done();
+      });
+  });
+  test("200 success delete user by id", (done) => {
+    request(app)
+      .delete(`/users/${borrowerId}`)
+      .query({ role: "borrower" })
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("message", `User with id ${borrowerId} has been deleted`);
         done();
       });
   });

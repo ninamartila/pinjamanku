@@ -1,21 +1,17 @@
-const { User } = require("../models");
+const { Lender, Borrower, Staff } = require("../models");
 
-const authorization = (req, res, next) => {
-  const role = req.user.role;
-  const id = Number(req.params.id);
-
-  User.findByPk(id)
+const isLender = (req, res, next) => {
+  const { id, role } = req.user;
+  Lender.findByPk(id)
     .then((result) => {
       if (result) {
-        if (role === "borrower") {
-          next();
-        } else if (role === "lender") {
+        if (role === "lender") {
           next();
         } else {
-          next({ name: "Unauthorized" });
+          next({ name: "Forbidden" });
         }
       } else {
-        next({ name: "NotFound", type: "User" });
+        next({ name: "NotFound", type: "Lender" });
       }
     })
     .catch((error) => {
@@ -23,4 +19,23 @@ const authorization = (req, res, next) => {
     });
 };
 
-module.exports = { authorization };
+const isBorrower = (req, res, next) => {
+  const { id, role } = req.user;
+  Lender.findByPk(id)
+    .then((result) => {
+      if (result) {
+        if (role === "borrower") {
+          next();
+        } else {
+          next({ name: "Forbidden" });
+        }
+      } else {
+        next({ name: "NotFound", type: "Borrower" });
+      }
+    })
+    .catch((error) => {
+      next(error);
+    });
+};
+
+module.exports = { isLender, isBorrower };

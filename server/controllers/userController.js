@@ -124,7 +124,7 @@ class UserController {
           const createdBorrower = await Borrower.create(newBorrower);
           const { password: passwordStaff, ...toSend } = createdBorrower;
           if (createdBorrower) {
-            res.status(201).json(toSend);
+            res.status(201).json({ ...toSend, dailyURL: checkRoom });
           } else {
             next({
               name: "InvalidRegister",
@@ -182,6 +182,11 @@ class UserController {
         if (borrowerResult) {
           userResult = borrowerResult;
         }
+        if (!userResult) {
+          next({
+            name: "Unauthorized",
+          });
+        }
         const {
           id,
           firstName,
@@ -229,23 +234,9 @@ class UserController {
 
   static async updateUser(req, res, next) {
     try {
-      const { id, userRole } = req.user;
-      const {
-        firstName,
-        lastName,
-        email,
-        password,
-        ktpCard,
-        selfPicture,
-        phoneNumber,
-        address,
-        birthDate,
-        bankCode,
-        holderName,
-        accountNumber,
-        occupation,
-        role,
-      } = req.body;
+      const { id, role } = req.user;
+      const { firstName, lastName, phoneNumber, address, bankCode, holderName, accountNumber } =
+        req.body;
       let updatedUser = {};
       if (firstName !== "" && typeof firstName !== "undefined") {
         updatedUser = {
@@ -253,34 +244,10 @@ class UserController {
           firstName,
         };
       }
-      if (ktpCard !== "" && typeof ktpCard !== "undefined") {
-        updatedUser = {
-          ...updatedUser,
-          ktpCard,
-        };
-      }
-      if (selfPicture !== "" && typeof selfPicture !== "undefined") {
-        updatedUser = {
-          ...updatedUser,
-          selfPicture,
-        };
-      }
       if (lastName !== "" && typeof lastName !== "undefined") {
         updatedUser = {
           ...updatedUser,
           lastName,
-        };
-      }
-      if (email !== "" && typeof email !== "undefined") {
-        updatedUser = {
-          ...updatedUser,
-          email,
-        };
-      }
-      if (password !== "" && typeof password !== "undefined") {
-        updatedUser = {
-          ...updatedUser,
-          password,
         };
       }
       if (phoneNumber !== "" && typeof phoneNumber !== "undefined") {
@@ -293,12 +260,6 @@ class UserController {
         updatedUser = {
           ...updatedUser,
           address,
-        };
-      }
-      if (birthDate !== "" && typeof birthDate !== "undefined") {
-        updatedUser = {
-          ...updatedUser,
-          birthDate,
         };
       }
       if (bankCode !== "" && typeof bankCode !== "undefined") {
@@ -319,26 +280,14 @@ class UserController {
           accountNumber,
         };
       }
-      if (occupation !== "" && typeof occupation !== "undefined") {
-        updatedUser = {
-          ...updatedUser,
-          occupation,
-        };
-      }
-      if (role !== "" && typeof role !== "undefined") {
-        updatedUser = {
-          ...updatedUser,
-          role,
-        };
-      }
-      if (userRole === "lender") {
+      if (role === "lender") {
         const result = await Lender.update(updatedUser, { where: { id } });
-        res.status(200).json(result);
+        res.status(200).json({ message: "User has been updated" });
       }
 
-      if (userRole === "borrower") {
+      if (role === "borrower") {
         const result = await Borrower.update(updatedUser, { where: { id } });
-        res.status(200).json(result);
+        res.status(200).json({ message: "User has been updated" });
       }
     } catch (error) {
       next(error);
@@ -346,30 +295,30 @@ class UserController {
   }
 
   static async updateUserStatus(req, res, next) {
-    const { userId } = req.params;
-    const { status } = req.body;
     try {
+      const { userId } = req.params;
+      const { status } = req.body;
       const userStatus = {
         status,
       };
       const result = await Borrower.update(userStatus, { where: { id: userId } });
-      res.status(200).json(result);
+      res.status(200).json({ message: "User status has been updated" });
     } catch (error) {
       next(error);
     }
   }
 
   static async deleteUser(req, res, next) {
-    const { userId } = req.params;
-    const { role } = req.query;
     try {
+      const { userId } = req.params;
+      const { role } = req.query;
       if (role === "lender") {
         const result = await Lender.destroy({ where: { id: userId } });
-        res.status(200).json({ message: `Lender with id ${userId} has been deleted` });
+        res.status(200).json({ message: `User with id ${userId} has been deleted` });
       }
       if (role === "borrower") {
         const result = await Borrower.destroy({ where: { id: userId } });
-        res.status(200).json({ message: `Lender with id ${userId} has been deleted` });
+        res.status(200).json({ message: `User with id ${userId} has been deleted` });
       }
     } catch (error) {
       next(error);

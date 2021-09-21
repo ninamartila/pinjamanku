@@ -1,7 +1,6 @@
 const nodeMailer = require("nodemailer");
 
 async function sendMail(roomLink, email) {
-  console.log("abc");
   let userMail = email;
   let transporter = nodeMailer.createTransport({
     service: "gmail",
