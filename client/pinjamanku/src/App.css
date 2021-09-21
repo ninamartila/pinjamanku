@@ -1,38 +1,122 @@
-.App {
-  text-align: center;
+header {
+  position: absolute;
+  z-index: 10;
+  width: 100vw;
+}
+.bg-light {
+  background-color: transparent !important;
+}
+.navbar-brand {
+  font-size: 2em;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.nav-item {
+  font-weight: 500;
+  text-transform: uppercase;
+  border-radius: 30px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.nav-item .nav-link:hover {
+  background-color: black;
+  color: white !important;
 }
 
-.App-header {
-  background-color: #282c34;
+.active {
+  background-color: black;
+  color: white !important;
+}
+.hero {
+  position: relative;
+  width: 100%;
+  background: url(https://images.unsplash.com/photo-1491317079341-38313806b657?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-size: cover;
+  background-position: center;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+.hero h1 {
+  font-size: 70px;
+  font-weight: 800;
+  margin: 0;
+  padding: 0;
+}
+.hero p {
+  padding: 0;
+  margin: 1em 0 0 0;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: justify;
+}
+.hero-borrower {
+  position: relative;
+  width: 100%;
+  background: url(https://images.unsplash.com/photo-1489844097929-c8d5b91c456e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1052&q=80);
+  min-height: 40vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.btn1 {
+  display: inline-block;
+  margin: 1em 0 0 0;
+  background-color: black;
+  color: #ffffff;
+  text-transform: uppercase;
+  border: none;
+  text-decoration: none;
+  font-weight: 800;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: 2px solid black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn1:hover {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  text-decoration: none;
+}
+.login {
+  position: relative;
+  width: 100%;
+  background: url(https://images.unsplash.com/photo-1626846563711-f2d01a141b77?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80);
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.login-card {
+  border-radius: 30px !important;
+  background-color: rgb(161, 161, 161);
+}
+
+.register {
+  position: relative;
+  width: 100%;
+  background: url(https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80);
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.register-card {
+  border-radius: 30px !important;
+  background-color: darkgrey;
+}
+
+#components-layout-demo-responsive .logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.site-layout-sub-header-background {
+  background: #fff;
+}
+
+.site-layout-background {
+  background: #fff;
 }
