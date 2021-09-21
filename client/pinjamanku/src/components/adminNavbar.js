@@ -9,16 +9,16 @@ export default function AdminNavbar() {
     const { pathname } = useLocation()
     let menuKey;
     switch (pathname) {
-        case '/listUserBorrower':
+        case '/admin-dashboard/borrower':
             menuKey = "1"
             break;
-        case '/listUserLender':
+        case '/admin-dashboard/lender':
             menuKey = "2"
             break;
-        case '/listUserPendingBorrower':
+        case '/admin-dashboard/pendingborrower':
             menuKey = "3"
             break;
-        case '/listLoan':
+        case '/admin-dashboard/listLoan':
             menuKey = "4"
             break;
         default:
@@ -44,16 +44,16 @@ export default function AdminNavbar() {
             </div>
             <Menu theme="dark" mode="inline" defaultSelectedKeys={[menuKey]}>
                 <Menu.Item key="1" >
-                    <Link to='/listUserBorrower'>List Borrower</Link>
+                    <Link to='/admin-dashboard/borrower'>List Borrower</Link>
                 </Menu.Item>
                 <Menu.Item key="2" >
-                    <Link to='/listUserLender'>List Lender</Link>
+                    <Link to='/admin-dashboard/lender'>List Lender</Link>
                 </Menu.Item>
                 <Menu.Item key="3" >
-                    <Link to='/listUserPendingBorrower'>List Panding Borrower</Link>
+                    <Link to='/admin-dashboard/pendingborrower'>List Panding Borrower</Link>
                 </Menu.Item>
                 <Menu.Item key="4" >
-                    <Link to='/listLoan'>List Loan</Link>
+                    <Link to='/admin-dashboard/listLoan'>List Loan</Link>
                 </Menu.Item>
             </Menu>
         </Sider>
