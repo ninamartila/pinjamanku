@@ -9,17 +9,17 @@ export default function App() {
       <Provider store={store}>
         <BrowserRouter>
           <Switch>
-            <Route path="/listUser">
+            <Route path="/admin-dashboard/listUser">
               <ListUser />
             </Route>
-            <Route path="/listUserStatus">
+            <Route path="/admin-dashboard/listUserStatus">
               <ListUserStatus />
             </Route>
-            <Route path="/listLoan">
+            <Route path="/admin-dashboard/listLoan">
               <ListLoan />
             </Route>
             {/* Nanti di tambah ID landernya */}
-            <Route path="/lander">
+            <Route path="/lender">
               <Lander />
             </Route>
             {/* Nanti di tambah ID borowernya */}
@@ -36,7 +36,7 @@ export default function App() {
             <Route path="/login">
               <Login />
             </Route>
-            <Route path="/">
+            <Route exact path="/">
               <Home />
             </Route>
           </Switch>
