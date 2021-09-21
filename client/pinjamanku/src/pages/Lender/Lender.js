@@ -3,7 +3,7 @@ import { List, PageHeader, Button, Statistic, Descriptions } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ListItemStatusPinjam, Navbar } from "../../components";
-import { fetchLoan } from "../../store/Pinjaman/action";
+import { fetchLoanLender } from "../../store/Pinjaman/action";
 import LenderAmountModal from "./LenderAmountModal";
 import BorrowerPayModal from "../Borrower/borrowerPayModal";
 
@@ -14,9 +14,9 @@ export default function Lender() {
   const [showModalVisible, setShowModalVisible] = useState(false)
   const [showModalPayVisible, setShowModalPayVisible] = useState(false)
   const {
-    isLoanLoading,
-    isLoanSuccess,
-    isLoanError,
+    isLoanLenderLoading,
+    isLoanLenderSuccess,
+    isLoanLenderError,
     isLanderGetAmountLoading,
     isLanderGetAmountSuccess,
     isLanderGetAmountError,
@@ -53,14 +53,14 @@ export default function Lender() {
   }, [isLanderGetAmountError]);
 
   useEffect(() => {
-    dispatch(fetchLoan());
+    dispatch(fetchLoanLender());
   }, []);
 
   useEffect(() => {
-    if (!!isLoanError) {
-      message.error(isLoanError?.message ?? "something went wrong on User");
+    if (!!isLoanLenderError) {
+      message.error(isLoanLenderError?.message ?? "something went wrong on User");
     }
-  }, [isLoanError]);
+  }, [isLoanLenderError]);
 
   const renderContent = (column = 2) => (
     <Descriptions size="small" column={column}></Descriptions>
@@ -99,10 +99,10 @@ export default function Lender() {
               <h4>Pinjaman Panding :</h4>
             </div>
             <List
-              dataSource={isLoanSuccess.filter(
+              dataSource={isLoanLenderSuccess.filter(
                 (item) => item?.status === "pending"
               )}
-              loading={isLoanLoading}
+              loading={isLoanLenderLoading}
               renderItem={(item) => <ListItemStatusPinjam item={item} />}
             ></List>
           </section>
@@ -110,17 +110,17 @@ export default function Lender() {
         <TabPane tab="List Sedang Dipinjam" key="2">
           <section className="container">
             <div className="m-3">
-              <h4>Pinjaman Active :</h4>
+              <h4>Pinjaman Yang Sedang Dipinjam :</h4>
             </div>
             <List
-              dataSource={isLoanSuccess.filter(
-                (item) => item?.status === "active"
+              dataSource={isLoanLenderSuccess.filter(
+                (item) => item?.status === "deadline"
               )}
             >
             </List>
             <List
-              dataSource={isLoanSuccess.filter(item => item?.status === 'borrowed')}
-              loading={isLoanLoading}
+              dataSource={isLoanLenderSuccess.filter(item => item?.status === 'borrowed')}
+              loading={isLoanLenderLoading}
               renderItem={item => (
                 <ListItemStatusPinjam item={item} />
               )}
@@ -128,20 +128,33 @@ export default function Lender() {
             </List>
           </section>
         </TabPane>
-        <TabPane tab="List Pinjaman Selesai" key="3">
+        <TabPane tab="List Pinjaman Active" key="3">
+          <section className="container">
+            <div className="m-3">
+              <h4>Pinjaman Active:</h4>
+            </div>
+            <List
+              dataSource={isLoanLenderSuccess.filter(
+                (item) => item?.status === "active"
+              )}
+            >
+            </List>
+          </section>
+        </TabPane>
+        <TabPane tab="List Pinjaman Selesai" key="4">
           <section className="container">
             <div className="m-3">
               <h4>Pinjaman Selesai :</h4>
             </div>
             <List
-              dataSource={isLoanSuccess.filter(
+              dataSource={isLoanLenderSuccess.filter(
                 (item) => item?.status === "completed"
               )}
             >
             </List>
             <List
-              dataSource={isLoanSuccess.filter(item => item?.status === 'withdrawn')}
-              loading={isLoanLoading}
+              dataSource={isLoanLenderSuccess.filter(item => item?.status === 'withdrawn')}
+              loading={isLoanLenderLoading}
               renderItem={item => (
                 <ListItemStatusPinjam item={item} />
               )}

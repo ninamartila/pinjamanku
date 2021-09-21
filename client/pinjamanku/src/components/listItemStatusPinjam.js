@@ -24,7 +24,7 @@ export default function ListItemStatusPinjam(props) {
                         </div>
                         <div className="col-md-2">
                             <h5>Bunga :</h5>
-                            <p>8%</p>
+                            <p>7%</p>
                         </div>
                     </div>
                     <div className="row justify-content-between">
@@ -32,11 +32,17 @@ export default function ListItemStatusPinjam(props) {
                             <h5>Cicilan Selama :</h5>
                             <p>{item?.tenor}-bulan</p>
                         </div>
-
-                        <div className="col-md-2">
-                            <h5>Deadline :</h5>
-                            <p>21-09-2021</p>
-                        </div>
+                        {
+                            item?.Lender?.role === 'lender' ?
+                                (<div className="col-md-2">
+                                    <h5>Sedang Dipinjam:</h5>
+                                    <p>{item?.tenor * 30} Hari</p>
+                                </div>) :
+                                (<div className="col-md-2">
+                                    <h5>Deadline :</h5>
+                                    <p>21-09-2021</p>
+                                </div>)
+                        }
                     </div>
                     <div className="row justify-content-between">
                         <div className="col-md-4">
@@ -51,13 +57,25 @@ export default function ListItemStatusPinjam(props) {
                                     : item?.status === 'active' ?
                                         <a className="btn btn-success">Active</a>
                                         : item?.status === 'borrowed' ?
-                                            <button className="btn btn-success" onClick={() => onActive({ loanID: item?.id })}>Borrower</button>
+                                            <a className="btn btn-success" >Borrower</a>
                                             : item?.status === 'completed' ?
-                                                <button className="btn btn-success" onClick={() => onCompleted({ loanID: item?.id, lenderID: item?.lenderID })}>Completed</button>
+                                                <a className="btn btn-success">Completed</a>
                                                 : <a className="btn btn-danger">Withdrawn</a>
                             }
                         </div>
                     </div>
+                    {
+                        item?.status === 'completed' && item?.role === 'lender' ?
+                            (<div className="row justify-content-between">
+                                <button className="btn btn-primary" onClick={() => onActive({ loanID: item?.id })}>Tarik Tunai</button>
+                            </div>) : null
+                    }
+                    {
+                        item?.status === 'borrowed' && item?.role === 'borrowed' ?
+                            (<div className="row justify-content-between">
+                                <button className="btn btn-primary" onClick={() => onCompleted({ loanID: item?.id, lenderID: item?.lenderID })}>Bayar Sekarang</button>
+                            </div>) : null
+                    }
                 </div>
             </div>
         </div>

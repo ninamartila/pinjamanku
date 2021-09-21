@@ -1,7 +1,10 @@
 import {
-    ALL_LOAN_LOADING,
-    ALL_LOAN_SUCCESS,
-    ALL_LOAN_ERROR,
+    LOAN_LENDER_LOADING,
+    LOAN_LENDER_SUCCESS,
+    LOAN_LENDER_ERROR,
+    LOAN_BORROWER_LOADING,
+    LOAN_BORROWER_SUCCESS,
+    LOAN_BORROWER_ERROR,
     BORROWER_PAY_LOADING,
     BORROWER_PAY_SUCCESS,
     BORROWER_PAY_ERROR,
@@ -17,9 +20,12 @@ import {
 } from './actionType'
 
 const initialState = {
-    isLoanLoading: false,
-    isLoanSuccess: [],
-    isLoanError: null,
+    isLoanLenderLoading: false,
+    isLoanLenderSuccess: [],
+    isLoanLenderError: null,
+    isLoanBorrowerLoading: false,
+    isLoanBorrowerSuccess: [],
+    isLoanBorrowerError: null,
     isBorrowerPayLoading: false,
     isBorrowerPaySuccess: null,
     isBorrowerPayError: null,
@@ -36,23 +42,41 @@ const initialState = {
 
 function pinjamanReducer(state = initialState, action) {
     switch (action.type) {
-        case ALL_LOAN_LOADING:
+        case LOAN_LENDER_LOADING:
             return {
                 ...state,
-                isLoanLoading: action.payload
+                isLoanLenderLoading: action.payload
             }
 
-        case ALL_LOAN_SUCCESS:
+        case LOAN_LENDER_SUCCESS:
             // console.log(action.payload, 'mana');
             return {
                 ...state,
-                isLoanSuccess: action.payload
+                isLoanLenderSuccess: action.payload
             }
 
-        case ALL_LOAN_ERROR:
+        case LOAN_LENDER_ERROR:
             return {
                 ...state,
-                isLoanError: action.payload
+                isLoanBorrowerError: action.payload
+            }
+        case LOAN_BORROWER_LOADING:
+            return {
+                ...state,
+                isLoanBorrowerLoading: action.payload
+            }
+
+        case LOAN_BORROWER_SUCCESS:
+            // console.log(action.payload, 'mana');
+            return {
+                ...state,
+                isLoanBorrowerSuccess: action.payload
+            }
+
+        case LOAN_BORROWER_ERROR:
+            return {
+                ...state,
+                isLanderGetAmountLoading: action.payload
             }
         case BORROWER_PAY_LOADING:
             return {
@@ -61,7 +85,6 @@ function pinjamanReducer(state = initialState, action) {
             }
 
         case BORROWER_PAY_SUCCESS:
-            console.log('testing', { action })
             return {
                 ...state,
                 isBorrowerPaySuccess: action.payload

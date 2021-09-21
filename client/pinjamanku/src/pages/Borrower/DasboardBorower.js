@@ -2,7 +2,7 @@ import { message, Tabs, List } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ListItemStatusPinjam, Navbar } from "../../components";
-import { fetchLoan } from "../../store/Pinjaman/action";
+import { fetchLoanBorrower } from "../../store/Pinjaman/action";
 import BorrowerPayModal from "./borrowerPayModal";
 
 const { TabPane } = Tabs;
@@ -11,16 +11,15 @@ export default function DasboardBorower() {
   const dispatch = useDispatch()
   const [showModalPayVisible, setShowModalPayVisible] = useState(false)
   const {
-    isLoanLoading,
-    isLoanSuccess,
-    isLoanError,
+    isLoanBorrowerLoading,
+    isLoanBorrowerSuccess,
+    isLoanBorrowerError,
     isBorrowerPayLoading,
     isBorrowerPaySuccess,
     isBorrowerPayError
   } = useSelector((state) => state.pinjamanku)
 
   useEffect(() => {
-    // console.log({ isBorrowerPaySuccess })
     if (typeof isBorrowerPaySuccess?.invoiceURL === 'string') {
       setShowModalPayVisible(true)
     }
@@ -33,14 +32,14 @@ export default function DasboardBorower() {
   }, [isBorrowerPayError])
 
   useEffect(() => {
-    dispatch(fetchLoan());
+    dispatch(fetchLoanBorrower());
   }, []);
 
   useEffect(() => {
-    if (!!isLoanError) {
-      message.error(isLoanError?.message ?? "something went wrong");
+    if (!!isLoanBorrowerError) {
+      message.error(isLoanBorrowerError?.message ?? "something went wrong on User");
     }
-  }, [isLoanError]);
+  }, [isLoanBorrowerError]);
 
   return (
     <div>
@@ -69,34 +68,21 @@ export default function DasboardBorower() {
         </div>
       </div>
       <Tabs defaultActiveKey="1" style={{ paddingLeft: 10 }}>
-        <TabPane tab="List Pinjaman Pending" key="1">
+        <TabPane tab="List Pinjaman" key="1">
           <section className="container">
             <div className="m-3">
-              <h4>Pinjaman Panding :</h4>
+              <h4>Pinjaman :</h4>
             </div>
             <List
-              dataSource={isLoanSuccess.filter(
-                (item) => item?.status === "pending"
+              dataSource={isLoanBorrowerSuccess.filter(
+                (item) => item?.status === "borrowed"
               )}
-              loading={isLoanLoading}
+              loading={isLoanBorrowerLoading}
               renderItem={(item) => <ListItemStatusPinjam item={item} />}
             ></List>
-          </section>
-        </TabPane>
-        <TabPane tab="List Sedang Dipinjam" key="2">
-          <section className="container">
-            <div className="m-3">
-              <h4>Pinjaman Active :</h4>
-            </div>
             <List
-              dataSource={isLoanSuccess.filter(
-                (item) => item?.status === "active"
-              )}
-            >
-            </List>
-            <List
-              dataSource={isLoanSuccess.filter(item => item?.status === 'borrowed')}
-              loading={isLoanLoading}
+              dataSource={isLoanBorrowerSuccess.filter(item => item?.status === 'deadline')}
+              loading={isLoanBorrowerLoading}
               renderItem={item => (
                 <ListItemStatusPinjam item={item} />
               )}
@@ -110,8 +96,8 @@ export default function DasboardBorower() {
               <h4>Pinjaman Selesai :</h4>
             </div>
             <List
-              dataSource={isLoanSuccess.filter(item => item?.status === 'withdrawn')}
-              loading={isLoanLoading}
+              dataSource={isLoanBorrowerSuccess.filter(item => item?.status === 'completed')}
+              loading={isLoanBorrowerLoading}
               renderItem={item => (
                 <ListItemStatusPinjam item={item} />
               )}

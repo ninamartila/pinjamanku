@@ -26,8 +26,8 @@ export default function ListUserPendingBorrower() {
         }
     }, [isUserUpdateError])
 
-    function onClick(userId) {
-        dispatch(fetchUserUpdate(userId, 'Verified'))
+    function onClick(userId, data) {
+        dispatch(fetchUserUpdate(userId, data))
     }
 
     useEffect(() => {
@@ -42,25 +42,33 @@ export default function ListUserPendingBorrower() {
             <AdminNavbar />
             <Layout>
                 <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
-                <Content style={{ marginTop: 64 }}>
+                <Content >
                     <div className="site-layout-background" style={{ padding: 24, minHeight: 360, height: '100%' }}>
                         <div className="demo-infinite-container">
                             <List
-                                dataSource={isUserSuccess?.borrower?.filter(item => item?.status === 'Verified')}
+                                dataSource={isUserSuccess?.borrower?.filter(item => item?.status === 'Unverified')}
                                 loading={isUserLoading}
                                 renderItem={item => (
-                                    <List.Item key={item.id} onClick={() => onClick(item?.id)}>
+                                    <List.Item key={item.id}>
                                         <List.Item.Meta
                                             avatar={
                                                 <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                                             }
-                                            title={<a href="https://ant.design">{item?.firstName} {item?.lastName}</a>}
+                                            title={<p>{item?.firstName} {item?.lastName}</p>}
                                             description={item?.email}
                                         />
                                         <Button
                                             type="primary"
+                                            style={{ marginRight: 20 }}
+                                            onClick={() => onClick(item?.id, 'Verified')}
                                         >
                                             Verified
+                                        </Button>
+                                        <Button
+                                            type="danger"
+                                            onClick={() => onClick(item?.id, 'Rejected')}
+                                        >
+                                            Reject
                                         </Button>
                                     </List.Item>
                                 )}

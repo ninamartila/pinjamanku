@@ -1,6 +1,5 @@
 import Modal from 'antd/lib/modal/Modal'
 import React from 'react'
-import Iframe from 'react-iframe'
 
 const LenderAmountModal = (props) => {
     const { isModalVisible, handleOk, handleCancel, data } = props

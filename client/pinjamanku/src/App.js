@@ -13,7 +13,6 @@ import {
   ListUserPendingBorrower,
   Login,
   Register,
-  TempatMinjam,
 } from "./pages";
 
 import AddLoan from "./pages/Lender/formAddLoan";
@@ -72,15 +71,9 @@ export default function App() {
               <Route path="/lender/add-loan">
                 <AddLoan />
               </Route>
-
               <Route path="/lender">
                 <Lender />
               </Route>
-
-              <Route path="/pendana/tempat-minjam">
-                <TempatMinjam />
-              </Route>
-
               <Route path="/pendana">
                 <DasboardBorower />
               </Route>
@@ -96,7 +89,6 @@ export default function App() {
                 component={Login}
                 meta={{ auth: true }}
               />
-
               <GuardedRoute path="/" exact component={Home} />
             </Switch>
           </GuardProvider>

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ListItemPinjam, Navbar } from "../../components";
-import { fetchLoan } from "../../store/Pinjaman/action";
+import { fetchLoanBorrower } from "../../store/Pinjaman/action";
 import log from "./img/log.svg";
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
   } = useSelector((state) => state.pinjamanku)
 
   useEffect(() => {
-    dispatch(fetchLoan())
+    dispatch(fetchLoanBorrower())
   }, [])
 
   useEffect(() => {
