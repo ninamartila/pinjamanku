@@ -4,12 +4,19 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ListItemPinjam, Navbar } from "../../components";
 import { fetchLoan } from "../../store/Pinjaman/action";
-import BorrowerPayModal from "./borrowerPayModal";
+import BorrowerLoanModal from "./borrowerLoanModal";
 
 export default function TempatMinjam() {
   const dispatch = useDispatch()
   const [showModalVisible, setShowModalVisible] = useState(false)
-  const { isLoanLoading, isLoanSuccess, isLoanError, isBorrowerAmountLoading, isBorrowerAmountSuccess, isBorrowerAmountError } = useSelector((state) => state.pinjamanku)
+  const {
+    isLoanLoading,
+    isLoanSuccess,
+    isLoanError,
+    isBorrowerAmountLoading,
+    isBorrowerAmountSuccess,
+    isBorrowerAmountError,
+  } = useSelector((state) => state.pinjamanku)
 
   useEffect(() => {
     if (isBorrowerAmountSuccess && showModalVisible === false) {
@@ -57,7 +64,7 @@ export default function TempatMinjam() {
           <h1>Silahkan Pilih Sesuka hati anda</h1>
         </div>
         <List
-          dataSource={isLoanSuccess.filter(item => item?.status === 'pending')}
+          dataSource={isLoanSuccess.filter(item => item?.status === 'active')}
           loading={isLoanLoading}
           renderItem={item => (
             <ListItemPinjam item={item} />
@@ -65,7 +72,7 @@ export default function TempatMinjam() {
         >
         </List>
       </section>
-      <BorrowerPayModal isModalVisible={showModalVisible} data={isBorrowerAmountSuccess} handleCancel={() => {
+      <BorrowerLoanModal isModalVisible={showModalVisible} data={isBorrowerAmountSuccess} handleCancel={() => {
         setShowModalVisible(false)
       }} handleOk={() => {
         setShowModalVisible(false)

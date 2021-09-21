@@ -42,8 +42,14 @@ export default function App() {
               <Route path="/admin-dashboard/borrowerDetail/:userId">
                 <DetailBorrower />
               </Route>
+              <Route path="/admin-dashboard/borrower">
+                <ListUserBorrower />
+              </Route>
               <Route path="/admin-dashboard/lender">
                 <ListUserLender />
+              </Route>
+              <Route path="/lederform">
+                <AddLoan />
               </Route>
               <Route path="/admin-dashboard/pendingborrower">
                 <ListUserPendingBorrower />

@@ -5,13 +5,38 @@ import { useDispatch, useSelector } from "react-redux";
 import { ListItemStatusPinjam, Navbar } from "../../components";
 import { fetchLoan } from "../../store/Pinjaman/action";
 import LenderAmountModal from "./LenderAmountModal";
+import BorrowerPayModal from "../Borrower/borrowerPayModal";
 
 const { TabPane } = Tabs;
 
 export default function Lender() {
   const dispatch = useDispatch()
   const [showModalVisible, setShowModalVisible] = useState(false)
-  const { isLoanLoading, isLoanSuccess, isLoanError, isLanderGetAmountLoading, isLanderGetAmountSuccess, isLanderGetAmountError } = useSelector((state) => state.pinjamanku)
+  const [showModalPayVisible, setShowModalPayVisible] = useState(false)
+  const {
+    isLoanLoading,
+    isLoanSuccess,
+    isLoanError,
+    isLanderGetAmountLoading,
+    isLanderGetAmountSuccess,
+    isLanderGetAmountError,
+    isBorrowerPayLoading,
+    isBorrowerPaySuccess,
+    isBorrowerPayError
+  } = useSelector((state) => state.pinjamanku)
+
+  useEffect(() => {
+    // console.log({ isBorrowerPaySuccess })
+    if (typeof isBorrowerPaySuccess?.invoiceURL === 'string') {
+      setShowModalPayVisible(true)
+    }
+  }, [isBorrowerPaySuccess])
+
+  useEffect(() => {
+    if (!!isBorrowerPayError) {
+      message.error(isBorrowerPayError?.message ?? 'something went wrong');
+    }
+  }, [isBorrowerPayError])
 
   useEffect(() => {
     if (isLanderGetAmountSuccess && showModalVisible === false) {
@@ -54,7 +79,7 @@ export default function Lender() {
         </div>
       </section>
       <Tabs defaultActiveKey="1" style={{ paddingLeft: 10 }}>
-        <TabPane tab="List Peminjaman Pending" key="1">
+        <TabPane tab="List Pinjaman Pending" key="1">
           <section className="container">
             <div className="m-3">
               <h4>Pinjaman Panding :</h4>
@@ -69,7 +94,7 @@ export default function Lender() {
             </List>
           </section>
         </TabPane>
-        <TabPane tab="List Pinjaman Active" key="2">
+        <TabPane tab="List Sedang Dipinjam" key="2">
           <section className="container">
             <div className="m-3">
               <h4>Pinjaman Active :</h4>
@@ -82,15 +107,31 @@ export default function Lender() {
               )}
             >
             </List>
+            <List
+              dataSource={isLoanSuccess.filter(item => item?.status === 'borrowed')}
+              loading={isLoanLoading}
+              renderItem={item => (
+                <ListItemStatusPinjam item={item} />
+              )}
+            >
+            </List>
           </section>
         </TabPane>
-        <TabPane tab="List Pinjaman Completed" key="3">
+        <TabPane tab="List Pinjaman Selesai" key="3">
           <section className="container">
             <div className="m-3">
               <h4>Pinjaman Selesai :</h4>
             </div>
             <List
               dataSource={isLoanSuccess.filter(item => item?.status === 'completed')}
+              loading={isLoanLoading}
+              renderItem={item => (
+                <ListItemStatusPinjam item={item} />
+              )}
+            >
+            </List>
+            <List
+              dataSource={isLoanSuccess.filter(item => item?.status === 'withdrawn')}
               loading={isLoanLoading}
               renderItem={item => (
                 <ListItemStatusPinjam item={item} />
@@ -104,6 +145,11 @@ export default function Lender() {
         setShowModalVisible(false)
       }} handleOk={() => {
         setShowModalVisible(false)
+      }} />
+      <BorrowerPayModal isModalVisible={showModalPayVisible} invoiceURL={isBorrowerPaySuccess?.invoiceURL} handleCancel={() => {
+        setShowModalPayVisible(false)
+      }} handleOk={() => {
+        setShowModalPayVisible(false)
       }} />
     </div>
   );

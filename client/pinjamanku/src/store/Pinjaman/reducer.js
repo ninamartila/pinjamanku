@@ -21,7 +21,7 @@ const initialState = {
     isLoanSuccess: [],
     isLoanError: null,
     isBorrowerPayLoading: false,
-    isBorrowerPaySuccess: [],
+    isBorrowerPaySuccess: null,
     isBorrowerPayError: null,
     isLanderInvestLoading: false,
     isLanderInvestSuccess: [],
@@ -61,7 +61,7 @@ function pinjamanReducer(state = initialState, action) {
             }
 
         case BORROWER_PAY_SUCCESS:
-            // console.log(action.payload, 'mana');
+            console.log('testing', { action })
             return {
                 ...state,
                 isBorrowerPaySuccess: action.payload

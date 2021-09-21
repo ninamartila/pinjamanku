@@ -1,14 +1,36 @@
 import { message, Tabs, List } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ListItemStatusPinjam, Navbar } from "../../components";
 import { fetchLoan } from "../../store/Pinjaman/action";
+import BorrowerPayModal from "./borrowerPayModal";
 
 const { TabPane } = Tabs;
 
 export default function DasboardBorower() {
   const dispatch = useDispatch()
-  const { isLoanLoading, isLoanSuccess, isLoanError } = useSelector((state) => state.pinjamanku)
+  const [showModalPayVisible, setShowModalPayVisible] = useState(false)
+  const {
+    isLoanLoading,
+    isLoanSuccess,
+    isLoanError,
+    isBorrowerPayLoading,
+    isBorrowerPaySuccess,
+    isBorrowerPayError
+  } = useSelector((state) => state.pinjamanku)
+
+  useEffect(() => {
+    // console.log({ isBorrowerPaySuccess })
+    if (typeof isBorrowerPaySuccess?.invoiceURL === 'string') {
+      setShowModalPayVisible(true)
+    }
+  }, [isBorrowerPaySuccess])
+
+  useEffect(() => {
+    if (!!isBorrowerPayError) {
+      message.error(isBorrowerPayError?.message ?? 'something went wrong');
+    }
+  }, [isBorrowerPayError])
 
   useEffect(() => {
     dispatch(fetchLoan())
@@ -39,7 +61,7 @@ export default function DasboardBorower() {
         </div>
       </section>
       <Tabs defaultActiveKey="1" style={{ paddingLeft: 10 }}>
-        <TabPane tab="List Peminjaman Pending" key="1">
+        <TabPane tab="List Pinjaman Pending" key="1">
           <section className="container">
             <div className="m-3">
               <h4>Pinjaman Panding :</h4>
@@ -54,7 +76,7 @@ export default function DasboardBorower() {
             </List>
           </section>
         </TabPane>
-        <TabPane tab="List Pinjaman Active" key="2">
+        <TabPane tab="List Sedang Dipinjam" key="2">
           <section className="container">
             <div className="m-3">
               <h4>Pinjaman Active :</h4>
@@ -67,9 +89,17 @@ export default function DasboardBorower() {
               )}
             >
             </List>
+            <List
+              dataSource={isLoanSuccess.filter(item => item?.status === 'borrowed')}
+              loading={isLoanLoading}
+              renderItem={item => (
+                <ListItemStatusPinjam item={item} />
+              )}
+            >
+            </List>
           </section>
         </TabPane>
-        <TabPane tab="List Pinjaman Completed" key="3">
+        <TabPane tab="List Pinjaman Selesai" key="3">
           <section className="container">
             <div className="m-3">
               <h4>Pinjaman Selesai :</h4>
@@ -82,9 +112,22 @@ export default function DasboardBorower() {
               )}
             >
             </List>
+            <List
+              dataSource={isLoanSuccess.filter(item => item?.status === 'withdrawn')}
+              loading={isLoanLoading}
+              renderItem={item => (
+                <ListItemStatusPinjam item={item} />
+              )}
+            >
+            </List>
           </section>
         </TabPane>
       </Tabs>
+      <BorrowerPayModal isModalVisible={showModalPayVisible} invoiceURL={isBorrowerPaySuccess?.invoiceURL} handleCancel={() => {
+        setShowModalPayVisible(false)
+      }} handleOk={() => {
+        setShowModalPayVisible(false)
+      }} />
     </div>
   );
 }
