@@ -11,34 +11,34 @@ export default function App() {
       <Provider store={store}>
         <BrowserRouter>
           <Switch>
-            <Route path="/listUserBorrower">
+            <Route path="/admin-dashboard/borrower">
               <ListUserBorrower />
             </Route>
-            <Route path="/borrowerDetail/:userId">
+            <Route path="/admin-dashboard/borrowerDetail/:userId">
               <DetailBorrower />
             </Route>
-            <Route path="/listUserLender">
+            <Route path="/admin-dashboard/lender">
               <ListUserLender />
             </Route>
-            <Route path="/listUserPendingBorrower">
+            <Route path="/admin-dashboard/pendingborrower">
               <ListUserPendingBorrower />
             </Route>
-            <Route path="/listLoan">
+            <Route path="/admin-dashboard/listLoan">
               <ListLoan />
             </Route>
             {/* Nanti di tambah ID landernya */}
-            <Route path="/lander">
+            <Route path="/lender/dashboard">
               <Lander />
             </Route>
-            <Route path="/addLoan">
+            <Route path="/lender/invest">
               <AddLoan />
             </Route>
-            {/* Nanti di tambah ID borowernya */}
-            <Route path="/pendana/tempat-minjam">
+            {/* Nanti di tambah ID borowernya. ini dijadiin home aja */}
+            <Route path="/pendana/availableloans">
               <TempatMinjam />
             </Route>
             {/* Nanti di tambah ID borowernya */}
-            <Route exact path="/pendana">
+            <Route exact path="/borrower/dashboard">
               <DasboardBorower />
             </Route>
             <Route path="/register">
@@ -47,7 +47,7 @@ export default function App() {
             <Route path="/login">
               <Login />
             </Route>
-            <Route path="/">
+            <Route exact path="/">
               <Home />
             </Route>
           </Switch>
