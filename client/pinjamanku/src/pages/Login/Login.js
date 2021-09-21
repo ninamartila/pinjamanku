@@ -27,39 +27,39 @@ export default function Login() {
 
   return (
     <div>
-      <div class="container-user">
-        <div class="img">
+      <div className="container-user">
+        <div className="img">
           <img src={login} />
         </div>
-        <div class="login-content">
+        <div className="login-content">
           <form
             onSubmit={(e) => {
               submitLogin(e);
             }}
           >
-            <h2 class="title">LOGIN</h2>
+            <h2 className="title">LOGIN</h2>
 
-            <div class="input-div one">
-              <div class="i">
-                <i class="fas fa-user"></i>
+            <div className="input-div one">
+              <div className="i">
+                <i className="fas fa-user"></i>
               </div>
-              <div class="div">
+              <div className="div">
                 <input
                   type="email"
-                  class="input"
+                  className="input"
                   placeholder="Email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </div>
-            <div class="input-div one">
-              <div class="i">
-                <i class="fas fa-user"></i>
+            <div className="input-div one">
+              <div className="i">
+                <i className="fas fa-user"></i>
               </div>
-              <div class="div">
+              <div className="div">
                 <input
                   type="password"
-                  class="input"
+                  className="input"
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -73,7 +73,7 @@ export default function Login() {
             >
               Already Have AnAccount?
             </a>
-            <input type="submit" class="btn-login" value="LOGIN" />
+            <input type="submit" className="btn-login" value="LOGIN" />
           </form>
         </div>
       </div>

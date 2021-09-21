@@ -1,38 +1,33 @@
 import { useHistory } from "react-router-dom";
 import { ListItemPinjam, Navbar } from "../../components";
+import log from "../Register/img/log.svg";
 
 export default function Home() {
-  const history = useHistory()
+  const history = useHistory();
 
   function register() {
-    history.push(`/register`)
+    history.push(`/register`);
   }
 
   return (
     <div>
+      {/* ini navbar */}
       <Navbar />
-      {/* Hero Section */}
-      <section className="hero d-flex flex-column justify-content-center">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6 m-3">
-              <h1>hii there!</h1>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
-                fugit obcaecati ea officiis optio porro quaerat? Numquam esse,
-                nobis alias dolor vero architecto veniam ab doloremque illo
-                quas. Magnam, atque?
-              </p>
-              <button onClick={() => register()} className="btn1">
-                Register
-              </button>
-            </div>
+      {/* ini Akhir navbar */}
+      <section class="hero-container container">
+        <div className="col-md-4 ps-5">
+          <div>
+            <h1>Finance Problem?</h1>
+
+            {/* <section class="button-container"> */}
+            <button class="btn">Register Now</button>
+            {/* </section> */}
           </div>
         </div>
-      </section>
-      {/*Akhir Hero Section */}
 
-      {/* Banner Section */}
+        <img src={log} alt="hero" />
+      </section>
+
       <section className="mt-3">
         <div className="m-5 text-center">
           <h1>Why Choose Us?</h1>

@@ -71,98 +71,98 @@ export default function Register() {
   // console.log(isUserSuccess, '-------');
   return (
     <div>
-      <div class="container-user">
-        <div class="img">
+      <div className="container-user">
+        <div className="img">
           <img src={login} />
         </div>
-        <div class="login-content">
+        <div className="login-content">
           <form
             onSubmit={(e) => {
               submitRegister(e);
             }}
           >
-            <h2 class="title">Register</h2>
+            <h2 className="title">Register</h2>
 
             {!next ? (
               <div>
-                <div class="input-div one">
-                  <div class="i">
-                    <i class="fas fa-user"></i>
+                <div className="input-div one">
+                  <div className="i">
+                    <i className="fas fa-user"></i>
                   </div>
-                  <div class="div">
+                  <div className="div">
                     <input
                       type="text"
-                      class="input"
+                      className="input"
                       placeholder="FirstName"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
                     />
                   </div>
                 </div>
-                <div class="input-div one">
-                  <div class="i">
-                    <i class="fas fa-user"></i>
+                <div className="input-div one">
+                  <div className="i">
+                    <i className="fas fa-user"></i>
                   </div>
-                  <div class="div">
+                  <div className="div">
                     <input
                       type="text"
-                      class="input"
+                      className="input"
                       placeholder="LastName"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
                     />
                   </div>
                 </div>
-                <div class="input-div one">
-                  <div class="i">
-                    <i class="fas fa-user"></i>
+                <div className="input-div one">
+                  <div className="i">
+                    <i className="fas fa-user"></i>
                   </div>
-                  <div class="div">
+                  <div className="div">
                     <input
                       type="text"
-                      class="input"
+                      className="input"
                       placeholder="PhoneNumber"
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
                     />
                   </div>
                 </div>
-                <div class="input-div one">
-                  <div class="i">
-                    <i class="fas fa-user"></i>
+                <div className="input-div one">
+                  <div className="i">
+                    <i className="fas fa-user"></i>
                   </div>
-                  <div class="div">
+                  <div className="div">
                     <input
                       type="text"
-                      class="input"
+                      className="input"
                       placeholder="Address"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                     />
                   </div>
                 </div>
-                <div class="input-div one">
-                  <div class="i">
-                    <i class="fas fa-user"></i>
+                <div className="input-div one">
+                  <div className="i">
+                    <i className="fas fa-user"></i>
                   </div>
-                  <div class="div">
+                  <div className="div">
                     <input
                       type="text"
-                      class="input"
+                      className="input"
                       placeholder="Ocupation"
                       value={occupation}
                       onChange={(e) => setOcupation(e.target.value)}
                     />
                   </div>
                 </div>
-                <div class="input-div one">
-                  <div class="i">
-                    <i class="fas fa-user"></i>
+                <div className="input-div one">
+                  <div className="i">
+                    <i className="fas fa-user"></i>
                   </div>
-                  <div class="div">
+                  <div className="div">
                     <input
                       type="date"
-                      class="input"
+                      className="input"
                       value={birthDate}
                       placeholder="BirthDate"
                       onChange={(e) => setBirthDate(e.target.value)}
@@ -172,69 +172,69 @@ export default function Register() {
               </div>
             ) : (
               <div>
-                <div class="input-div one">
-                  <div class="i">
-                    <i class="fas fa-user"></i>
+                <div className="input-div one">
+                  <div className="i">
+                    <i className="fas fa-user"></i>
                   </div>
-                  <div class="div">
+                  <div className="div">
                     <input
                       type="email"
-                      class="input"
+                      className="input"
                       placeholder="Email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
                 </div>
-                <div class="input-div one">
-                  <div class="i">
-                    <i class="fas fa-user"></i>
+                <div className="input-div one">
+                  <div className="i">
+                    <i className="fas fa-user"></i>
                   </div>
-                  <div class="div">
+                  <div className="div">
                     <input
                       type="password"
-                      class="input"
+                      className="input"
                       placeholder="Password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
                 </div>
-                <div class="input-div one">
-                  <div class="i">
-                    <i class="fas fa-user"></i>
+                <div className="input-div one">
+                  <div className="i">
+                    <i className="fas fa-user"></i>
                   </div>
-                  <div class="div">
+                  <div className="div">
                     <input
                       type="text"
-                      class="input"
+                      className="input"
                       placeholder="AccountNumber"
                       value={accountNumber}
                       onChange={(e) => setAccountNumber(e.target.value)}
                     />
                   </div>
                 </div>
-                <div class="input-div one">
-                  <div class="i">
-                    <i class="fas fa-user"></i>
+                <div className="input-div one">
+                  <div className="i">
+                    <i className="fas fa-user"></i>
                   </div>
-                  <div class="div">
+                  <div className="div">
                     <input
                       type="text"
-                      class="input"
+                      className="input"
                       placeholder="HolderName"
                       value={holderName}
                       onChange={(e) => setHolderName(e.target.value)}
                     />
                   </div>
                 </div>
-                <div class="input-div one">
-                  <div class="i">
-                    <i class="fas fa-user"></i>
+                <div className="input-div one">
+                  <div className="i">
+                    <i className="fas fa-user"></i>
                   </div>
-                  <div class="div">
+                  <div className="div">
                     <select
-                      class="form-select select-input"
+                      className="form-select select-input"
                       aria-label="Default select example"
                       placeholder="BankCode"
                       onChange={(e) => setBankCode(e.target.value)}
@@ -248,13 +248,13 @@ export default function Register() {
                     </select>
                   </div>
                 </div>
-                <div class="input-div one">
-                  <div class="i">
-                    <i class="fas fa-user"></i>
+                <div className="input-div one">
+                  <div className="i">
+                    <i className="fas fa-user"></i>
                   </div>
-                  <div class="div">
+                  <div className="div">
                     <select
-                      class="form-select select-input"
+                      className="form-select select-input"
                       aria-label="Default select example"
                       placeholder="BankCode"
                       onChange={(e) => setRole(e.target.value)}
@@ -273,173 +273,15 @@ export default function Register() {
               Already Have AnAccount?
             </a>
             {!next ? (
-              <button class="btn-register" onClick={(e) => funcNext(e)}>
+              <button className="btn-register" onClick={(e) => funcNext(e)}>
                 {"NEXT >"}
               </button>
             ) : (
-              <input type="submit" class="btn-register" value="Register" />
+              <input type="submit" className="btn-register" value="Register" />
             )}
-
-            {/* <input type="submit" class="btn-register" value="Next" /> */}
           </form>
         </div>
       </div>
-      {/* <section className="register d-flex flex-column justify-content-center">
-        <div className="container">
-          <div className="row justify-content-end ">
-            <div></div>
-            <div className="col-md-12 m-3 card register-card">
-              <div className="p-5">
-                <h1>PinjamanKu</h1>
-                <form
-                  onSubmit={(e) => {
-                    submitRegister(e);
-                  }}
-                >
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="mb-3">
-                        <label className="form-label">Email address</label>
-                        <input
-                          onChange={(e) => setEmail(e.target.value)}
-                          type="email"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">firstName</label>
-                        <input
-                          onChange={(e) => setFirstName(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">LastName</label>
-                        <input
-                          onChange={(e) => setLastName(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">phoneNumber</label>
-                        <input
-                          onChange={(e) => setPhoneNumber(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">Address</label>
-                        <input
-                          onChange={(e) => setAddress(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">birthDate</label>
-                        <input
-                          onChange={(e) => setBirthDate(e.target.value)}
-                          type="date"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="mb-3">
-                        <label
-                          for="exampleInputPassword1"
-                          className="form-label"
-                        >
-                          Password
-                        </label>
-                        <input
-                          onChange={(e) => setPassword(e.target.value)}
-                          type="password"
-                          className="form-control"
-                          id="exampleInputPassword1"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">BankCode</label>
-                        <input
-                          onChange={(e) => setBankCode(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">holderName</label>
-                        <input
-                          onChange={(e) => setHolderName(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">accountNumber</label>
-                        <input
-                          onChange={(e) => setAccountNumber(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">occupation</label>
-                        <input
-                          onChange={(e) => setOcupation(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label">Role</label>
-                        <select
-                          class="form-select"
-                          aria-label="Default select example"
-                          onChange={(e) => setRole(e.target.value)}
-                        >
-                          <option selected disabled>
-                            {" "}
-                            ---Select Your Role---
-                          </option>
-                          <option value="borrower">Borrower</option>
-                          <option value="lender">Lander</option>
-                        </select>
-                      </div>
-                    </div>
-                    <button type="submit" className="btn btn-primary">
-                      Register
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
     </div>
   );
 }
