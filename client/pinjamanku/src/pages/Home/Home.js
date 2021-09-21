@@ -20,7 +20,7 @@ export default function Home() {
             <h1>Finance Problem?</h1>
 
             {/* <section class="button-container"> */}
-            <button class="btn">Register Now</button>
+            <button class="btn-puple">Register Now</button>
             {/* </section> */}
           </div>
         </div>

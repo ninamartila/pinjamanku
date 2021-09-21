@@ -55,13 +55,13 @@ export default function App() {
             </Route>
             <Route path="/listLoan">
               <ListLoan />
-            </Route>
-          
-            <Route path="/lender">
-              <Lander />
-            </Route>
-           
-            <Route path="/pendana/tempat-minjam">
+            </Route> */}
+
+              <Route path="/lender">
+                <Lander />
+              </Route>
+
+              {/* <Route path="/pendana/tempat-minjam">
               <TempatMinjam />
             </Route>
             
@@ -80,16 +80,8 @@ export default function App() {
                 component={Login}
                 meta={{ auth: true }}
               />
-              {/* <Route path="/register">
-                <Register />
-              </Route>
-              <Route path="/login">
-                <Login />
-              </Route> */}
+
               <GuardedRoute path="/" exact component={Home} />
-              {/* <Route path="/">
-                <Home />
-              </Route> */}
             </Switch>
           </GuardProvider>
         </BrowserRouter>
