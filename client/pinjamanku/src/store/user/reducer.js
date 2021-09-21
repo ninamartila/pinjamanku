@@ -30,7 +30,7 @@ const initialState = {
     isUserSuccess: [],
     isUserError: null,
     isUserByIdLoading: false,
-    isUserByIdSucces: [],
+    isUserByIdSucces: {},
     isUserByIdError: null,
     isUserUpdateLoading: false,
     isUserUpdateSuccess: [],

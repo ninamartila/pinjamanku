@@ -150,9 +150,8 @@ export function getAllUserError(payload) {
 }
 
 export function fetchUser() {
-    return async function (dispatch, getState) {
+    return function (dispatch, getState) {
         try {
-            dispatch(getAllUserLoading(true))
             fetch('http://localhost:3000/users')
                 .then((res) => {
                     if (res.ok) {
@@ -162,7 +161,6 @@ export function fetchUser() {
                     }
                 })
                 .then((data) => {
-                    console.log(data, '========');
                     dispatch(getAllUserSuccess(data))
                 })
                 .catch(err => {
@@ -196,11 +194,11 @@ export function getUserByIdError(payload) {
     }
 }
 
-export function fetchUserById(id) {
+export function fetchUserById(id, role) {
     return async function (dispatch, getState) {
         try {
             dispatch(getUserByIdLoading(true))
-            fetch(`http://localhost:3000/users/${id}`)
+            fetch(`http://localhost:3000/users/${id}?role=${role}`)
                 .then((res) => {
                     if (res.ok) {
                         return res.json()

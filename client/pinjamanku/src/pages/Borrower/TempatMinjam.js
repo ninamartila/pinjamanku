@@ -1,6 +1,24 @@
+import { message } from "antd";
+import { List } from "antd";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ListItemPinjam, Navbar } from "../../components";
+import { fetchLoan } from "../../store/Pinjaman/action";
 
 export default function TempatMinjam() {
+  const dispatch = useDispatch()
+  const { isLoanLoading, isLoanSuccess, isLoanError } = useSelector((state) => state.pinjamanku)
+
+  useEffect(() => {
+    dispatch(fetchLoan())
+  }, [])
+
+  useEffect(() => {
+    if (!!isLoanError) {
+      message.error(isLoanError?.message ?? 'something went wrong');
+    }
+  }, [isLoanError])
+
   return (
     <div>
       <Navbar />
@@ -20,10 +38,18 @@ export default function TempatMinjam() {
         </div>
       </section>
       <section className="container">
+        {/* list semua loan yang ingin dipinjamkan dengan status Panding */}
         <div className="m-5 text-center">
           <h1>Silahkan Pilih Sesuka hati anda</h1>
         </div>
-        <ListItemPinjam />
+        <List
+          dataSource={isLoanSuccess.filter(item => item?.status === 'active')}
+          loading={isLoanLoading}
+          renderItem={item => (
+            <ListItemPinjam item={item} />
+          )}
+        >
+        </List>
       </section>
     </div>
   );

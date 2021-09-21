@@ -23,11 +23,11 @@ export default function DasboardBorower() {
         <div className="m-5">
           <h4>Pinjaman Active :</h4>
         </div>
-        <ListItemStatusPinjam type={'active'} />
+        {/* <ListItemStatusPinjam item={item}/> */}
         <div className="m-5">
-          <h4>Pinjaman Selesai :</h4>
+          <h4>History Pinjaman Selesai :</h4>
         </div>
-        <ListItemStatusPinjam type={'done'} />
+        {/* <ListItemStatusPinjam /> */}
       </section>
     </div>
   );

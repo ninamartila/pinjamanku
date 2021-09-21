@@ -1,7 +1,9 @@
 import { Provider } from "react-redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
-import { DasboardBorower, Home, Lander, ListLoan, ListUser, ListUserStatus, Login, Register, TempatMinjam } from "./pages";
+import { DasboardBorower, DetailBorrower, Home, Lander, ListLoan, ListUserBorrower, ListUserLender, ListUserPendingBorrower, Login, Register, TempatMinjam } from "./pages";
+
+import AddLoan from "./pages/Lander/formAddLoan";
 import store from "./store";
 export default function App() {
   return (
@@ -9,11 +11,17 @@ export default function App() {
       <Provider store={store}>
         <BrowserRouter>
           <Switch>
-            <Route path="/listUser">
-              <ListUser />
+            <Route path="/listUserBorrower">
+              <ListUserBorrower />
             </Route>
-            <Route path="/listUserStatus">
-              <ListUserStatus />
+            <Route path="/borrowerDetail/:userId">
+              <DetailBorrower />
+            </Route>
+            <Route path="/listUserLender">
+              <ListUserLender />
+            </Route>
+            <Route path="/listUserPendingBorrower">
+              <ListUserPendingBorrower />
             </Route>
             <Route path="/listLoan">
               <ListLoan />
@@ -22,12 +30,15 @@ export default function App() {
             <Route path="/lander">
               <Lander />
             </Route>
+            <Route path="/addLoan">
+              <AddLoan />
+            </Route>
             {/* Nanti di tambah ID borowernya */}
             <Route path="/pendana/tempat-minjam">
               <TempatMinjam />
             </Route>
             {/* Nanti di tambah ID borowernya */}
-            <Route path="/pendana">
+            <Route exact path="/pendana">
               <DasboardBorower />
             </Route>
             <Route path="/register">

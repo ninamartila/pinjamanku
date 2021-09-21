@@ -1,4 +1,7 @@
 import {
+    ALL_LOAN_LOADING,
+    ALL_LOAN_SUCCESS,
+    ALL_LOAN_ERROR,
     BORROWER_PAY_LOADING,
     BORROWER_PAY_SUCCESS,
     BORROWER_PAY_ERROR,
@@ -12,6 +15,106 @@ import {
     LANDER_GET_AMOUNT_SUCCESS,
     LANDER_GET_AMOUNT_ERROR,
 } from './actionType'
+
+export function getAllLoanLoading(payload) {
+    return {
+        type: ALL_LOAN_LOADING,
+        payload
+    }
+}
+
+export function getAllLoanSuccess(payload) {
+    return {
+        type: ALL_LOAN_SUCCESS,
+        payload
+    }
+}
+
+export function getAllLoanError(payload) {
+    return {
+        type: ALL_LOAN_ERROR,
+        payload
+    }
+}
+
+export function fetchLoan(id) {
+    return async function (dispatch, getState) {
+        try {
+            dispatch(getAllLoanLoading(true))
+            fetch('http://localhost:3000/loans')
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json()
+                    } else {
+                        return Promise.reject('something went wrong')
+                    }
+                })
+                .then((data) => {
+                    dispatch(getAllLoanSuccess(data))
+                })
+                .catch(err => {
+                    dispatch(getAllLoanError(err))
+                })
+                .finally(() => dispatch(getAllLoanLoading(false)))
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+
+export function getLanderInvestLoading(payload) {
+    return {
+        type: LANDER_INVEST_LOADING,
+        payload
+    }
+}
+
+export function getLanderInvestSuccess(payload) {
+    return {
+        type: LANDER_INVEST_SUCCESS,
+        payload
+    }
+}
+
+export function getLanderInvestError(payload) {
+    return {
+        type: LANDER_INVEST_ERROR,
+        payload
+    }
+}
+
+export function landerInvest(payload) {
+    return async function (dispatch, getState) {
+        console.log(payload);
+        try {
+            dispatch(getLanderInvestLoading(true))
+            fetch('http://localhost:3000/loans/invoice/lender', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload),
+                method: "POST"
+            })
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json()
+                    } else {
+                        return Promise.reject('something went wrong')
+                    }
+                })
+                .then((data) => {
+                    dispatch(getLanderInvestSuccess(data))
+                })
+                .catch(err => {
+                    dispatch(getLanderInvestError(err))
+                })
+                .finally(() => dispatch(getLanderInvestLoading(false)))
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
 
 export function getBorrowerPayLoading(payload) {
     return {
@@ -62,61 +165,6 @@ export function borrowerPay(id) {
                     dispatch(getBorrowerPayError(err))
                 })
                 .finally(() => dispatch(getBorrowerPayLoading(false)))
-        } catch (err) {
-            console.log(err);
-        }
-    }
-}
-
-export function getLanderInvestLoading(payload) {
-    return {
-        type: LANDER_INVEST_LOADING,
-        payload
-    }
-}
-
-export function getLanderInvestSuccess(payload) {
-    return {
-        type: LANDER_INVEST_SUCCESS,
-        payload
-    }
-}
-
-export function getLanderInvestError(payload) {
-    return {
-        type: LANDER_INVEST_ERROR,
-        payload
-    }
-}
-
-export function landerInvest(payload) {
-    return async function (dispatch, getState) {
-        try {
-            dispatch(getLanderInvestLoading(true))
-            fetch('http://localhost:3000/loan/invoice', {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'auth_key': '!!!!!!!!!!!!!!!!'
-                },
-                body: JSON.stringify(payload),
-                method: "POST"
-            })
-                .then((res) => {
-                    if (res.ok) {
-                        return res.json()
-                    } else {
-                        return Promise.reject('something went wrong')
-                    }
-                })
-                .then((data) => {
-                    // console.log(data, '========');
-                    dispatch(getLanderInvestSuccess(data))
-                })
-                .catch(err => {
-                    dispatch(getLanderInvestError(err))
-                })
-                .finally(() => dispatch(getLanderInvestLoading(false)))
         } catch (err) {
             console.log(err);
         }

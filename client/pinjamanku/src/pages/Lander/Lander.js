@@ -1,6 +1,24 @@
+import { message } from "antd";
+import { List } from "antd";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ListItemStatusPinjam, Navbar } from "../../components";
+import { fetchLoan } from "../../store/Pinjaman/action";
 
 export default function Lander() {
+  const dispatch = useDispatch()
+  const { isLoanLoading, isLoanSuccess, isLoanError } = useSelector((state) => state.pinjamanku)
+
+  useEffect(() => {
+    dispatch(fetchLoan())
+  }, [])
+
+  useEffect(() => {
+    if (!!isLoanError) {
+      message.error(isLoanError?.message ?? 'something went wrong');
+    }
+  }, [isLoanError])
+
   return (
     <div>
       <Navbar />
@@ -20,15 +38,40 @@ export default function Lander() {
         </div>
       </section>
       <section className="container">
+        {/* listLoan yang idnya sama yang dipunya/ login sekarang */}
+        <div className="m-5">
+          <h4>Pinjaman Panding :</h4>
+        </div>
+        <List
+          dataSource={isLoanSuccess.filter(item => item?.status === 'pending')}
+          loading={isLoanLoading}
+          renderItem={item => (
+            <ListItemStatusPinjam item={item} />
+          )}
+        >
+        </List>
         <div className="m-5">
           <h4>Pinjaman Active :</h4>
         </div>
-        <ListItemStatusPinjam type={'active'} />
-
+        <List
+          dataSource={isLoanSuccess.filter(item => item?.status === 'active')}
+          loading={isLoanLoading}
+          renderItem={item => (
+            <ListItemStatusPinjam item={item} />
+          )}
+        >
+        </List>
         <div className="m-5">
           <h4>Pinjaman Selesai :</h4>
         </div>
-        <ListItemStatusPinjam type={'done'} />
+        <List
+          dataSource={isLoanSuccess.filter(item => item?.status === 'completed')}
+          loading={isLoanLoading}
+          renderItem={item => (
+            <ListItemStatusPinjam item={item} />
+          )}
+        >
+        </List>
       </section>
     </div>
   );

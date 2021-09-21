@@ -1,4 +1,5 @@
-import { Layout, Menu, } from 'antd'
+import { Image, Layout, Menu, } from 'antd'
+import imageLogo from '../img/Frame_2_1.png'
 import {
     Link, useLocation
 } from 'react-router-dom'
@@ -8,14 +9,17 @@ export default function AdminNavbar() {
     const { pathname } = useLocation()
     let menuKey;
     switch (pathname) {
-        case '/listUser':
+        case '/listUserBorrower':
             menuKey = "1"
             break;
-        case '/listUserStatus':
+        case '/listUserLender':
             menuKey = "2"
             break;
-        case '/listLoan':
+        case '/listUserPendingBorrower':
             menuKey = "3"
+            break;
+        case '/listLoan':
+            menuKey = "4"
             break;
         default:
             break;
@@ -31,15 +35,24 @@ export default function AdminNavbar() {
                 console.log(collapsed, type);
             }}
         >
-            <div className="logo" />
+            <div className="logo" style={{ height: 70 }} >
+                <Image
+                    preview={false}
+                    src={imageLogo}
+                    width={200}
+                />
+            </div>
             <Menu theme="dark" mode="inline" defaultSelectedKeys={[menuKey]}>
                 <Menu.Item key="1" >
-                    <Link to='/listUser'>List User</Link>
+                    <Link to='/listUserBorrower'>List Borrower</Link>
                 </Menu.Item>
                 <Menu.Item key="2" >
-                    <Link to='/listUserStatus'>List User Status</Link>
+                    <Link to='/listUserLender'>List Lender</Link>
                 </Menu.Item>
                 <Menu.Item key="3" >
+                    <Link to='/listUserPendingBorrower'>List Panding Borrower</Link>
+                </Menu.Item>
+                <Menu.Item key="4" >
                     <Link to='/listLoan'>List Loan</Link>
                 </Menu.Item>
             </Menu>

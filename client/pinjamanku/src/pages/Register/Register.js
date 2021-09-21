@@ -19,7 +19,6 @@ export default function Register() {
     }
   }, [isUserError])
 
-  // console.log(isUserSuccess, '-------');
   return (
     <div>
       <Navbar />

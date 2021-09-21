@@ -1,4 +1,7 @@
 import {
+    ALL_LOAN_LOADING,
+    ALL_LOAN_SUCCESS,
+    ALL_LOAN_ERROR,
     BORROWER_PAY_LOADING,
     BORROWER_PAY_SUCCESS,
     BORROWER_PAY_ERROR,
@@ -14,6 +17,9 @@ import {
 } from './actionType'
 
 const initialState = {
+    isLoanLoading: false,
+    isLoanSuccess: [],
+    isLoanError: null,
     isBorrowerPayLoading: false,
     isBorrowerPaySuccess: [],
     isBorrowerPayError: null,
@@ -30,6 +36,24 @@ const initialState = {
 
 function pinjamanReducer(state = initialState, action) {
     switch (action.type) {
+        case ALL_LOAN_LOADING:
+            return {
+                ...state,
+                isLoanLoading: action.payload
+            }
+
+        case ALL_LOAN_SUCCESS:
+            console.log(action.payload, 'mana');
+            return {
+                ...state,
+                isLoanSuccess: action.payload
+            }
+
+        case ALL_LOAN_ERROR:
+            return {
+                ...state,
+                isLoanError: action.payload
+            }
         case BORROWER_PAY_LOADING:
             return {
                 ...state,
