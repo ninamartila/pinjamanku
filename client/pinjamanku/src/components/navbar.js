@@ -18,10 +18,18 @@ export default function Navbar() {
     <nav class="navbar">
       <h1>PinjamanKu</h1>
       <div class="nav-menu">
-        <p>Home</p>
-        <p>My Portofolio</p>
-        <p>Login</p>
-        <p>Logout</p>
+        <a class="nav-link" href="">
+          Home
+        </a>
+        <a class="nav-link" href="">
+          My Portofolio
+        </a>
+        <a class="nav-link" href="">
+          Login
+        </a>
+        <a class="nav-link" href="">
+          Logout
+        </a>
       </div>
     </nav>
   );
