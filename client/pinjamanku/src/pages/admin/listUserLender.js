@@ -34,21 +34,21 @@ export default function ListUserLender() {
             <Layout>
                 <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
                 <Content>
-                    <div className="site-layout-background" style={{ padding: 24, minHeight: 360, height: '100%' }}>
+                    <div className="site-layout-background" style={{ padding: 24, minHeight: 360, overflowY: "scroll", height: '100%' }}>
                         <div className="demo-infinite-container">
                             <List
                                 dataSource={isUserSuccess?.lender}
                                 loading={isUserLoading}
                                 renderItem={item => (
-                                    <List.Item key={item?.id} onClick={() => onClick(item?.id)}>
+                                    <List.Item key={item?.id} onClick={() => onClick(item?.id)} style={{ backgroundColor: 'white', borderRadius: '5px', cursor: 'pointer', marginBottom: '8px', padding: '16px' }}>
                                         <List.Item.Meta
                                             avatar={
                                                 <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                                             }
-                                            title={<p>{item?.firstName} {item?.lastName}</p>}
-                                            description={item?.email}
+                                            title={<p>Name : {item?.firstName} {item?.lastName}</p>}
+                                            description={<p>Email : {item?.email}</p>}
                                         />
-                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                        <div style={{ display: 'flex', flexDirection: 'column' }} >
                                             <h6>Status: </h6>
                                             <p style={{ padding: 10, backgroundColor: '#0ba6ff', color: 'white', borderRadius: 10 }}>{item?.status}</p>
                                         </div>
