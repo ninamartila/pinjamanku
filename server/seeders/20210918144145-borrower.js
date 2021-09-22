@@ -9,8 +9,6 @@ module.exports = {
         lastName: "Borrower",
         email: "dharmasatrya10@gmail.com",
         password: "rahasia",
-        ktpCard: "iniKtp",
-        selfPicture: "iniProfPic",
         phoneNumber: "09192718",
         address: "jakarta",
         birthDate: new Date(),

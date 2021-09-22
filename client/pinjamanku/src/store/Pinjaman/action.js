@@ -91,7 +91,8 @@ export function landerInvest(payload) {
             fetch('http://localhost:3000/loans/invoice/lender', {
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    "access_token": localStorage.access_token
                 },
                 body: JSON.stringify(payload),
                 method: "POST"
@@ -104,6 +105,7 @@ export function landerInvest(payload) {
                     }
                 })
                 .then((data) => {
+                    console.log("data==============", data)
                     dispatch(getLanderInvestSuccess(data))
                 })
                 .catch(err => {

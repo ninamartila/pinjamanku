@@ -1,7 +1,9 @@
 const router = require("express").Router();
 const LoanController = require("../controllers/loanController");
+const authentication = require("../middlewares/authentication")
 
 router.get("/", LoanController.GetAll)
+router.use(authentication)
 router.get("/lender", LoanController.GetLenderLoan)
 router.get("/borrower", LoanController.GetBorrowerLoan)
 router.get("/:loanID", LoanController.GetByID)

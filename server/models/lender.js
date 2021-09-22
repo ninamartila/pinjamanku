@@ -71,30 +71,6 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      ktpCard: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "ktp card cannot be null",
-          },
-          notEmpty: {
-            msg: "ktp card cannot be empty",
-          },
-        },
-      },
-      selfPicture: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "self picture cannot be null",
-          },
-          notEmpty: {
-            msg: "self picture cannot be empty",
-          },
-        },
-      },
       phoneNumber: {
         type: DataTypes.STRING,
         allowNull: false,
