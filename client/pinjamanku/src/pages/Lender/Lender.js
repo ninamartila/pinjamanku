@@ -2,7 +2,7 @@ import { message, Tabs } from "antd";
 import { List, PageHeader, Button, Statistic, Descriptions } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BorrowerItemCard, Navbar } from "../../components";
+import { LenderItemCard, Navbar } from "../../components";
 import { fetchLoanLender } from "../../store/Pinjaman/action";
 import { fetchUserById } from "../../store/user/action";
 import LenderAmountModal from "./LenderAmountModal";
@@ -158,7 +158,7 @@ export default function Lender() {
                   (item) => item?.status === "pending"
                 )}
                 loading={isLenderLoanLoading}
-                renderItem={(item) => <BorrowerItemCard item={item} />}
+                renderItem={(item) => <LenderItemCard item={item} />}
               ></List>
             </section>
           </TabPane>
@@ -173,7 +173,7 @@ export default function Lender() {
                   (item) => item?.status === "active"
                 )}
                 loading={isLenderLoanLoading}
-                renderItem={(item) => <BorrowerItemCard item={item} />}
+                renderItem={(item) => <LenderItemCard item={item} />}
               ></List>
             </section>
           </TabPane>
@@ -186,7 +186,7 @@ export default function Lender() {
                 dataSource={isLenderLoanSuccess.filter(item => item?.status === 'borrowed' || item?.status === "deadline")}
                 loading={isLenderLoanLoading}
                 renderItem={item => (
-                  <BorrowerItemCard item={item} />
+                  <LenderItemCard item={item} />
                 )}
               >
               </List>
@@ -201,7 +201,7 @@ export default function Lender() {
                 dataSource={isLenderLoanSuccess.filter(item => item?.status === 'complete' || item?.status === 'withdrawn')}
                 loading={isLenderLoanLoading}
                 renderItem={item => (
-                  <BorrowerItemCard item={item} />
+                  <LenderItemCard item={item} />
                 )}
               >
               </List>

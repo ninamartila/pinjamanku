@@ -54,13 +54,12 @@ export default function Register() {
 
     dispatch(registerUser(newData))
       .then((data) => {
-        console.log(data);
         if (data !== undefined) {
           if (role === "borrower") {
-            // localStorage.setItem("interview", "LINK");
+            localStorage.setItem("interview", "LINK");
             Swal.fire({
-              title: "success!",
-              text: "Register Success GO Intervew",
+              title: "Registered!",
+              text: "You can now activate your account by having an interview with our team",
               icon: "success",
               confirmButtonText: "Cool",
             });

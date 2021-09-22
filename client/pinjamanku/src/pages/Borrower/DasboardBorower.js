@@ -75,7 +75,7 @@ export default function DasboardBorower() {
           <div className="card-body  m-3">
             <div className="row d-flex flex-row">
               <h2>
-                Hi, "{firstName} {lastName}"
+                Hi, {firstName} {lastName}!
               </h2>
             </div>
             <div className="row justify-content-between">
@@ -99,6 +99,7 @@ export default function DasboardBorower() {
             <section className="container">
               <div className="m-3">
                 <h4>Currently borrowed:</h4>
+                <p>list of your active loans</p>
               </div>
               <List
                 dataSource={isBorrowerLoanSuccess.filter(item => item?.status === 'borrowed')}
@@ -114,6 +115,7 @@ export default function DasboardBorower() {
             <section className="container">
               <div className="m-3">
                 <h4>Completed :</h4>
+                <p>list of your past loans</p>
               </div>
               <List
                 dataSource={isBorrowerLoanSuccess.filter(item => item?.status === 'withdraw')}

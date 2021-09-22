@@ -97,8 +97,6 @@ class UserController {
             lastName,
             email,
             password,
-            ktpCard,
-            selfPicture,
             phoneNumber,
             address,
             birthDate,
