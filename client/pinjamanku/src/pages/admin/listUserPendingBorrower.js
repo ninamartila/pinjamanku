@@ -46,7 +46,7 @@ export default function ListUserPendingBorrower() {
                     <div className="site-layout-background" style={{ padding: 24, minHeight: 360, overflowY: "scroll", height: '100%' }}>
                         <div className="demo-infinite-container">
                             <List
-                                dataSource={isUserSuccess?.borrower?.filter(item => item?.status === 'Verified')}
+                                dataSource={isUserSuccess?.borrower?.filter(item => item?.status === 'Pending')}
                                 loading={isUserLoading}
                                 renderItem={item => (
                                     <List.Item key={item.id} style={{ backgroundColor: 'white', borderRadius: '5px', cursor: 'pointer', marginBottom: '8px', padding: '16px' }}>

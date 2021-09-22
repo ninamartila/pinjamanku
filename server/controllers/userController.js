@@ -124,7 +124,7 @@ class UserController {
           const { password: passwordStaff, ...toSend } = createdBorrower;
           /* istanbul ignore next */
           if (createdBorrower) {
-            res.status(201).json({ ...toSend, dailyURL: checkRoom });
+            res.status(201).json({ ...toSend, dailyURL: checkRoom.dailyUrl });
           } else {
             next({
               name: "InvalidRegister",
