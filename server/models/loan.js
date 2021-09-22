@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Loan extends Model {
     /**
@@ -11,26 +9,34 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Loan.belongsTo(models.Lender, {foreignKey: "lenderID"})
-      Loan.belongsTo(models.Borrower, {foreignKey: "borrowerID"})
+      Loan.belongsTo(models.Lender, { foreignKey: "lenderID" });
+      Loan.belongsTo(models.Borrower, { foreignKey: "borrowerID" });
     }
-  };
-  Loan.init({
-    externalID: DataTypes.STRING,
-    lenderID: DataTypes.INTEGER,
-    borrowerID: DataTypes.INTEGER,
-    status: DataTypes.STRING,
-    initialLoan: DataTypes.INTEGER,
-    tenor: DataTypes.INTEGER,
-    timeRemaining: DataTypes.INTEGER,
-  }, {
-    hooks: {
-      beforeCreate: (loan) => {
-        loan.timeRemaining = loan.tenor;
+  }
+  Loan.init(
+    {
+      id: {
+        primaryKey: true,
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
       },
+      externalID: DataTypes.STRING,
+      lenderID: DataTypes.INTEGER,
+      borrowerID: DataTypes.INTEGER,
+      status: DataTypes.STRING,
+      initialLoan: DataTypes.INTEGER,
+      tenor: DataTypes.INTEGER,
+      timeRemaining: DataTypes.INTEGER,
     },
-    sequelize,
-    modelName: 'Loan',
-  });
+    {
+      hooks: {
+        beforeCreate: (loan) => {
+          loan.timeRemaining = loan.tenor;
+        },
+      },
+      sequelize,
+      modelName: "Loan",
+    }
+  );
   return Loan;
 };
