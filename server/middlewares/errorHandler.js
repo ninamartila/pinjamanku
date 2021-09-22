@@ -1,5 +1,4 @@
 const errorHandler = function (err, req, res, nex) {
-  console.log(err);
   const name = err.name;
   let resultError;
   if (err.errors) {

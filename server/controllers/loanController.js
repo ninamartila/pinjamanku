@@ -17,15 +17,20 @@ class LoanController {
   }
 
   static async GetByID(req, res, next) {
-    const loanID = req.params.loanID;
+    const { loanID } = req.params;
+    console.log("AIDI", loanID);
     try {
-      const result = await Loan.findOne({ where: { id: loanID }, include: [Borrower, Lender] });
+      const result = await Loan.findOne({
+        where: { id: +loanID },
+        include: [Borrower, Lender],
+      });
       if (result) {
         res.status(200).json(result);
       } else {
         res.status(404).json({ msg: "not found" });
       }
     } catch (error) {
+      console.log("yeuh", error);
       res.status(500).json(error);
     }
   }
@@ -188,21 +193,22 @@ class LoanController {
       } else if (status === "PAID") {
         if (external_id.includes("borrower")) {
           const loanID = external_id.split("-")[2];
-          const loanData = await Loan.update(
-            { status: "complete" },
-            { where: { externalID: loanID } }
-          );
+          // const loanData = await Loan.update(
+          //   { status: "complete" },
+          //   { where: { externalID: loanID } }
+          // );
           res.status(200).json({ status: "complete", id: loanID });
         } else {
           const loanID = external_id.split("-")[2];
-          const loanData = await Loan.update(
-            { status: "active" },
-            { where: { externalID: loanID }, returning: true }
-          );
+          // const loanData = await Loan.update(
+          //   { status: "active" },
+          //   { where: { externalID: loanID }, returning: true }
+          // );
           res.status(200).json({ status: "active", id: loanID });
         }
       }
     } catch (error) {
+      console.log("yeuh", error);
       res.status(500).json(error);
     }
   }
@@ -215,21 +221,22 @@ class LoanController {
       } else if (status === "COMPLETED") {
         if (external_id.includes("borrower")) {
           const loanID = external_id.split("-")[2];
-          const loanData = await Loan.update(
-            { status: "borrowed" },
-            { where: { externalID: loanID } }
-          );
+          // const loanData = await Loan.update(
+          //   { status: "borrowed" },
+          //   { where: { externalID: loanID } }
+          // );
           res.status(200).json({ status: "borrower", id: loanID });
         } else {
           const loanID = external_id.split("-")[2];
-          const loanData = await Loan.update(
-            { status: "withdrawn" },
-            { where: { externalID: loanID } }
-          );
+          // const loanData = await Loan.update(
+          //   { status: "withdrawn" },
+          //   { where: { externalID: loanID } }
+          // );
           res.status(200).json({ status: "lender", id: loanID });
         }
       }
     } catch (error) {
+      console.log("deudeuieu", error);
       res.status(500).json(error);
     }
   }

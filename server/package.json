@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage --detectOpenHandles --forceExit --testTimeout=10000",
+    "test": "jest --coverage --detectOpenHandles --forceExit --testTimeout=30000",
     "dev": "nodemon bin/www",
     "start": "node bin/www"
   },
