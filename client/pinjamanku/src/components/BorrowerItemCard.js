@@ -22,28 +22,25 @@ export default function BorrowerItemCard(props) {
               <h5>Loan Amount:</h5>
               <p>IDR {item?.initialLoan.toLocaleString("id-ID")}</p>
             </div>
-            <div className="col-md-2">
+            <div className="col-md-4">
               <h5>Interest:</h5>
               <p>7%</p>
             </div>
-          </div>
-          <div className="row justify-content-between">
             <div className="col-md-4">
               <h5>Repayment Amount:</h5>
               <p>IDR {(item?.initialLoan + (item?.initialLoan * 0.07)).toLocaleString("id-ID")}</p>
             </div>
-
-            <div className="col-md-2">
+          </div>
+          <div className="row justify-content-between">
+          <div className="col-md-4">
               <h5>Deadline:</h5>
               <p>in {item?.timeRemaining} days</p>
             </div>
-          </div>
-          <div className="row justify-content-between">
           <div className="col-md-4">
               <h5>Tenor:</h5>
               <p>{item?.tenor} months</p>
             </div>
-            <div className="col-md-2">
+            <div className="col-md-4">
               <h5>Status :</h5>
               {item.status === "pending" ? (
                 <a className="btn btn-info">Pending</a>
