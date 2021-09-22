@@ -8,10 +8,10 @@ const authentication = (req, res, next) => {
     if (payload.id) {
       next();
     } else {
-      next({ name: "Unauthorized" });
+      next({ name: "InvalidToken" });
     }
   } else {
-    next({ name: "Unauthorized" });
+    next({ name: "InvalidToken" });
   }
 };
 

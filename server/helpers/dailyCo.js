@@ -25,12 +25,11 @@ async function createRoom(roomName, userEmail) {
     const { error, result: nodemailerResult } = await sendMail(data, userEmail);
 
     if (nodemailerResult) {
-      return true;
+      return data.url;
     } else {
       return false;
     }
   } catch (error) {
-    console.log(error);
     return false;
   }
 }
