@@ -48,8 +48,6 @@ class UserController {
         lastName,
         email,
         password,
-        ktpCard,
-        selfPicture,
         phoneNumber,
         address,
         birthDate,
@@ -82,8 +80,6 @@ class UserController {
           lastName,
           email,
           password,
-          ktpCard,
-          selfPicture,
           phoneNumber,
           address,
           birthDate,
@@ -111,8 +107,6 @@ class UserController {
           lastName,
           email,
           password,
-          ktpCard,
-          selfPicture,
           phoneNumber,
           address,
           birthDate,
@@ -147,6 +141,7 @@ class UserController {
         });
       }
     } catch (error) {
+      console.log(error, 'masuk');
       next(error);
     }
   }
