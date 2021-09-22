@@ -8,7 +8,11 @@ const { Content, Header } = Layout;
 
 export default function ListLoan() {
     const dispatch = useDispatch()
-    const { isLoanLoading, isLoanSuccess, isLoanError } = useSelector((state) => state.pinjamanku)
+    const {
+        isLoanLoading,
+        isLoanSuccess,
+        isLoanError,
+    } = useSelector((state) => state.pinjamanku)
 
     useEffect(() => {
         dispatch(fetchLoan())
@@ -25,7 +29,7 @@ export default function ListLoan() {
             <AdminNavbar />
             <Layout>
                 <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
-                <Content style={{ marginTop: 64 }}>
+                <Content>
                     <div className="site-layout-background" style={{ padding: 24, minHeight: 360, height: '100%' }}>
                         <div className="demo-infinite-container">
                             <List
@@ -37,10 +41,12 @@ export default function ListLoan() {
                                             avatar={
                                                 <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                                             }
-                                            title={<a href="https://ant.design">{item?.tenor}</a>}
-                                            description={item?.initialLoan}
+                                            title={<p>{item?.Lender?.firstName} {item?.Lender?.firstName}</p>}
+                                            description={<p>Rp. {item?.initialLoan}</p>}
                                         />
-                                        <div>{item?.status}</div>
+                                        <div>
+                                            <p style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: '#0ba6ff', color: 'white', borderRadius: 10 }}>{item?.status}</p>
+                                        </div>
                                     </List.Item>
                                 )}
                             >

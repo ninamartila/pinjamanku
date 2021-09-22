@@ -6,7 +6,8 @@ const LenderAmountModal = (props) => {
     const { isModalVisible, handleOk, handleCancel, data } = props
     return (
         <Modal title="Borrower Pay Loan" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-            <p>{data?.toString()}</p>
+            <h3>Your fund is now being processed</h3>
+            <p>We will notify you via email once the payment has been completed</p>
         </Modal>
     )
 }

@@ -13,6 +13,8 @@ export default function ListItemStatusPinjam(props) {
         dispatch(borrowerPay(data))
     }
 
+    console.log(item);
+
     return (
         <div className="row justify-content-center">
             <div className="card col-md-12  m-3">
@@ -30,12 +32,12 @@ export default function ListItemStatusPinjam(props) {
                     <div className="row justify-content-between">
                         <div className="col-md-4">
                             <h5>Cicilan Selama :</h5>
-                            <p>{item?.tenor}-bulan</p>
+                            <p>{item?.tenor}-hari</p>
                         </div>
 
                         <div className="col-md-2">
                             <h5>Waktu tersisa :</h5>
-                            <p>30 Hari</p>
+                            <p>{item?.timeRemaining} Hari</p>
                         </div>
                     </div>
                     <div className="row justify-content-between">
@@ -51,12 +53,18 @@ export default function ListItemStatusPinjam(props) {
                                     : item?.status === 'active' ?
                                         <a className="btn btn-success">Active</a>
                                         : item?.status === 'borrowed' ?
-                                            <button className="btn btn-success" onClick={() => onActive({ loanID: item?.id })}>Borrower</button>
+                                            <a className="btn btn-success" >Borrower</a>
                                             : item?.status === 'completed' ?
-                                                <button className="btn btn-success" onClick={() => onCompleted({ loanID: item?.id, lenderID: item?.lenderID })}>Completed</button>
-                                                : <a className="btn btn-danger">Withdrawn</a>
+                                                <a className="btn btn-success">Completed</a>
+                                                : <a className="btn btn-danger">Withdraw</a>
                             }
                         </div>
+                        {
+                            item?.status === 'withdraw' && item?.Lender?.role === 'lender' ?
+                                (<div className="row justify-content-between" style={{ marginTop: 20 }}>
+                                    <button className="btn btn-primary" onClick={() => onCompleted({ loanID: item?.id, lenderID: item?.lenderID })}>Withdraw Now</button>
+                                </div>) : null
+                        }
                     </div>
                 </div>
             </div>

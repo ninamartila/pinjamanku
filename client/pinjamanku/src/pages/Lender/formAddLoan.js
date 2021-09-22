@@ -32,7 +32,7 @@ export default function AddLoan() {
 
   const onAddLoan = (e) => {
     e.preventDefault();
-    dispatch(landerInvest({ amount, tenor }));
+    dispatch(landerInvest({ amount: Number(amount), tenor: tenor * 30 }));
   };
 
   return (

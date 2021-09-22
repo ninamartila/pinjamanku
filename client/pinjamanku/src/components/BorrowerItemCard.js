@@ -39,7 +39,7 @@ export default function BorrowerItemCard(props) {
             </div>
           </div>
           <div className="row justify-content-between">
-          <div className="col-md-4">
+            <div className="col-md-4">
               <h5>Tenor:</h5>
               <p>{item?.tenor} months</p>
             </div>
@@ -59,9 +59,6 @@ export default function BorrowerItemCard(props) {
               ) : item?.status === "complete" || item?.status === "withdrawn" ? (
                 <button
                   className="btn btn-success"
-                  onClick={() =>
-                    onCompleted({ loanID: item?.id, lenderID: item?.lenderID })
-                  }
                 >
                   Paid
                 </button>
@@ -73,6 +70,12 @@ export default function BorrowerItemCard(props) {
             </div>
           </div>
         </div>
+        {
+          item?.status === "borrowed" && item?.Borrower?.role === 'borrower' ?
+            (<div className="row justify-content-between">
+              <button className="btn btn-primary" onClick={() => onActive({ loanID: item?.id })}>Pay Now</button>
+            </div>) : null
+        }
       </div>
     </div>
   );

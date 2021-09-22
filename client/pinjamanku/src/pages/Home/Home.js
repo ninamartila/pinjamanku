@@ -1,16 +1,38 @@
 import { message, List } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ListItemPinjam, Navbar } from "../../components";
 import { fetchLoan } from "../../store/Pinjaman/action";
+import BorrowerLoanModal from "../Borrower/borrowerLoanModal";
 import log from "./img/log.svg";
 
 export default function Home() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { isLoanLoading, isLoanSuccess, isLoanError, isRegisterUserSuccess } =
+  const [showModalVisible, setShowModalVisible] = useState(false)
+  const {
+    isLoanLoading,
+    isLoanSuccess,
+    isLoanError,
+    isRegisterUserSuccess,
+    isBorrowerAmountLoading,
+    isBorrowerAmountSuccess,
+    isBorrowerAmountError,
+  } =
     useSelector((state) => state.pinjamanku);
+
+  useEffect(() => {
+    if (isBorrowerAmountSuccess && showModalVisible === false) {
+      setShowModalVisible(true)
+    }
+  }, [isBorrowerAmountSuccess])
+
+  useEffect(() => {
+    if (!!isBorrowerAmountError) {
+      message.error(isBorrowerAmountError?.message ?? 'something went wrong');
+    }
+  }, [isBorrowerAmountError])
 
   useEffect(() => {
     dispatch(fetchLoan());
@@ -158,6 +180,11 @@ export default function Home() {
         ></List>
       </section>
       {/* Lander Section */}
+      <BorrowerLoanModal isModalVisible={showModalVisible} data={isBorrowerAmountSuccess} handleCancel={() => {
+        setShowModalVisible(false)
+      }} handleOk={() => {
+        setShowModalVisible(false)
+      }} />
     </div>
   );
 }

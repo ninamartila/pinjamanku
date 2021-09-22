@@ -66,6 +66,7 @@ export default function Lender() {
     <Descriptions size="small" column={column}></Descriptions>
   );
 
+  console.log(isLenderLoanSuccess);
   return (
     <div className="">
       <Navbar />
@@ -99,7 +100,7 @@ export default function Lender() {
               <h4>Pending Loans :</h4>
               <p>Loan investment that you need to pay</p>
             </div>
-            {isLenderLoanSuccess.filter((el)=> console.log(el.status))}
+            {isLenderLoanSuccess.filter((el) => console.log(el.status))}
             <List
               dataSource={isLenderLoanSuccess.filter(
                 (item) => item?.status === "pending"
@@ -145,7 +146,7 @@ export default function Lender() {
               <h4>Completed Loans :</h4>
             </div>
             <List
-              dataSource={isLenderLoanSuccess.filter(item => item?.status === 'complete' || item?.status === 'withdrawn')}
+              dataSource={isLenderLoanSuccess.filter(item => item?.status === 'complete' || item?.status === 'withdraw')}
               loading={isLenderLoanLoading}
               renderItem={item => (
                 <ListItemStatusPinjam item={item} />

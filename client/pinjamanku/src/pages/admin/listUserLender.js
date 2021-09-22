@@ -33,7 +33,7 @@ export default function ListUserLender() {
             <AdminNavbar />
             <Layout>
                 <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
-                <Content style={{ marginTop: 64 }}>
+                <Content>
                     <div className="site-layout-background" style={{ padding: 24, minHeight: 360, height: '100%' }}>
                         <div className="demo-infinite-container">
                             <List
@@ -45,10 +45,13 @@ export default function ListUserLender() {
                                             avatar={
                                                 <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                                             }
-                                            title={<a href="https://ant.design">{item?.firstName} {item?.lastName}</a>}
+                                            title={<p>{item?.firstName} {item?.lastName}</p>}
                                             description={item?.email}
                                         />
-                                        {/* <div>Content</div> */}
+                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                            <h6>Status: </h6>
+                                            <p style={{ padding: 10, backgroundColor: '#0ba6ff', color: 'white', borderRadius: 10 }}>{item?.status}</p>
+                                        </div>
                                     </List.Item>
                                 )}
                             >

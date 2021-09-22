@@ -45,6 +45,7 @@ export default function DasboardBorower() {
     }
   }, [isBorrowerLoanError]);
 
+  console.log(isBorrowerLoanSuccess);
   return (
     <div>
       <Navbar />
@@ -74,12 +75,6 @@ export default function DasboardBorower() {
               <h4>Currently borrowed:</h4>
             </div>
             <List
-              dataSource={isBorrowerLoanSuccess.filter(
-                (item) => item?.status === "active"
-              )}
-            >
-            </List>
-            <List
               dataSource={isBorrowerLoanSuccess.filter(item => item?.status === 'borrowed')}
               loading={isBorrowerLoanLoading}
               renderItem={item => (
@@ -95,7 +90,7 @@ export default function DasboardBorower() {
               <h4>Completed :</h4>
             </div>
             <List
-              dataSource={isBorrowerLoanSuccess.filter(item => item?.status === 'withdrawn')}
+              dataSource={isBorrowerLoanSuccess.filter(item => item?.status === 'withdraw')}
               loading={isBorrowerLoanLoading}
               renderItem={item => (
                 <BorrowerItemCard item={item} />

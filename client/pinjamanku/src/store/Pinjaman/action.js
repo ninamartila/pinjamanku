@@ -116,7 +116,7 @@ export function fetchLoanLender() {
             dispatch(getLenderLoanLoading(true))
             fetch('http://localhost:3000/loans/lender', {
                 headers: {
-                    // "acces_token": localStorage.acces_token
+                    "access_token": localStorage.getItem('access_token')
                 },
                 method: "GET"
             })
@@ -146,7 +146,7 @@ export function fetchLoanBorrower() {
             dispatch(getBorrowerLoanLoading(true))
             fetch('http://localhost:3000/loans/borrower', {
                 headers: {
-                    // "acces_token": localStorage.acces_token
+                    "access_token": localStorage.getItem('access_token')
                 },
                 method: "GET"
             })
@@ -161,6 +161,7 @@ export function fetchLoanBorrower() {
                     dispatch(getBorrowerLoanSuccess(data))
                 })
                 .catch(err => {
+                    console.log(err);
                     dispatch(getBorrowerLoanError(err))
                 })
                 .finally(() => dispatch(getBorrowerLoanLoading(false)))
@@ -200,7 +201,7 @@ export function landerInvest(payload) {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    "access_token": localStorage.access_token
+                    "access_token": localStorage.getItem('access_token')
                 },
                 body: JSON.stringify(payload),
                 method: "POST"
@@ -213,7 +214,6 @@ export function landerInvest(payload) {
                     }
                 })
                 .then((data) => {
-                    console.log("data==============", data)
                     dispatch(getLanderInvestSuccess(data))
                 })
                 .catch(err => {
@@ -255,6 +255,7 @@ export function borrowerAmount(id) {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    "access_token": localStorage.getItem('access_token')
                 },
                 body: JSON.stringify({ loanID: id }),
                 method: "POST"
@@ -308,6 +309,7 @@ export function borrowerPay(id) {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    "access_token": localStorage.getItem('access_token')
                 },
                 body: JSON.stringify(id),
                 method: "POST"
@@ -361,6 +363,7 @@ export function landerGetAmount(data) {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    "access_token": localStorage.getItem('access_token')
                 },
                 body: JSON.stringify(data),
                 method: "POST"
