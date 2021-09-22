@@ -24,34 +24,38 @@ export default function ListLoan() {
         }
     }, [isLoanError])
 
+    console.log(isLoanSuccess);
     return (
         <Layout style={{ height: '100vh' }}>
             <AdminNavbar />
             <Layout>
                 <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
                 <Content>
-                    <div className="site-layout-background" style={{ padding: 24, minHeight: 360, height: '100%' }}>
-                        <div className="demo-infinite-container">
-                            <List
-                                dataSource={isLoanSuccess}
-                                loading={isLoanLoading}
-                                renderItem={item => (
-                                    <List.Item key={item?.id}>
-                                        <List.Item.Meta
-                                            avatar={
-                                                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                                            }
-                                            title={<p>{item?.Lender?.firstName} {item?.Lender?.firstName}</p>}
-                                            description={<p>IDR {item?.initialLoan.toLocaleString("id-ID")}</p>}
-                                        />
-                                        <div>
-                                            <p style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: '#0ba6ff', color: 'white', borderRadius: 10 }}>{item?.status}</p>
-                                        </div>
-                                    </List.Item>
-                                )}
-                            >
-                            </List>
-                        </div>
+                    <div className="site-layout-background" style={{ padding: 24, minHeight: 360, overflowY: "scroll", height: '100%' }}>
+                        <List
+                            dataSource={isLoanSuccess}
+                            loading={isLoanLoading}
+                            renderItem={item => (
+                                <List.Item key={item?.id} style={{ backgroundColor: 'white', borderRadius: '5px', cursor: 'pointer', marginBottom: '8px', padding: '16px' }}>
+                                    <List.Item.Meta
+                                        avatar={
+                                            <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                        }
+                                        title={<p>Name : {item?.Lender?.firstName} {item?.Lender?.firstName}</p>}
+                                        description={
+                                            <div>
+                                                <p>Loan : IDR {item?.initialLoan.toLocaleString("id-ID")}</p>
+                                                <p>External Id : {item?.externalID}</p>
+                                            </div>
+                                        }
+                                    />
+                                    <div>
+                                        <p style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: item?.status === 'pending' ? 'yellow' : item?.status === 'deadline' ? 'Red' : item?.status === 'borrowed' ? '#0033ff' : 'Green', color: 'black', borderRadius: 10 }}>{item?.status}</p>
+                                    </div>
+                                </List.Item>
+                            )}
+                        >
+                        </List>
                     </div>
                 </Content>
                 <AdminFooter />

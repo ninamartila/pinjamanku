@@ -1,13 +1,18 @@
 "use strict";
 
+const { hashPassword } = require("../helpers/bcrypt");
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const data = [
       {
+        id: 1,
         firstName: "Borrower",
         lastName: "Borrower",
         email: "dharmasatrya10@gmail.com",
         password: "rahasia",
+        ktpCard: "iniKtp",
+        selfPicture: "iniProfPic",
         phoneNumber: "09192718",
         address: "jakarta",
         birthDate: new Date(),
@@ -21,6 +26,9 @@ module.exports = {
         updatedAt: new Date(),
       },
     ];
+    data.forEach(element => {
+      element.password = hashPassword(element.password)
+    });
     await queryInterface.bulkInsert("Borrowers", data, {});
   },
 

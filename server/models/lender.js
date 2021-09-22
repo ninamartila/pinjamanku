@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Lender.hasMany(models.Loan, {foreignKey: "lenderID" });
-      Lender.belongsToMany(models.Borrower, {through: models.Loan ,foreignKey: "lenderID" });
+      Lender.hasMany(models.Loan, { foreignKey: "lenderID" });
+      Lender.belongsToMany(models.Borrower, { through: models.Loan, foreignKey: "lenderID" });
     }
   }
   Lender.init(
