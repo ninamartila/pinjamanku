@@ -215,7 +215,7 @@ export function fetchUserById(id, role) {
           }
         })
         .then((data) => {
-          console.log(data, '========');
+          console.log(data, "========");
           dispatch(getUserByIdSuccess(data));
           return data;
         })

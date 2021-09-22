@@ -54,15 +54,13 @@ export default function Register() {
 
     dispatch(registerUser(newData))
       .then((data) => {
-        console.log(data);
         if (data !== undefined) {
           if (role === "borrower") {
-            // localStorage.setItem("interview", "LINK");
             Swal.fire({
               title: "success!",
               text: "Register Success GO Intervew",
               icon: "success",
-              confirmButtonText: "Cool",
+              confirmButtonText: "OK",
             });
             history.push("/");
           } else if (role === "lender") {
@@ -71,7 +69,7 @@ export default function Register() {
               title: "success!",
               text: "Register Success GO Login",
               icon: "success",
-              confirmButtonText: "Cool",
+              confirmButtonText: "OK",
             });
           }
         } else {
@@ -79,11 +77,39 @@ export default function Register() {
         }
       })
       .catch(() => {
+        let error = "";
+        if (email === "") {
+          error = "email canot be emty";
+        } else if (firstName === "") {
+          error = "first name canot be emty";
+        } else if (lastName === "") {
+          error = "last name canot be emty";
+        } else if (password === "") {
+          error = "password canot be emty";
+        } else if (address === "") {
+          error = "addres canot be emty";
+        } else if (phoneNumber === "") {
+          error = "phone number canot be emty";
+        } else if (birthDate === "") {
+          error = "birth date canot be emty";
+        } else if (accountNumber === "") {
+          error = "bank account number canot be emty";
+        } else if (bankCode === "") {
+          error = "please select bank";
+        } else if (occupation === "") {
+          error = "occupation canot be emty";
+        } else if (holderName === "") {
+          error = "bank holder name canot be emty";
+        } else if (role === "") {
+          error = "please select register as";
+        } else {
+          error = "something went wrong";
+        }
         Swal.fire({
           title: "error!",
-          text: "Fill all entire Field",
+          text: error,
           icon: "error",
-          confirmButtonText: "Cool",
+          confirmButtonText: "OK",
         });
       });
   }

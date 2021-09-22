@@ -25,7 +25,7 @@ export default function Login() {
               title: "Login success!",
               text: "Wellcome Back!",
               icon: "success",
-              confirmButtonText: "Cool",
+              confirmButtonText: "OK",
             });
             history.push("/borrower");
           } else if (data.role === "lender") {
@@ -33,7 +33,7 @@ export default function Login() {
               title: "Login success!",
               text: "Wellcome Back!",
               icon: "success",
-              confirmButtonText: "Cool",
+              confirmButtonText: "OK",
             });
             history.push("/lender");
           } else {
@@ -54,9 +54,8 @@ export default function Login() {
           title: "error!",
           text: "Email/Password Incorect",
           icon: "error",
-          confirmButtonText: "Cool",
+          confirmButtonText: "OK",
         });
-        console.log(err);
       });
   }
   function goRegister(e) {
