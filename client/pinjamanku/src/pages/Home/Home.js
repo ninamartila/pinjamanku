@@ -40,15 +40,21 @@ export default function Home() {
               <div>
                 <h1>Finance Problem?</h1>
               </div>
-              {isRegisterUserSuccess?.status ? (
+              {localStorage.getItem("dailyCo") ? (
+                // <button
+                //   class="btn text-center"
+                //   onClick={(e) => e.preventDefault()}
+                // >
                 <a
-                  href={isRegisterUserSuccess?.status === "Unverified"}
+                  href={localStorage.getItem("dailyCo")}
                   target="_blank"
-                  class="btn-register"
+                  class="btn btn-register btn-in"
                 >
                   GO INTERVIEW
+                  {" >"}
                 </a>
               ) : (
+                // </button>
                 <button class="btn-login" onClick={() => register()}>
                   Register Now
                 </button>

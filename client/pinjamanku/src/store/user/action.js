@@ -60,6 +60,7 @@ export function registerUser(payload) {
           }
         })
         .then((data) => {
+          localStorage.setItem("dailyCo", data.url);
           dispatch(getRegisterUserSuccess(data));
         })
         .catch((err) => {
@@ -115,6 +116,7 @@ export function loginUser(payload) {
         })
         .then((data) => {
           localStorage.setItem("access_token", data.access_token);
+          localStorage.setItem("id", data.id);
           localStorage.setItem("role", data.role);
           localStorage.setItem("status", data.status);
           dispatch(getLoginUserSuccess(data));

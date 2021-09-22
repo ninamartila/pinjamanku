@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { registerUser } from "../../store/user/action";
 import { useState } from "react";
 import login from "./img/log.svg";
-
+import Swal from "sweetalert2";
 import "./register.css";
 
 export default function Register() {
@@ -55,14 +55,31 @@ export default function Register() {
     dispatch(registerUser(newData))
       .then((data) => {
         if (role === "borrower") {
-          localStorage.setItem("interview", "LINK");
+          // localStorage.setItem("interview", "LINK");
+          Swal.fire({
+            title: "success!",
+            text: "Register Success GO Intervew",
+            icon: "success",
+            confirmButtonText: "Cool",
+          });
           history.push("/");
         } else if (role === "lender") {
           history.push("/lender");
+          Swal.fire({
+            title: "success!",
+            text: "Register Success GO Login",
+            icon: "success",
+            confirmButtonText: "Cool",
+          });
         }
       })
       .catch(() => {
-        console.log("ups salah password");
+        Swal.fire({
+          title: "error!",
+          text: "Fill all entire Field",
+          icon: "error",
+          confirmButtonText: "Cool",
+        });
       });
   }
 

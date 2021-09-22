@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import login from "./img/login.svg";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -20,14 +21,38 @@ export default function Login() {
       .then((data) => {
         console.log(data);
         if (data.role === "borrower") {
+          Swal.fire({
+            title: "Login success!",
+            text: "Wellcome Back!",
+            icon: "success",
+            confirmButtonText: "Cool",
+          });
           history.push("/pendana");
         } else if (data.role === "lender") {
+          Swal.fire({
+            title: "Login success!",
+            text: "Wellcome Back!",
+            icon: "success",
+            confirmButtonText: "Cool",
+          });
           history.push("/lender");
         } else {
+          Swal.fire({
+            title: "Login success!",
+            text: "Wellcome Back!",
+            icon: "success",
+            confirmButtonText: "Cool",
+          });
           console.log("mybi admin");
         }
       })
       .catch((err) => {
+        Swal.fire({
+          title: "error!",
+          text: "Email/Password Incorect",
+          icon: "error",
+          confirmButtonText: "Cool",
+        });
         console.log(err);
       });
   }

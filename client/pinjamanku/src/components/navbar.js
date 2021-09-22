@@ -1,9 +1,10 @@
 import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 export default function Navbar() {
   const history = useHistory();
 
   function home() {
-    history.push(`/home`);
+    history.push(`/`);
   }
 
   function login() {
@@ -12,6 +13,12 @@ export default function Navbar() {
 
   function logout() {
     localStorage.clear();
+    Swal.fire({
+      title: "Logout success!",
+      text: "See You!",
+      icon: "success",
+      confirmButtonText: "Cool",
+    });
     history.push(`/`);
   }
 
