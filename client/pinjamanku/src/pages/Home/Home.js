@@ -25,7 +25,10 @@ export default function Home() {
   function register() {
     history.push(`/register`);
   }
-
+  function interviewUser() {
+    localStorage.clear();
+    history.push(`/login`);
+  }
   return (
     <div>
       <Navbar />
@@ -49,6 +52,9 @@ export default function Home() {
                   href={localStorage.getItem("dailyCo")}
                   target="_blank"
                   class="btn btn-register btn-in"
+                  onClick={() => {
+                    interviewUser();
+                  }}
                 >
                   GO INTERVIEW
                   {" >"}

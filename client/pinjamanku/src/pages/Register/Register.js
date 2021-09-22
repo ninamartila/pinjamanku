@@ -54,23 +54,28 @@ export default function Register() {
 
     dispatch(registerUser(newData))
       .then((data) => {
-        if (role === "borrower") {
-          // localStorage.setItem("interview", "LINK");
-          Swal.fire({
-            title: "success!",
-            text: "Register Success GO Intervew",
-            icon: "success",
-            confirmButtonText: "Cool",
-          });
-          history.push("/");
-        } else if (role === "lender") {
-          history.push("/lender");
-          Swal.fire({
-            title: "success!",
-            text: "Register Success GO Login",
-            icon: "success",
-            confirmButtonText: "Cool",
-          });
+        console.log(data);
+        if (data !== undefined) {
+          if (role === "borrower") {
+            // localStorage.setItem("interview", "LINK");
+            Swal.fire({
+              title: "success!",
+              text: "Register Success GO Intervew",
+              icon: "success",
+              confirmButtonText: "Cool",
+            });
+            history.push("/");
+          } else if (role === "lender") {
+            history.push("/login");
+            Swal.fire({
+              title: "success!",
+              text: "Register Success GO Login",
+              icon: "success",
+              confirmButtonText: "Cool",
+            });
+          }
+        } else {
+          throw "error";
         }
       })
       .catch(() => {
@@ -81,6 +86,10 @@ export default function Register() {
           confirmButtonText: "Cool",
         });
       });
+  }
+  function goLogin(e) {
+    e.preventDefault();
+    history.push("/login");
   }
 
   // useEffect(() => {
@@ -266,9 +275,9 @@ export default function Register() {
                       <option selected disabled>
                         Select Bank Code
                       </option>
-                      <option value="1">BRI</option>
-                      <option value="2">BCA</option>
-                      <option value="3">MANDIRI</option>
+                      <option value="BRI">BRI</option>
+                      <option value="BCA">BCA</option>
+                      <option value="MANDIRI">MANDIRI</option>
                     </select>
                   </div>
                 </div>
@@ -302,7 +311,7 @@ export default function Register() {
                 ""
               )}
 
-              <a href="" onClick={() => history.push("/login")}>
+              <a href="" onClick={(e) => goLogin(e)}>
                 Already Have AnAccount?
               </a>
             </div>
