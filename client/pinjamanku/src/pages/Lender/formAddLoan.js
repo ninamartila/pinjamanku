@@ -60,16 +60,16 @@ export default function AddLoan() {
                   aria-label="Default select example"
                   placeholder="BankCode"
                   onChange={(e) => {
-                    setAmount(e.target.value);
+                    setAmount(+e.target.value);
                   }}
                   value={amount}
                 >
                   <option selected disabled>
                     Loan Value
                   </option>
-                  <option value={1000000}>1.000.000</option>
-                  <option value={3000000}>3.000.000</option>
-                  <option value={5000000}>5.000.000</option>
+                  <option value="1000000">1.000.000</option>
+                  <option value="3000000">3.000.000</option>
+                  <option value="5000000">5.000.000</option>
                 </select>
               </div>
             </div>

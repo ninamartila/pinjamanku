@@ -73,16 +73,10 @@ export default function App() {
               <Route path="/lender/add-loan">
                 <AddLoan />
               </Route>
-
               <Route path="/lender">
                 <Lender />
               </Route>
-
-              <Route path="/pendana/tempat-minjam">
-                <TempatMinjam />
-              </Route>
-
-              <Route exact path="/pendana">
+              <Route path="/borrower">
                 <DasboardBorower />
               </Route>
               <GuardedRoute

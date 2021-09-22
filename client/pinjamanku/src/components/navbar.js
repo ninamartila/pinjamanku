@@ -24,11 +24,8 @@ export default function Navbar() {
 
   return (
     <nav class="navbar">
-      <h1>PinjamanKu</h1>
+      <h1><a style={{color: "inherit", fontSize: 25}} href="" onClick={() => home()}>PinjamanKu</a></h1>
       <div class="nav-menu">
-        <a class="nav-link" href="" onClick={() => home()}>
-          Home
-        </a>
         {!localStorage.getItem("access_token") ? (
           ""
         ) : localStorage.getItem("role") === "lender" ? (

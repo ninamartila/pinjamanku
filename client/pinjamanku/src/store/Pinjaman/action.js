@@ -2,6 +2,12 @@ import {
     ALL_LOAN_LOADING,
     ALL_LOAN_SUCCESS,
     ALL_LOAN_ERROR,
+    LENDER_LOAN_LOADING,
+    LENDER_LOAN_SUCCESS,
+    LENDER_LOAN_ERROR,
+    BORROWER_LOAN_LOADING,
+    BORROWER_LOAN_SUCCESS,
+    BORROWER_LOAN_ERROR,
     BORROWER_PAY_LOADING,
     BORROWER_PAY_SUCCESS,
     BORROWER_PAY_ERROR,
@@ -37,6 +43,48 @@ export function getAllLoanError(payload) {
     }
 }
 
+export function getLenderLoanLoading(payload) {
+    return {
+        type: LENDER_LOAN_LOADING,
+        payload
+    }
+}
+
+export function getLenderLoanSuccess(payload) {
+    return {
+        type: LENDER_LOAN_SUCCESS,
+        payload
+    }
+}
+
+export function getLenderLoanError(payload) {
+    return {
+        type: LENDER_LOAN_ERROR,
+        payload
+    }
+}
+
+export function getBorrowerLoanLoading(payload) {
+    return {
+        type: BORROWER_LOAN_LOADING,
+        payload
+    }
+}
+
+export function getBorrowerLoanSuccess(payload) {
+    return {
+        type: BORROWER_LOAN_SUCCESS,
+        payload
+    }
+}
+
+export function getBorrowerLoanError(payload) {
+    return {
+        type: BORROWER_LOAN_ERROR,
+        payload
+    }
+}
+
 export function fetchLoan(id) {
     return async function (dispatch, getState) {
         try {
@@ -56,6 +104,66 @@ export function fetchLoan(id) {
                     dispatch(getAllLoanError(err))
                 })
                 .finally(() => dispatch(getAllLoanLoading(false)))
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+
+export function fetchLoanLender() {
+    return async function (dispatch, getState) {
+        try {
+            dispatch(getLenderLoanLoading(true))
+            fetch('http://localhost:3000/loans/lender', {
+                headers: {
+                    // "acces_token": localStorage.acces_token
+                },
+                method: "GET"
+            })
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json()
+                    } else {
+                        return Promise.reject('something went wrong')
+                    }
+                })
+                .then((data) => {
+                    dispatch(getLenderLoanSuccess(data))
+                })
+                .catch(err => {
+                    dispatch(getLenderLoanError(err))
+                })
+                .finally(() => dispatch(getLenderLoanLoading(false)))
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+
+export function fetchLoanBorrower() {
+    return async function (dispatch, getState) {
+        try {
+            dispatch(getBorrowerLoanLoading(true))
+            fetch('http://localhost:3000/loans/borrower', {
+                headers: {
+                    // "acces_token": localStorage.acces_token
+                },
+                method: "GET"
+            })
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json()
+                    } else {
+                        return Promise.reject('something went wrong')
+                    }
+                })
+                .then((data) => {
+                    dispatch(getBorrowerLoanSuccess(data))
+                })
+                .catch(err => {
+                    dispatch(getBorrowerLoanError(err))
+                })
+                .finally(() => dispatch(getBorrowerLoanLoading(false)))
         } catch (err) {
             console.log(err);
         }

@@ -103,7 +103,7 @@ export default function Login() {
                 history.push("/register");
               }}
             >
-              Already Have AnAccount?
+              Already Have an Account?
             </a>
             <input type="submit" className="btn-login" value="LOGIN" />
           </form>

@@ -1,8 +1,8 @@
 import { message, Tabs, List } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ListItemStatusPinjam, Navbar } from "../../components";
-import { fetchLoan } from "../../store/Pinjaman/action";
+import { ListItemStatusPinjam, Navbar, BorrowerItemCard } from "../../components";
+import { fetchLoan, fetchLoanBorrower } from "../../store/Pinjaman/action";
 import BorrowerPayModal from "./borrowerPayModal";
 
 const { TabPane } = Tabs;
@@ -14,6 +14,9 @@ export default function DasboardBorower() {
     isLoanLoading,
     isLoanSuccess,
     isLoanError,
+    isBorrowerLoanLoading,
+    isBorrowerLoanSuccess,
+    isBorrowerLoanError,
     isBorrowerPayLoading,
     isBorrowerPaySuccess,
     isBorrowerPayError
@@ -33,14 +36,14 @@ export default function DasboardBorower() {
   }, [isBorrowerPayError])
 
   useEffect(() => {
-    dispatch(fetchLoan());
+    dispatch(fetchLoanBorrower());
   }, []);
 
   useEffect(() => {
-    if (!!isLoanError) {
-      message.error(isLoanError?.message ?? "something went wrong");
+    if (!!isBorrowerLoanError) {
+      message.error(isBorrowerLoanError?.message ?? "something went wrong");
     }
-  }, [isLoanError]);
+  }, [isBorrowerLoanError]);
 
   return (
     <div>
@@ -49,71 +52,53 @@ export default function DasboardBorower() {
         <div className="card col-md-12  m-3">
           <div className="card-body  m-3">
             <div className="row d-flex flex-row">
-              <h2>Hi..... "Dewa Indra"</h2>
+              <h2>Hi, "Dewa Indra"</h2>
             </div>
             <div className="row justify-content-between">
               <div className="col-md-4">
-                <h5>No Rek : 1234567789 (BRI)</h5>
+                <h5>Acc. Number: 1234567789 (BRI)</h5>
               </div>
 
               <div className="col-md-4 d-flex flex-col">
-                <h5>Email : </h5>
+                <h5>Email: </h5>
                 <p> madun@gmail.com</p>
-              </div>
-              <div className="col-md-4 d-flex flex-col">
-                <h5>Terkumpul : </h5>
-                <p> Rp. 200.000</p>
               </div>
             </div>
           </div>
         </div>
       </div>
       <Tabs defaultActiveKey="1" style={{ paddingLeft: 10 }}>
-        <TabPane tab="List Pinjaman Pending" key="1">
+        <TabPane tab="Current Loan" key="2">
           <section className="container">
             <div className="m-3">
-              <h4>Pinjaman Panding :</h4>
+              <h4>Currently borrowed:</h4>
             </div>
             <List
-              dataSource={isLoanSuccess.filter(
-                (item) => item?.status === "pending"
-              )}
-              loading={isLoanLoading}
-              renderItem={(item) => <ListItemStatusPinjam item={item} />}
-            ></List>
-          </section>
-        </TabPane>
-        <TabPane tab="List Sedang Dipinjam" key="2">
-          <section className="container">
-            <div className="m-3">
-              <h4>Pinjaman Active :</h4>
-            </div>
-            <List
-              dataSource={isLoanSuccess.filter(
+              dataSource={isBorrowerLoanSuccess.filter(
                 (item) => item?.status === "active"
               )}
             >
             </List>
             <List
-              dataSource={isLoanSuccess.filter(item => item?.status === 'borrowed')}
-              loading={isLoanLoading}
+              dataSource={isBorrowerLoanSuccess.filter(item => item?.status === 'borrowed')}
+              loading={isBorrowerLoanLoading}
               renderItem={item => (
-                <ListItemStatusPinjam item={item} />
+                <BorrowerItemCard item={item} />
               )}
             >
             </List>
           </section>
         </TabPane>
-        <TabPane tab="List Pinjaman Selesai" key="3">
+        <TabPane tab="Completed Loan" key="3">
           <section className="container">
             <div className="m-3">
-              <h4>Pinjaman Selesai :</h4>
+              <h4>Completed :</h4>
             </div>
             <List
-              dataSource={isLoanSuccess.filter(item => item?.status === 'withdrawn')}
-              loading={isLoanLoading}
+              dataSource={isBorrowerLoanSuccess.filter(item => item?.status === 'withdrawn')}
+              loading={isBorrowerLoanLoading}
               renderItem={item => (
-                <ListItemStatusPinjam item={item} />
+                <BorrowerItemCard item={item} />
               )}
             >
             </List>

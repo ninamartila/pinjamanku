@@ -44,8 +44,6 @@ class UserController {
         lastName,
         email,
         password,
-        ktpCard,
-        selfPicture,
         phoneNumber,
         address,
         birthDate,
@@ -76,8 +74,6 @@ class UserController {
             lastName,
             email,
             password,
-            ktpCard,
-            selfPicture,
             phoneNumber,
             address,
             birthDate,
@@ -203,6 +199,7 @@ class UserController {
         }
       }
     } catch (error) {
+      console.log(error)
       res.status(500).json(error);
     }
   }
