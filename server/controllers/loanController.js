@@ -20,7 +20,6 @@ class LoanController {
 
   static async GetByID(req, res, next) {
     const { loanID } = req.params;
-    console.log("AIDI", loanID);
     try {
       const result = await Loan.findOne({
         where: { id: +loanID },

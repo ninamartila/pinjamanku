@@ -141,7 +141,6 @@ class UserController {
         });
       }
     } catch (error) {
-      console.log(error, 'masuk');
       next(error);
     }
   }
