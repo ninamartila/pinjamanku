@@ -58,7 +58,7 @@ const loan = {
 
 let lenderId;
 let borrowerId;
-let loanId;
+let loanID;
 let lenderToken;
 let borrowerToken;
 let failToken;
@@ -98,11 +98,13 @@ beforeAll((done) => {
       };
       return Loan.create(newLoan);
     })
-    .then(() => Loan.findOne({ where: { externalID: "ahiw" } }))
+    .then((res) => Loan.findOne({ where: { lenderID: res.lenderID } }))
     .then((res) => {
-      loanId = res.id;
+      loanID = res.id;
     })
-    .then(() => done())
+    .then(() => {
+      done();
+    })
     .catch((err) => done(err));
 });
 
@@ -192,20 +194,20 @@ describe("GET /loans [FAIL CASE]", () => {
   });
 });
 
-// describe("GET /loans/:loanID [SUCCESS CASE]", () => {
-//   test("200 success get loan by id", (done) => {
-//     request(app)
-//       .get(`/loans/${loanId}`)
-//       .set({ access_token: lenderToken })
-//       .end((err, res) => {
-//         if (err) return done(err);
-//         const { status, body } = res;
-//         expect(status).toBe(200);
-//         expect(body.length).toBeGreaterThanOrEqual(0);
-//         done();
-//       });
-//   });
-// });
+describe("GET /loans/:loanID [SUCCESS CASE]", () => {
+  test("200 success get loan by id", (done) => {
+    request(app)
+      .get(`/loans/${loanID}`)
+      .set({ access_token: lenderToken })
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("id", expect.any(Number));
+        done();
+      });
+  });
+});
 
 describe("GET /loans/:loanID [FAIL CASE]", () => {
   test("404 fail get loan by id", (done) => {

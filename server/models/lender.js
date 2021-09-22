@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Lender.hasMany(models.Loan, {foreignKey: "lenderID" });
-      Lender.belongsToMany(models.Borrower, {through: models.Loan ,foreignKey: "lenderID" });
+      Lender.hasMany(models.Loan, { foreignKey: "lenderID" });
+      Lender.belongsToMany(models.Borrower, { through: models.Loan, foreignKey: "lenderID" });
     }
   }
   Lender.init(
@@ -68,30 +68,6 @@ module.exports = (sequelize, DataTypes) => {
           },
           notEmpty: {
             msg: "password cannot be empty",
-          },
-        },
-      },
-      ktpCard: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "ktp card cannot be null",
-          },
-          notEmpty: {
-            msg: "ktp card cannot be empty",
-          },
-        },
-      },
-      selfPicture: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "self picture cannot be null",
-          },
-          notEmpty: {
-            msg: "self picture cannot be empty",
           },
         },
       },
