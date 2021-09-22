@@ -24,6 +24,7 @@ async function sendMail(roomLink, email) {
       };
     }
   } catch (error) {
+    /* istanbul ignore next */
     return {
       error,
     };
