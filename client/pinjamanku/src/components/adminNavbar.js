@@ -50,7 +50,7 @@ export default function AdminNavbar() {
                     <Link to='/admin-dashboard/lender'>List Lender</Link>
                 </Menu.Item>
                 <Menu.Item key="3" >
-                    <Link to='/admin-dashboard/pendingborrower'>List Panding Borrower</Link>
+                    <Link to='/admin-dashboard/pendingborrower'>List Pending Borrower</Link>
                 </Menu.Item>
                 <Menu.Item key="4" >
                     <Link to='/admin-dashboard/listLoan'>List Loan</Link>

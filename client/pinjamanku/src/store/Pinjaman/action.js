@@ -20,181 +20,180 @@ import {
     LANDER_GET_AMOUNT_LOADING,
     LANDER_GET_AMOUNT_SUCCESS,
     LANDER_GET_AMOUNT_ERROR,
-} from './actionType'
+} from "./actionType";
 
 export function getAllLoanLoading(payload) {
     return {
         type: ALL_LOAN_LOADING,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getAllLoanSuccess(payload) {
     return {
         type: ALL_LOAN_SUCCESS,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getAllLoanError(payload) {
     return {
         type: ALL_LOAN_ERROR,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getLenderLoanLoading(payload) {
     return {
         type: LENDER_LOAN_LOADING,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getLenderLoanSuccess(payload) {
     return {
         type: LENDER_LOAN_SUCCESS,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getLenderLoanError(payload) {
     return {
         type: LENDER_LOAN_ERROR,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getBorrowerLoanLoading(payload) {
     return {
         type: BORROWER_LOAN_LOADING,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getBorrowerLoanSuccess(payload) {
     return {
         type: BORROWER_LOAN_SUCCESS,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getBorrowerLoanError(payload) {
     return {
         type: BORROWER_LOAN_ERROR,
-        payload
-    }
+        payload,
+    };
 }
 
 export function fetchLoan(id) {
     return async function (dispatch, getState) {
         try {
-            dispatch(getAllLoanLoading(true))
-            fetch('http://localhost:3000/loans')
+            dispatch(getAllLoanLoading(true));
+            fetch("http://localhost:3000/loans")
                 .then((res) => {
                     if (res.ok) {
-                        return res.json()
+                        return res.json();
                     } else {
-                        return Promise.reject('something went wrong')
+                        return Promise.reject("something went wrong");
                     }
                 })
                 .then((data) => {
-                    dispatch(getAllLoanSuccess(data))
+                    dispatch(getAllLoanSuccess(data));
                 })
-                .catch(err => {
-                    dispatch(getAllLoanError(err))
+                .catch((err) => {
+                    dispatch(getAllLoanError(err));
                 })
-                .finally(() => dispatch(getAllLoanLoading(false)))
+                .finally(() => dispatch(getAllLoanLoading(false)));
         } catch (err) {
             console.log(err);
         }
-    }
+    };
 }
 
 export function fetchLoanLender() {
     return async function (dispatch, getState) {
         try {
-            dispatch(getLenderLoanLoading(true))
-            fetch('http://localhost:3000/loans/lender', {
+            dispatch(getLenderLoanLoading(true));
+            return fetch("http://localhost:3000/loans/lender", {
                 headers: {
-                    "access_token": localStorage.getItem('access_token')
+                    access_token: localStorage.getItem("access_token"),
                 },
-                method: "GET"
+                method: "GET",
             })
                 .then((res) => {
                     if (res.ok) {
-                        return res.json()
+                        return res.json();
                     } else {
-                        return Promise.reject('something went wrong')
+                        return Promise.reject("something went wrong");
                     }
                 })
                 .then((data) => {
-                    dispatch(getLenderLoanSuccess(data))
+                    dispatch(getLenderLoanSuccess(data));
+                    return data;
                 })
-                .catch(err => {
-                    dispatch(getLenderLoanError(err))
+                .catch((err) => {
+                    dispatch(getLenderLoanError(err));
                 })
-                .finally(() => dispatch(getLenderLoanLoading(false)))
+                .finally(() => dispatch(getLenderLoanLoading(false)));
         } catch (err) {
             console.log(err);
         }
-    }
+    };
 }
 
 export function fetchLoanBorrower() {
     return async function (dispatch, getState) {
         try {
-            dispatch(getBorrowerLoanLoading(true))
-            fetch('http://localhost:3000/loans/borrower', {
+            dispatch(getBorrowerLoanLoading(true));
+            fetch("http://localhost:3000/loans/borrower", {
                 headers: {
-                    "access_token": localStorage.getItem('access_token')
+                    access_token: localStorage.getItem("access_token"),
                 },
-                method: "GET"
+                method: "GET",
             })
                 .then((res) => {
                     if (res.ok) {
-                        return res.json()
+                        return res.json();
                     } else {
-                        return Promise.reject('something went wrong')
+                        return Promise.reject("something went wrong");
                     }
                 })
                 .then((data) => {
-                    dispatch(getBorrowerLoanSuccess(data))
+                    dispatch(getBorrowerLoanSuccess(data));
                 })
-                .catch(err => {
-                    console.log(err);
-                    dispatch(getBorrowerLoanError(err))
+                .catch((err) => {
+                    dispatch(getBorrowerLoanError(err));
                 })
-                .finally(() => dispatch(getBorrowerLoanLoading(false)))
+                .finally(() => dispatch(getBorrowerLoanLoading(false)));
         } catch (err) {
             console.log(err);
         }
-    }
+    };
 }
 
 export function getLanderInvestLoading(payload) {
     return {
         type: LANDER_INVEST_LOADING,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getLanderInvestSuccess(payload) {
     return {
         type: LANDER_INVEST_SUCCESS,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getLanderInvestError(payload) {
     return {
         type: LANDER_INVEST_ERROR,
-        payload
-    }
+        payload,
+    };
 }
 
 export function landerInvest(payload) {
     return async function (dispatch, getState) {
-        console.log(payload);
         try {
             dispatch(getLanderInvestLoading(true))
             fetch('http://localhost:3000/loans/invoice/lender', {
@@ -229,22 +228,22 @@ export function landerInvest(payload) {
 export function getBorrowerAmountLoading(payload) {
     return {
         type: BORROWER_AMOUNT_LOADING,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getBorrowerAmountSuccess(payload) {
     return {
         type: BORROWER_AMOUNT_SUCCESS,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getBorrowerAmountError(payload) {
     return {
         type: BORROWER_AMOUNT_ERROR,
-        payload
-    }
+        payload,
+    };
 }
 
 export function borrowerAmount(id) {
@@ -283,22 +282,22 @@ export function borrowerAmount(id) {
 export function getBorrowerPayLoading(payload) {
     return {
         type: BORROWER_PAY_LOADING,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getBorrowerPaySuccess(payload) {
     return {
         type: BORROWER_PAY_SUCCESS,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getBorrowerPayError(payload) {
     return {
         type: BORROWER_PAY_ERROR,
-        payload
-    }
+        payload,
+    };
 }
 
 export function borrowerPay(id) {
@@ -337,22 +336,22 @@ export function borrowerPay(id) {
 export function getLenderGetAmountLoading(payload) {
     return {
         type: LANDER_GET_AMOUNT_LOADING,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getLenderGetAmountSuccess(payload) {
     return {
         type: LANDER_GET_AMOUNT_SUCCESS,
-        payload
-    }
+        payload,
+    };
 }
 
 export function getLenderGetAmountError(payload) {
     return {
         type: LANDER_GET_AMOUNT_ERROR,
-        payload
-    }
+        payload,
+    };
 }
 
 export function landerGetAmount(data) {

@@ -48,7 +48,7 @@ export default function AddLoan() {
               onAddLoan(e);
             }}
           >
-            <h2 className="title">Add LOan</h2>
+            <h2 className="title">Invest</h2>
 
             <div className="input-div one">
               <div className="i">
@@ -58,18 +58,19 @@ export default function AddLoan() {
                 <select
                   className="form-select select-input"
                   aria-label="Default select example"
-                  placeholder="BankCode"
+                  placeholder="bank code"
                   onChange={(e) => {
                     setAmount(+e.target.value);
                   }}
                   value={amount}
                 >
                   <option selected disabled>
-                    Loan Value
+                    amount
                   </option>
-                  <option value="1000000">1.000.000</option>
-                  <option value="3000000">3.000.000</option>
-                  <option value="5000000">5.000.000</option>
+                  <option value="1000000">IDR 1.000.000</option>
+                  <option value="3000000">IDR 3.000.000</option>
+                  <option value="5000000">IDR 5.000.000</option>
+                  <option value="10000000">IDR 10.000.000</option>
                 </select>
               </div>
             </div>
@@ -81,7 +82,7 @@ export default function AddLoan() {
                 <input
                   type="number"
                   className="input"
-                  placeholder="Jangka Waktu dalam Bulan"
+                  placeholder="tenor (in months)"
                   value={tenor}
                   onChange={(e) => {
                     setTenor(+e.target.value);
@@ -90,7 +91,7 @@ export default function AddLoan() {
               </div>
             </div>
 
-            <input type="submit" className="btn-login" value="ADD LOAN" />
+            <input type="submit" className="btn-login" value="INVEST NOW!" />
           </form>
         </div>
       </div>

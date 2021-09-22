@@ -20,17 +20,11 @@ export default function BorrowerItemCard(props) {
           <div className="row justify-content-between">
             <div className="col-md-4">
               <h5>Loan Amount:</h5>
-              <p>IDR {item?.initialLoan}</p>
+              <p>IDR {item?.initialLoan?.toLocaleString("id-ID")}</p>
             </div>
-            <div className="col-md-2">
-              <h5>Interest:</h5>
-              <p>7%</p>
-            </div>
-          </div>
-          <div className="row justify-content-between">
             <div className="col-md-4">
               <h5>Repayment Amount:</h5>
-              <p>IDR {item?.initialLoan + (item?.initialLoan * 0.07)}</p>
+              <p>IDR {(item?.initialLoan + (item?.initialLoan * 0.07)).toLocaleString("id-ID")}</p>
             </div>
 
             <div className="col-md-2">
@@ -40,8 +34,12 @@ export default function BorrowerItemCard(props) {
           </div>
           <div className="row justify-content-between">
             <div className="col-md-4">
+              <h5>Interest:</h5>
+              <p>7%</p>
+            </div>
+            <div className="col-md-4">
               <h5>Tenor:</h5>
-              <p>{item?.tenor} months</p>
+              <p>{item?.tenor} days</p>
             </div>
             <div className="col-md-2">
               <h5>Status :</h5>
@@ -71,7 +69,7 @@ export default function BorrowerItemCard(props) {
           </div>
         </div>
         {
-          item?.status === "borrowed" && item?.Borrower?.role === 'borrower' ?
+          item?.status === "borrowed" && localStorage.getItem('role') === 'borrower' ?
             (<div className="row justify-content-between">
               <button className="btn btn-primary" onClick={() => onActive({ loanID: item?.id })}>Pay Now</button>
             </div>) : null

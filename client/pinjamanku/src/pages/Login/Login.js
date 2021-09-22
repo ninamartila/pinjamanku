@@ -19,31 +19,34 @@ export default function Login() {
     };
     dispatch(loginUser(newData))
       .then((data) => {
-        console.log(data);
-        if (data.role === "borrower") {
-          Swal.fire({
-            title: "Login success!",
-            text: "Wellcome Back!",
-            icon: "success",
-            confirmButtonText: "Cool",
-          });
-          history.push("/pendana");
-        } else if (data.role === "lender") {
-          Swal.fire({
-            title: "Login success!",
-            text: "Wellcome Back!",
-            icon: "success",
-            confirmButtonText: "Cool",
-          });
-          history.push("/lender");
+        if (data !== "something went wrong") {
+          if (data.role === "borrower") {
+            Swal.fire({
+              title: "Login success!",
+              text: "Wellcome Back!",
+              icon: "success",
+              confirmButtonText: "Cool",
+            });
+            history.push("/borrower");
+          } else if (data.role === "lender") {
+            Swal.fire({
+              title: "Login success!",
+              text: "Wellcome Back!",
+              icon: "success",
+              confirmButtonText: "Cool",
+            });
+            history.push("/lender");
+          } else {
+            Swal.fire({
+              title: "Login success!",
+              text: "Wellcome Back!",
+              icon: "success",
+              confirmButtonText: "Cool",
+            });
+            history.push("/admin-dashboard/listLoan");
+          }
         } else {
-          Swal.fire({
-            title: "Login success!",
-            text: "Wellcome Back!",
-            icon: "success",
-            confirmButtonText: "Cool",
-          });
-          console.log("mybi admin");
+          throw "error";
         }
       })
       .catch((err) => {
@@ -55,6 +58,10 @@ export default function Login() {
         });
         console.log(err);
       });
+  }
+  function goRegister(e) {
+    e.preventDefault();
+    history.push("/register");
   }
 
   return (
@@ -79,7 +86,7 @@ export default function Login() {
                 <input
                   type="email"
                   className="input"
-                  placeholder="Email"
+                  placeholder="email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
@@ -92,18 +99,18 @@ export default function Login() {
                 <input
                   type="password"
                   className="input"
-                  placeholder="Password"
+                  placeholder="password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </div>
             <a
               href=""
-              onClick={() => {
-                history.push("/register");
+              onClick={(e) => {
+                goRegister(e);
               }}
             >
-              Already Have an Account?
+              Register?
             </a>
             <input type="submit" className="btn-login" value="LOGIN" />
           </form>

@@ -42,7 +42,7 @@ export default function ListLoan() {
                                                 <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                                             }
                                             title={<p>{item?.Lender?.firstName} {item?.Lender?.firstName}</p>}
-                                            description={<p>Rp. {item?.initialLoan}</p>}
+                                            description={<p>IDR {item?.initialLoan.toLocaleString("id-ID")}</p>}
                                         />
                                         <div>
                                             <p style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: '#0ba6ff', color: 'white', borderRadius: 10 }}>{item?.status}</p>

@@ -60,10 +60,12 @@ export function registerUser(payload) {
           }
         })
         .then((data) => {
-          localStorage.setItem("dailyCo", data.url);
+          localStorage.setItem("dailyCo", data.dailyURL);
           dispatch(getRegisterUserSuccess(data));
+          return data.dataValues;
         })
         .catch((err) => {
+          console.log(err);
           dispatch(getRegisterUserError(err));
         })
         .finally(() => dispatch(getRegisterUserLoading(false)));
@@ -120,6 +122,7 @@ export function loginUser(payload) {
           localStorage.setItem("role", data.role);
           localStorage.setItem("status", data.status);
           dispatch(getLoginUserSuccess(data));
+          console.log(data);
           return data;
         })
         .catch((err) => {
@@ -203,7 +206,7 @@ export function fetchUserById(id, role) {
   return async function (dispatch, getState) {
     try {
       dispatch(getUserByIdLoading(true));
-      fetch(`http://localhost:3000/users/${id}?role=${role}`)
+      return fetch(`http://localhost:3000/users/${id}?role=${role}`)
         .then((res) => {
           if (res.ok) {
             return res.json();
@@ -212,8 +215,9 @@ export function fetchUserById(id, role) {
           }
         })
         .then((data) => {
-          // console.log(data, '========');
+          console.log(data, '========');
           dispatch(getUserByIdSuccess(data));
+          return data;
         })
         .catch((err) => {
           dispatch(getUserByIdError(err));

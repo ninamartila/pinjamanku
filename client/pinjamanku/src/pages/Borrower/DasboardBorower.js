@@ -1,15 +1,22 @@
 import { message, Tabs, List } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ListItemStatusPinjam, Navbar, BorrowerItemCard } from "../../components";
+import {
+  ListItemStatusPinjam,
+  Navbar,
+  BorrowerItemCard,
+} from "../../components";
 import { fetchLoan, fetchLoanBorrower } from "../../store/Pinjaman/action";
+
+import { fetchUserById } from "../../store/user/action";
+
 import BorrowerPayModal from "./borrowerPayModal";
 
 const { TabPane } = Tabs;
 
 export default function DasboardBorower() {
-  const dispatch = useDispatch()
-  const [showModalPayVisible, setShowModalPayVisible] = useState(false)
+  const dispatch = useDispatch();
+  const [showModalPayVisible, setShowModalPayVisible] = useState(false);
   const {
     isLoanLoading,
     isLoanSuccess,
@@ -19,24 +26,38 @@ export default function DasboardBorower() {
     isBorrowerLoanError,
     isBorrowerPayLoading,
     isBorrowerPaySuccess,
-    isBorrowerPayError
-  } = useSelector((state) => state.pinjamanku)
-
+    isBorrowerPayError,
+  } = useSelector((state) => state.pinjamanku);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [bank, setBank] = useState("");
+  const [code, setCode] = useState("");
   useEffect(() => {
     // console.log({ isBorrowerPaySuccess })
-    if (typeof isBorrowerPaySuccess?.invoiceURL === 'string') {
-      setShowModalPayVisible(true)
+    if (typeof isBorrowerPaySuccess?.invoiceURL === "string") {
+      setShowModalPayVisible(true);
     }
-  }, [isBorrowerPaySuccess])
+  }, [isBorrowerPaySuccess]);
 
   useEffect(() => {
     if (!!isBorrowerPayError) {
-      message.error(isBorrowerPayError?.message ?? 'something went wrong');
+      message.error(isBorrowerPayError?.message ?? "something went wrong");
     }
-  }, [isBorrowerPayError])
+  }, [isBorrowerPayError]);
 
   useEffect(() => {
     dispatch(fetchLoanBorrower());
+
+    dispatch(
+      fetchUserById(localStorage.getItem("id"), localStorage.getItem("role"))
+    ).then((data) => {
+      setEmail(data.email);
+      setBank(data.accountNumber);
+      setCode(data.bankCode);
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+    });
   }, []);
 
   useEffect(() => {
@@ -53,56 +74,63 @@ export default function DasboardBorower() {
         <div className="card col-md-12  m-3">
           <div className="card-body  m-3">
             <div className="row d-flex flex-row">
-              <h2>Hi, "Dewa Indra"</h2>
+              <h2>
+                Hi, "{firstName} {lastName}"
+              </h2>
             </div>
             <div className="row justify-content-between">
               <div className="col-md-4">
-                <h5>Acc. Number: 1234567789 (BRI)</h5>
+                <h5>
+                  Acc. Number : {bank} ({code})
+                </h5>
               </div>
 
               <div className="col-md-4 d-flex flex-col">
-                <h5>Email: </h5>
-                <p> madun@gmail.com</p>
+                <h5>Email : </h5>
+                <p> {email}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <Tabs defaultActiveKey="1" style={{ paddingLeft: 10 }}>
-        <TabPane tab="Current Loan" key="2">
-          <section className="container">
-            <div className="m-3">
-              <h4>Currently borrowed:</h4>
-            </div>
-            <List
-              dataSource={isBorrowerLoanSuccess.filter(item => item?.status === 'borrowed')}
-              loading={isBorrowerLoanLoading}
-              renderItem={item => (
-                <BorrowerItemCard item={item} />
-              )}
-            >
-            </List>
-          </section>
-        </TabPane>
-        <TabPane tab="Completed Loan" key="3">
-          <section className="container">
-            <div className="m-3">
-              <h4>Completed :</h4>
-            </div>
-            <List
-              dataSource={isBorrowerLoanSuccess.filter(item => item?.status === 'withdraw')}
-              loading={isBorrowerLoanLoading}
-              renderItem={item => (
-                <BorrowerItemCard item={item} />
-              )}
-            >
-            </List>
-          </section>
-        </TabPane>
-      </Tabs >
+      <div className="container">
+        <Tabs defaultActiveKey="1" style={{ paddingLeft: 10 }}>
+          <TabPane tab="Current Loan" key="2">
+            <section className="container">
+              <div className="m-3">
+                <h4>Currently borrowed:</h4>
+              </div>
+              <List
+                dataSource={isBorrowerLoanSuccess.filter(item => item?.status === 'borrowed')}
+                loading={isBorrowerLoanLoading}
+                renderItem={item => (
+                  <BorrowerItemCard item={item} />
+                )}
+              >
+              </List>
+            </section>
+          </TabPane>
+          <TabPane tab="Completed Loan" key="3">
+            <section className="container">
+              <div className="m-3">
+                <h4>Completed :</h4>
+              </div>
+              <List
+                dataSource={isBorrowerLoanSuccess.filter(item => item?.status === 'withdraw')}
+                loading={isBorrowerLoanLoading}
+                renderItem={item => (
+                  <BorrowerItemCard item={item} />
+                )}
+              >
+              </List>
+            </section>
+          </TabPane>
+        </Tabs >
+      </div>
       <BorrowerPayModal isModalVisible={showModalPayVisible} invoiceURL={isBorrowerPaySuccess?.invoiceURL} handleCancel={() => {
         setShowModalPayVisible(false)
       }} handleOk={() => {
+        dispatch(fetchLoanBorrower())
         setShowModalPayVisible(false)
       }} />
     </div >

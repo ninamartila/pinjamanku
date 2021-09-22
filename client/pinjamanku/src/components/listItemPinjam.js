@@ -10,7 +10,7 @@ export default function ListItemPinjam(props) {
         if (localStorage.getItem("access_token")) {
             dispatch(borrowerAmount(loanId));
         } else {
-            history("/login");
+            history.push("/login");
         }
     }
     return (

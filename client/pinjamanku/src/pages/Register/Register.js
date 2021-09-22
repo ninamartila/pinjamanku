@@ -54,23 +54,28 @@ export default function Register() {
 
     dispatch(registerUser(newData))
       .then((data) => {
-        if (role === "borrower") {
-          // localStorage.setItem("interview", "LINK");
-          Swal.fire({
-            title: "success!",
-            text: "Register Success GO Intervew",
-            icon: "success",
-            confirmButtonText: "Cool",
-          });
-          history.push("/");
-        } else if (role === "lender") {
-          history.push("/lender");
-          Swal.fire({
-            title: "success!",
-            text: "Register Success GO Login",
-            icon: "success",
-            confirmButtonText: "Cool",
-          });
+        console.log(data);
+        if (data !== undefined) {
+          if (role === "borrower") {
+            // localStorage.setItem("interview", "LINK");
+            Swal.fire({
+              title: "success!",
+              text: "Register Success GO Intervew",
+              icon: "success",
+              confirmButtonText: "Cool",
+            });
+            history.push("/");
+          } else if (role === "lender") {
+            history.push("/login");
+            Swal.fire({
+              title: "success!",
+              text: "Register Success GO Login",
+              icon: "success",
+              confirmButtonText: "Cool",
+            });
+          }
+        } else {
+          throw "error";
         }
       })
       .catch(() => {
@@ -81,6 +86,10 @@ export default function Register() {
           confirmButtonText: "Cool",
         });
       });
+  }
+  function goLogin(e) {
+    e.preventDefault();
+    history.push("/login");
   }
 
   // useEffect(() => {
@@ -117,7 +126,7 @@ export default function Register() {
                     <input
                       type="text"
                       className="input"
-                      placeholder="FirstName"
+                      placeholder="first name"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
                     />
@@ -131,7 +140,7 @@ export default function Register() {
                     <input
                       type="text"
                       className="input"
-                      placeholder="LastName"
+                      placeholder="last name"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
                     />
@@ -145,7 +154,7 @@ export default function Register() {
                     <input
                       type="text"
                       className="input"
-                      placeholder="PhoneNumber"
+                      placeholder="phone number"
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
                     />
@@ -159,7 +168,7 @@ export default function Register() {
                     <input
                       type="text"
                       className="input"
-                      placeholder="Address"
+                      placeholder="address"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                     />
@@ -173,7 +182,7 @@ export default function Register() {
                     <input
                       type="text"
                       className="input"
-                      placeholder="Ocupation"
+                      placeholder="ocupation"
                       value={occupation}
                       onChange={(e) => setOcupation(e.target.value)}
                     />
@@ -188,7 +197,7 @@ export default function Register() {
                       type="date"
                       className="input"
                       value={birthDate}
-                      placeholder="BirthDate"
+                      placeholder="birth date"
                       onChange={(e) => setBirthDate(e.target.value)}
                     />
                   </div>
@@ -204,7 +213,7 @@ export default function Register() {
                     <input
                       type="email"
                       className="input"
-                      placeholder="Email"
+                      placeholder="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
@@ -218,7 +227,7 @@ export default function Register() {
                     <input
                       type="password"
                       className="input"
-                      placeholder="Password"
+                      placeholder="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
@@ -232,7 +241,7 @@ export default function Register() {
                     <input
                       type="text"
                       className="input"
-                      placeholder="AccountNumber"
+                      placeholder="bank account number"
                       value={accountNumber}
                       onChange={(e) => setAccountNumber(e.target.value)}
                     />
@@ -246,7 +255,7 @@ export default function Register() {
                     <input
                       type="text"
                       className="input"
-                      placeholder="HolderName"
+                      placeholder="bank holder name"
                       value={holderName}
                       onChange={(e) => setHolderName(e.target.value)}
                     />
@@ -260,15 +269,15 @@ export default function Register() {
                     <select
                       className="form-select select-input"
                       aria-label="Default select example"
-                      placeholder="BankCode"
+                      placeholder="select code"
                       onChange={(e) => setBankCode(e.target.value)}
                     >
                       <option selected disabled>
-                        Select Bank Code
+                        Select Bank
                       </option>
-                      <option value="1">BRI</option>
-                      <option value="2">BCA</option>
-                      <option value="3">MANDIRI</option>
+                      <option value="BRI">BRI</option>
+                      <option value="BCA">BCA</option>
+                      <option value="MANDIRI">MANDIRI</option>
                     </select>
                   </div>
                 </div>
@@ -280,11 +289,11 @@ export default function Register() {
                     <select
                       className="form-select select-input"
                       aria-label="Default select example"
-                      placeholder="BankCode"
+                      placeholder="bank code"
                       onChange={(e) => setRole(e.target.value)}
                     >
                       <option selected disabled>
-                        Select Your Role
+                        Register as
                       </option>
                       <option value="borrower">BORROWER</option>
                       <option value="lender">LENDER</option>
@@ -302,8 +311,8 @@ export default function Register() {
                 ""
               )}
 
-              <a href="" onClick={() => history.push("/login")}>
-                Already Have AnAccount?
+              <a href="" onClick={(e) => goLogin(e)}>
+                Already have an account?
               </a>
             </div>
 

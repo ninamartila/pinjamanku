@@ -23,20 +23,16 @@ export default function App() {
   console.log(localStorage.getItem("access_token"));
   const Guard = (to, from, next) => {
     console.log(to);
-    if (to.meta.auth) {
-      if (
-        localStorage.getItem("access_token") &&
-        to.match.path === "/register"
-      ) {
-        next.redirect("/");
-      }
-      if (localStorage.getItem("access_token") && to.match.path === "/login") {
-        next.redirect("/");
-      }
-      next();
-    } else {
-      next();
+    if (
+      localStorage.getItem("access_token") &&
+      to.match.path === "/register"
+    ) {
+      next.redirect("/");
     }
+    if (localStorage.getItem("access_token") && to.match.path === "/login") {
+      next.redirect("/");
+    }
+    next();
     // if (localStorage.getItem("access_token")) {
     //   console.log("masuk");
     //   next("/login");
@@ -60,9 +56,6 @@ export default function App() {
               </Route>
               <Route path="/admin-dashboard/lender">
                 <ListUserLender />
-              </Route>
-              <Route path="/lederform">
-                <AddLoan />
               </Route>
               <Route path="/admin-dashboard/pendingborrower">
                 <ListUserPendingBorrower />
