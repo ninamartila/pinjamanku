@@ -1,12 +1,17 @@
-import { useDispatch } from "react-redux"
-import { borrowerAmount } from "../store/Pinjaman/action"
-
+import { useDispatch } from "react-redux";
+import { borrowerAmount } from "../store/Pinjaman/action";
+import { useHistory } from "react-router-dom";
 export default function ListItemPinjam(props) {
-    const dispatch = useDispatch()
-    const { item } = props
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const { item } = props;
 
     function onClick(loanId) {
-        dispatch(borrowerAmount(loanId))
+        if (localStorage.getItem("access_token")) {
+            dispatch(borrowerAmount(loanId));
+        } else {
+            history("/login");
+        }
     }
     return (
         <div className="row justify-content-center ">
@@ -27,11 +32,20 @@ export default function ListItemPinjam(props) {
                         </div>
                         <div className="col-md-2">
                             <h5>Jangka :</h5>
-                            <p>{item?.tenor}-bulan</p>
+                            <p>{Math.floor(item?.tenor / 30)}-bulan</p>
                         </div>
-                        <div className="col-md-2  justify-content-center text-center">
-                            <button className="btn btn-primary" onClick={() => onClick(item?.id)}>Pinjam</button>
-                        </div>
+                        {localStorage.getItem("role") === "lender" ? (
+                            ""
+                        ) : (
+                            <div className="col-md-2  justify-content-center text-center">
+                                <button
+                                    className="btn-login"
+                                    onClick={() => onClick(item?.id)}
+                                >
+                                    Pinjam
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

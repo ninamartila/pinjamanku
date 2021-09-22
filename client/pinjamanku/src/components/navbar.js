@@ -1,9 +1,10 @@
 import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 export default function Navbar() {
   const history = useHistory();
 
   function home() {
-    history.push(`/home`);
+    history.push(`/`);
   }
 
   function login() {
@@ -11,6 +12,13 @@ export default function Navbar() {
   }
 
   function logout() {
+    localStorage.clear();
+    Swal.fire({
+      title: "Logout success!",
+      text: "See You!",
+      icon: "success",
+      confirmButtonText: "Cool",
+    });
     history.push(`/`);
   }
 
@@ -18,18 +26,35 @@ export default function Navbar() {
     <nav class="navbar">
       <h1>PinjamanKu</h1>
       <div class="nav-menu">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="" onClick={() => home()}>
           Home
         </a>
-        <a class="nav-link" href="">
-          My Portofolio
-        </a>
-        <a class="nav-link" href="">
-          Login
-        </a>
-        <a class="nav-link" href="">
-          Logout
-        </a>
+        {!localStorage.getItem("access_token") ? (
+          ""
+        ) : localStorage.getItem("role") === "lender" ? (
+          <a class="nav-link" href="" onClick={() => history.push("/lender")}>
+            My Portofolio
+          </a>
+        ) : (
+          <a class="nav-link" href="" onClick={() => history.push("/pendana")}>
+            My Portofolio
+          </a>
+        )}
+        {localStorage.getItem("access_token") ? (
+          ""
+        ) : (
+          <a class="nav-link" href="" onClick={() => login()}>
+            Login
+          </a>
+        )}
+
+        {localStorage.getItem("access_token") ? (
+          <a class="nav-link" href="" onClick={() => logout()}>
+            Logout
+          </a>
+        ) : (
+          ""
+        )}
       </div>
     </nav>
   );

@@ -2,6 +2,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { GuardProvider, GuardedRoute } from "react-router-guards";
 import "./App.css";
+
 import {
   DasboardBorower,
   DetailBorrower,

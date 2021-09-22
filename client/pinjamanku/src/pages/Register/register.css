@@ -260,3 +260,10 @@ a:hover {
 .btn-login:hover {
   background-position: right;
 }
+a .btn-in {
+  text-align: right;
+  text-decoration: none;
+  color: rgb(255, 0, 0);
+  font-size: 0.9rem;
+  transition: 0.3s;
+}

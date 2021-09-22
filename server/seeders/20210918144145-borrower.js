@@ -4,7 +4,6 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     const data = [
       {
-        id: 1,
         firstName: "Borrower",
         lastName: "Borrower",
         email: "dharmasatrya10@gmail.com",
