@@ -9,7 +9,7 @@ class LoanController {
       if (status) {
         queries.status = status;
       }
-      const result = await Loan.findAll({ where: queries, include: [Borrower, Lender]});
+      const result = await Loan.findAll({attributes: { include: ["id"] }, where: queries, include: [Borrower, Lender]});
       res.status(200).json(result);
     } catch (error) {
       res.status(500).json(error);
@@ -122,7 +122,7 @@ class LoanController {
   static async CreateWithdrawal(req, res, next) {
     //disburse ke lender
     const { lenderID } = req.body;
-
+    console.log(req.body)
     try {
       const loan = {
         id: "123",

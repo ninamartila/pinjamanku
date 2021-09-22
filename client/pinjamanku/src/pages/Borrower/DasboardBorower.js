@@ -67,7 +67,6 @@ export default function DasboardBorower() {
           </div>
         </div>
       </div>
-      {console.log(isBorrowerLoanSuccess)}
       <Tabs defaultActiveKey="1" style={{ paddingLeft: 10 }}>
         <TabPane tab="Current Loan" key="2">
           <section className="container">

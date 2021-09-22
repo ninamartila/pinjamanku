@@ -9,8 +9,9 @@ export default function ListItemStatusPinjam(props) {
     dispatch(landerGetAmount(data));
   }
 
-  function onActive(data) {
-    dispatch(borrowerPay(data));
+  function borrowerInvoice(loadID) {
+    console.log(loadID, "===============")
+    // dispatch(borrowerPay(loadID));
   }
 
   return (
@@ -57,7 +58,7 @@ export default function ListItemStatusPinjam(props) {
               ) : item?.status === "borrowed" ? (
                 <button
                   className="btn btn-warning"
-                  onClick={() => onActive({ loanID: item?.id })}
+                  onClick={() => borrowerInvoice({ loanID: 1 })}
                 >
                   Borrowed
                 </button>

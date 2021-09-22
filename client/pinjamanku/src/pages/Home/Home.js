@@ -59,7 +59,7 @@ export default function Home() {
           </section>
           <section className="mt-3">
             <div className="m-5 text-center">
-              <h1>Why Choose Us?</h1>
+              <h1>Why Pinjamanku?</h1>
             </div>
             <div className="row justify-content-center text-center">
               <div className="col-md-3 m-1">
@@ -143,7 +143,7 @@ export default function Home() {
 
       <section className="mt-3">
         <div className="m-5 text-center">
-          <h1>Wanna Lander Now?</h1>
+          <h1>Available Loans</h1>
         </div>
         <List
           dataSource={isLoanSuccess.filter((item) => item?.status === "active")}

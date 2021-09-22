@@ -7,11 +7,12 @@ export default function ListItemPinjam(props) {
   const { item } = props;
 
   function onClick(loanId) {
-    if (localStorage.getItem("access_token")) {
-      dispatch(borrowerAmount(loanId));
-    } else {
-      history("/login");
-    }
+    dispatch(borrowerAmount(loanId))
+    // if (localStorage.getItem("access_token")) {
+    //   dispatch(borrowerAmount(loanId));
+    // } else {
+    //   history("/login");
+    // }
   }
   return (
     <div className="row justify-content-center ">
@@ -21,6 +22,7 @@ export default function ListItemPinjam(props) {
             <div className="col-md-2">
               <h5>Lender :</h5>
               <p>{item?.Lender.firstName} {item?.Lender.lastName}</p>
+              {console.log(item)}
             </div>
             <div className="col-md-2">
               <h5>Amount :</h5>
