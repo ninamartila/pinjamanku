@@ -67,8 +67,8 @@ export default function DasboardBorower() {
           </div>
         </div>
       </div>
-      <Tabs defaultActiveKey="1" style={{ paddingLeft: 10 }}>
-        <TabPane tab="List Pinjaman" key="1">
+      <Tabs defaultActiveKey="1" style={{ paddingLeft: 50 }}>
+        <TabPane tab="List Pinjaman" key="1" style={{ paddingRight: 50 }}>
           <section className="container">
             <div className="m-3">
               <h4>Pinjaman :</h4>

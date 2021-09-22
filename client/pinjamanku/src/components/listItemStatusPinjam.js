@@ -36,7 +36,7 @@ export default function ListItemStatusPinjam(props) {
                             item?.Lender?.role === 'lender' ?
                                 (<div className="col-md-2">
                                     <h5>Sedang Dipinjam:</h5>
-                                    <p>{item?.tenor * 30} Hari</p>
+                                    <p>{item?.tenor} Hari</p>
                                 </div>) :
                                 (<div className="col-md-2">
                                     <h5>Deadline :</h5>
@@ -57,7 +57,7 @@ export default function ListItemStatusPinjam(props) {
                                     : item?.status === 'active' ?
                                         <a className="btn btn-success">Active</a>
                                         : item?.status === 'borrowed' ?
-                                            <a className="btn btn-success" >Borrower</a>
+                                            <a className="btn btn-success" >Borrowed</a>
                                             : item?.status === 'completed' ?
                                                 <a className="btn btn-success">Completed</a>
                                                 : <a className="btn btn-danger">Withdrawn</a>
@@ -66,13 +66,13 @@ export default function ListItemStatusPinjam(props) {
                     </div>
                     {
                         item?.status === 'completed' && item?.role === 'lender' ?
-                            (<div className="row justify-content-between">
+                            (<div className="row justify-content-between" style={{ marginTop: 20 }}>
                                 <button className="btn btn-primary" onClick={() => onActive({ loanID: item?.id })}>Tarik Tunai</button>
                             </div>) : null
                     }
                     {
                         item?.status === 'borrowed' && item?.role === 'borrowed' ?
-                            (<div className="row justify-content-between">
+                            (<div className="row justify-content-between" style={{ marginTop: 20 }}>
                                 <button className="btn btn-primary" onClick={() => onCompleted({ loanID: item?.id, lenderID: item?.lenderID })}>Bayar Sekarang</button>
                             </div>) : null
                     }

@@ -10,9 +10,9 @@ export default function Home() {
   const history = useHistory();
   const dispatch = useDispatch()
   const {
-    isLoanLoading,
-    isLoanSuccess,
-    isLoanError,
+    isLoanBorrowerLoading,
+    isLoanBorrowerSuccess,
+    isLoanBorrowerError,
   } = useSelector((state) => state.pinjamanku)
 
   useEffect(() => {
@@ -20,10 +20,10 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    if (!!isLoanError) {
-      message.error(isLoanError?.message ?? 'something went wrong');
+    if (!!isLoanBorrowerError) {
+      message.error(isLoanBorrowerError?.message ?? 'something went wrong');
     }
-  }, [isLoanError])
+  }, [isLoanBorrowerError])
 
   function register() {
     history.push(`/register`);
@@ -138,8 +138,8 @@ export default function Home() {
           <h1>Wanna Lander Now?</h1>
         </div>
         <List
-          dataSource={isLoanSuccess.filter(item => item?.status === 'active')}
-          loading={isLoanLoading}
+          dataSource={isLoanBorrowerSuccess.filter(item => item?.status === 'active')}
+          loading={isLoanBorrowerLoading}
           renderItem={item => (
             <ListItemPinjam item={item} />
           )}

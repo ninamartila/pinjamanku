@@ -92,8 +92,8 @@ export default function Lender() {
           </div>
         </div>
       </div>
-      <Tabs defaultActiveKey="1" style={{ paddingLeft: 10 }}>
-        <TabPane tab="List Pinjaman Pending" key="1">
+      <Tabs defaultActiveKey="1" style={{ paddingLeft: 50 }}>
+        <TabPane tab="List Pinjaman Pending" key="1" style={{ paddingRight: 50 }}>
           <section className="container">
             <div className="m-3">
               <h4>Pinjaman Panding :</h4>

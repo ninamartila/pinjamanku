@@ -34,6 +34,7 @@ export default function ListLoan() {
         }
     }, [isLoanLenderError])
 
+    console.log(isLoanLenderSuccess, '=========');
     return (
         <Layout style={{ height: '100vh' }}>
             <AdminNavbar />
@@ -53,7 +54,7 @@ export default function ListLoan() {
                                                     avatar={
                                                         <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                                                     }
-                                                    title={<a href="https://ant.design">{item?.tenor}</a>}
+                                                    title={<p>{item?.Borrower?.firstName} {item?.Borrower?.firstName}</p>}
                                                     description={item?.initialLoan}
                                                 />
                                                 <div>{item?.status}</div>
@@ -71,8 +72,8 @@ export default function ListLoan() {
                                             avatar={
                                                 <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                                             }
-                                            title={<a href="https://ant.design">{item?.Lender?.firstName} {item?.Lender?.firstName}</a>}
-                                            description={item?.initialLoan}
+                                            title={<p>{item?.Lender?.firstName} {item?.Lender?.firstName}</p>}
+                                            description={<p>Rp. {item?.initialLoan}</p>}
                                         />
                                         <div>{item?.status}</div>
                                     </List.Item>
