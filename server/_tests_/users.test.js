@@ -248,40 +248,6 @@ describe("POST /users/register [FAIL CASE]", () => {
   test("400 fail register", (done) => {
     const newUser = {
       ...lenderRegister,
-      ktpCard: "",
-    };
-    request(app)
-      .post("/users/register")
-      .send(newUser)
-      .end((err, res) => {
-        if (err) return done(err);
-        const { body, status } = res;
-        expect(status).toBe(400);
-        expect(body).toHaveProperty("message");
-        expect(body.message).toContain("ktp card cannot be empty");
-        done();
-      });
-  });
-  test("400 fail register", (done) => {
-    const newUser = {
-      ...lenderRegister,
-      selfPicture: "",
-    };
-    request(app)
-      .post("/users/register")
-      .send(newUser)
-      .end((err, res) => {
-        if (err) return done(err);
-        const { body, status } = res;
-        expect(status).toBe(400);
-        expect(body).toHaveProperty("message");
-        expect(body.message).toContain("self picture cannot be empty");
-        done();
-      });
-  });
-  test("400 fail register", (done) => {
-    const newUser = {
-      ...lenderRegister,
       phoneNumber: "",
     };
     request(app)
@@ -564,6 +530,21 @@ describe("GET /users/:userId [SUCCESS CASE]", () => {
   });
 });
 
+describe("GET /users/:userId [FAIL CASE]", () => {
+  test("200 success get user by id", (done) => {
+    request(app)
+      .get(`/users/${lenderId}`)
+      .query({ role: "president" })
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "You have invalid role");
+        done();
+      });
+  });
+});
+
 describe("GET /users/:userId [SUCCESS CASE]", () => {
   test("200 success get user by id", (done) => {
     request(app)
@@ -612,6 +593,30 @@ describe("PUT /users [SUCCESS CASE]", () => {
         const { status, body } = res;
         expect(status).toBe(200);
         expect(body).toHaveProperty("message", "User has been updated");
+        done();
+      });
+  });
+});
+
+describe("PUT /users [FAIL CASE]", () => {
+  test("401 fail update user", (done) => {
+    const updateUser = {
+      firstName: "Idin",
+      lastName: "Samak",
+      phoneNumber: "01892127",
+      address: "Jonggol",
+      bankCode: "BNI",
+      holderName: "Idin Samak",
+      accountNumber: "91829",
+    };
+    request(app)
+      .put("/users")
+      .send(updateUser)
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "You need to login first");
         done();
       });
   });

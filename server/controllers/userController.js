@@ -15,6 +15,7 @@ class UserController {
         borrower,
       });
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }
@@ -35,6 +36,7 @@ class UserController {
         });
       }
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }
@@ -66,6 +68,7 @@ class UserController {
         };
         const createdStaff = await Staff.create(newStaff);
         const { password: passwordStaff, ...toSend } = createdStaff;
+        /* istanbul ignore else */
         if (createdStaff) {
           res.status(201).json(toSend);
         } else {
@@ -93,6 +96,7 @@ class UserController {
         };
         const createdLender = await Lender.create(newLender);
         const { password: passwordStaff, ...toSend } = createdLender;
+        /* istanbul ignore else */
         if (createdLender) {
           res.status(201).json(toSend);
         } else {
@@ -120,9 +124,11 @@ class UserController {
           status: "Pending",
         };
         const checkRoom = await createRoom(`${firstName}${currentDate.getTime()}`, email);
+        /* istanbul ignore next */
         if (checkRoom) {
           const createdBorrower = await Borrower.create(newBorrower);
           const { password: passwordStaff, ...toSend } = createdBorrower;
+          /* istanbul ignore next */
           if (createdBorrower) {
             res.status(201).json({ ...toSend, dailyURL: checkRoom });
           } else {
@@ -290,6 +296,7 @@ class UserController {
         res.status(200).json({ message: "User has been updated" });
       }
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }
@@ -304,6 +311,7 @@ class UserController {
       const result = await Borrower.update(userStatus, { where: { id: userId } });
       res.status(200).json({ message: "User status has been updated" });
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }
@@ -321,6 +329,7 @@ class UserController {
         res.status(200).json({ message: `User with id ${userId} has been deleted` });
       }
     } catch (error) {
+      /* istanbul ignore next */
       next(error);
     }
   }

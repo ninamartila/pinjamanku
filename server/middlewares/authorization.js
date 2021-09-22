@@ -2,7 +2,6 @@ const { Lender, Borrower, Staff } = require("../models");
 
 const isLender = (req, res, next) => {
   const { id, role } = req.user;
-  console.log(req.user);
   if (id) {
     if (role === "lender") {
       Lender.findByPk(id)
@@ -14,20 +13,20 @@ const isLender = (req, res, next) => {
           }
         })
         .catch((error) => {
-          next(error);
+          /* istanbul ignore next */
+          next({ name: "InvalidToken" });
         });
     } else {
-      console.log("ikin");
       next({ name: "Forbidden" });
     }
   } else {
+    /* istanbul ignore next */
     next({ name: "InvalidToken" });
   }
 };
 
 const isBorrower = (req, res, next) => {
   const { id, role } = req.user;
-  console.log(req.user);
   if (id) {
     if (role === "borrower") {
       Borrower.findByPk(id)
@@ -39,13 +38,14 @@ const isBorrower = (req, res, next) => {
           }
         })
         .catch((error) => {
-          next(error);
+          /* istanbul ignore next */
+          next({ name: "InvalidToken" });
         });
     } else {
-      console.log("akan");
       next({ name: "Forbidden" });
     }
   } else {
+    /* istanbul ignore next */
     next({ name: "InvalidToken" });
   }
 };

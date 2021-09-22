@@ -4,6 +4,11 @@ const { Staff, Lender, Borrower, Loan, sequelize } = require("../models");
 const { generateToken } = require("../helpers/jwt");
 const { queryInterface } = sequelize;
 
+const borrowerTokenIdNone = generateToken({ role: "borrower" });
+const lenderTokenIdNone = generateToken({ role: "lender" });
+const borrowerTokenNotFound = generateToken({ id: 1, role: "borrower" });
+const lenderTokenIdNotFound = generateToken({ id: 1, role: "lender" });
+
 const lenderRegister = {
   firstName: "Adang",
   lastName: "Cunin",
@@ -168,6 +173,54 @@ describe("GET /loans [FAIL CASE]", () => {
         done();
       });
   });
+  test("404 not found lender", (done) => {
+    request(app)
+      .get("/loans/lender")
+      .set({ access_token: lenderTokenIdNotFound })
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(404);
+        expect(body).toHaveProperty("message", "Lender Not Found");
+        done();
+      });
+  });
+  test("404 not found borrower", (done) => {
+    request(app)
+      .get("/loans/borrower")
+      .set({ access_token: borrowerTokenNotFound })
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(404);
+        expect(body).toHaveProperty("message", "Borrower Not Found");
+        done();
+      });
+  });
+  test("401 invalid token lender", (done) => {
+    request(app)
+      .get("/loans/lender")
+      .set({ access_token: lenderTokenIdNone })
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "You need to login first");
+        done();
+      });
+  });
+  test("401 invalid token borrower", (done) => {
+    request(app)
+      .get("/loans/lender")
+      .set({ access_token: borrowerTokenIdNone })
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(401);
+        expect(body).toHaveProperty("message", "You need to login first");
+        done();
+      });
+  });
   test("403 invalid token lender", (done) => {
     request(app)
       .get("/loans/lender")
@@ -241,22 +294,22 @@ describe("POST /invoice/lender [SUCCESS CASE]", () => {
   });
 });
 
-// describe("POST /invoice/borrower [SUCCESS CASE]", () => {
-//   test("200 success create invoice", (done) => {
-//     request(app)
-//       .post("/loans/invoice/borrower")
-//       .set({ access_token: borrowerToken })
-//       .send({ loanID: loanId })
-//       .end((err, res) => {
-//         if (err) return done(err);
-//         const { status, body } = res;
-//         expect(status).toBe(200);
-//         expect(body).toHaveProperty("externalID");
-//         expect(body).toHaveProperty("invoiceURL");
-//         done();
-//       });
-//   });
-// });
+describe("POST /invoice/borrower [SUCCESS CASE]", () => {
+  test("200 success create invoice", (done) => {
+    request(app)
+      .post("/loans/invoice/borrower")
+      .set({ access_token: borrowerToken })
+      .send({ loanID })
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(200);
+        expect(body).toHaveProperty("externalID");
+        expect(body).toHaveProperty("invoiceURL");
+        done();
+      });
+  });
+});
 
 describe("POST /disburse/withdrawal [SUCCESS CASE]", () => {
   test("200 success withdraw", (done) => {
@@ -273,20 +326,21 @@ describe("POST /disburse/withdrawal [SUCCESS CASE]", () => {
   });
 });
 
-// describe("POST /disburse/loan [SUCCESS CASE]", () => {
-//   test("200 success loan", (done) => {
-//     request(app)
-//       .post("/loans/disburse/withdrawal")
-//       .set({ access_token: borrowerToken })
-//       .end((err, res) => {
-//         if (err) return done(err);
-//         const { status, body } = res;
-//         expect(status).toBe(200);
-//         expect(body).toBeDefined();
-//         done();
-//       });
-//   });
-// });
+describe("POST /disburse/loan [SUCCESS CASE]", () => {
+  test("200 success loan", (done) => {
+    request(app)
+      .post("/loans/disburse/loan")
+      .set({ access_token: borrowerToken })
+      .send({ loanID })
+      .end((err, res) => {
+        if (err) return done(err);
+        const { status, body } = res;
+        expect(status).toBe(200);
+        expect(body).toBeDefined();
+        done();
+      });
+  });
+});
 
 describe("POST /endpoint/invoice [SUCCESS CASE]", () => {
   test("200 success make invoice", (done) => {

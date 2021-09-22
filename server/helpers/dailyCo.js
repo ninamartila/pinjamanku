@@ -1,10 +1,12 @@
 const axios = require("axios");
 const sendMail = require("./NodeMailer");
 
-async function createRoom(roomName, userEmail) {
+function createRoom(roomName, userEmail) {
   const currentDate = new Date();
-  try {
-    const result = await axios({
+  let url;
+  let error;
+  return new Promise((resolve, reject) => {
+    axios({
       method: "post",
       url: "https://api.daily.co/v1/rooms",
       headers: {
@@ -20,17 +22,26 @@ async function createRoom(roomName, userEmail) {
         name: roomName,
         privacy: "public",
       },
-    });
-    const { data } = result;
-    const { error, result: nodemailerResult } = await sendMail(data, userEmail);
-
-    if (nodemailerResult) {
-      return data.url;
-    } else {
-      return false;
-    }
-  } catch (error) {
-    return false;
-  }
+    })
+      .then(({ data }) => {
+        return sendMail(data, userEmail);
+      })
+      .then(({ error, result }) => {
+        if (!error) {
+          url = result.url;
+        } else {
+          /* istanbul ignore next */
+          url = false;
+        }
+        resolve({
+          error,
+          url,
+        });
+      })
+      .catch((err) => {
+        /* istanbul ignore next */
+        reject({ error: err });
+      });
+  });
 }
 module.exports = createRoom;

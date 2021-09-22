@@ -7,11 +7,13 @@ class LoanController {
     const queries = {};
     try {
       if (status) {
+        /* istanbul ignore next */
         queries.status = status;
       }
       const result = await Loan.findAll({ where: queries, include: [Borrower, Lender] });
       res.status(200).json(result);
     } catch (error) {
+      /* istanbul ignore next */
       res.status(500).json(error);
     }
   }
@@ -30,7 +32,7 @@ class LoanController {
         res.status(404).json({ msg: "not found" });
       }
     } catch (error) {
-      console.log("yeuh", error);
+      /* istanbul ignore next */
       res.status(500).json(error);
     }
   }
@@ -46,9 +48,11 @@ class LoanController {
       if (result) {
         res.status(200).json(result);
       } else {
+        /* istanbul ignore next */
         res.status(404).json({ msg: "not found" });
       }
     } catch (error) {
+      /* istanbul ignore next */
       res.status(500).json(error);
     }
   }
@@ -61,9 +65,11 @@ class LoanController {
       if (result) {
         res.status(200).json(result);
       } else {
+        /* istanbul ignore next */
         res.status(404).json({ msg: "not found" });
       }
     } catch (error) {
+      /* istanbul ignore next */
       res.status(500).json(error);
     }
   }
@@ -98,6 +104,7 @@ class LoanController {
         invoiceURL: invoice.invoice_url,
       });
     } catch (error) {
+      /* istanbul ignore next */
       res.status(500).json(error);
     }
   }
@@ -123,6 +130,7 @@ class LoanController {
         invoiceURL: invoice.invoice_url,
       });
     } catch (error) {
+      /* istanbul ignore next */
       res.status(500).json(error);
     }
   }
@@ -154,6 +162,7 @@ class LoanController {
       });
       res.status(200).json(disbursement);
     } catch (error) {
+      /* istanbul ignore next */
       res.status(500).json(error);
     }
   }
@@ -161,8 +170,8 @@ class LoanController {
   static async CreateDisbursement(req, res, next) {
     //disburse ke borrower
     const { loanID } = req.body;
-    // const borrowerID = req.userID
-    const borrowerID = 1;
+    const { id: borrowerID } = req.user;
+    // const borrowerID = 1;
     try {
       const loanData = await Loan.findOne({ where: { id: loanID } });
       const borrowerData = await Borrower.findOne({ where: { id: borrowerID } });
@@ -181,6 +190,7 @@ class LoanController {
       const disbursement = await XenditDisbursement.create(loanDataInput);
       res.status(200).json(disbursement);
     } catch (error) {
+      /* istanbul ignore next */
       res.status(500).json(error);
     }
   }
@@ -193,22 +203,22 @@ class LoanController {
       } else if (status === "PAID") {
         if (external_id.includes("borrower")) {
           const loanID = external_id.split("-")[2];
-          // const loanData = await Loan.update(
-          //   { status: "complete" },
-          //   { where: { externalID: loanID } }
-          // );
+          const loanData = await Loan.update(
+            { status: "complete" },
+            { where: { externalID: loanID } }
+          );
           res.status(200).json({ status: "complete", id: loanID });
         } else {
           const loanID = external_id.split("-")[2];
-          // const loanData = await Loan.update(
-          //   { status: "active" },
-          //   { where: { externalID: loanID }, returning: true }
-          // );
+          const loanData = await Loan.update(
+            { status: "active" },
+            { where: { externalID: loanID }, returning: true }
+          );
           res.status(200).json({ status: "active", id: loanID });
         }
       }
     } catch (error) {
-      console.log("yeuh", error);
+      /* istanbul ignore next */
       res.status(500).json(error);
     }
   }
@@ -221,22 +231,22 @@ class LoanController {
       } else if (status === "COMPLETED") {
         if (external_id.includes("borrower")) {
           const loanID = external_id.split("-")[2];
-          // const loanData = await Loan.update(
-          //   { status: "borrowed" },
-          //   { where: { externalID: loanID } }
-          // );
+          const loanData = await Loan.update(
+            { status: "borrowed" },
+            { where: { externalID: loanID } }
+          );
           res.status(200).json({ status: "borrower", id: loanID });
         } else {
           const loanID = external_id.split("-")[2];
-          // const loanData = await Loan.update(
-          //   { status: "withdrawn" },
-          //   { where: { externalID: loanID } }
-          // );
+          const loanData = await Loan.update(
+            { status: "withdrawn" },
+            { where: { externalID: loanID } }
+          );
           res.status(200).json({ status: "lender", id: loanID });
         }
       }
     } catch (error) {
-      console.log("deudeuieu", error);
+      /* istanbul ignore next */
       res.status(500).json(error);
     }
   }
