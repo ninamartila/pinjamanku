@@ -25,6 +25,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      ktpCard: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      selfPicture: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       phoneNumber: {
         allowNull: false,
         type: Sequelize.STRING,

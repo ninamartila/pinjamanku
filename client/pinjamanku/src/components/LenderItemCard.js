@@ -1,25 +1,25 @@
-import { useDispatch } from "react-redux";
-import { borrowerPay, landerGetAmount } from "../store/Pinjaman/action";
+import { useDispatch } from "react-redux"
+import { borrowerPay, landerGetAmount, landerInvest } from "../store/Pinjaman/action"
 
-export default function BorrowerItemCard(props) {
-  const dispatch = useDispatch();
-  const { item } = props;
+export default function LenderItemCard(props) {
+    const dispatch = useDispatch()
+    const { item } = props
 
-  function onCompleted(data) {
-    dispatch(landerGetAmount(data));
-  }
+    function onCompleted(data) {
+        dispatch(landerGetAmount(data))
+    }
 
-  function payLoan(data) {
-    dispatch(borrowerPay(data));
-  }
+    function payInvest(data) {
+      dispatch(landerInvest(data));
+    }
 
-  return (
-    <div className="row justify-content-center">
+    return (
+<div className="row justify-content-center">
       <div className="card col-md-12  m-3">
         <div className="card-body  m-3">
           <div className="row justify-content-between">
             <div className="col-md-4">
-              <h5>Loan Amount:</h5>
+              <h5>Amount:</h5>
               <p>IDR {item?.initialLoan.toLocaleString("id-ID")}</p>
             </div>
             <div className="col-md-2">
@@ -29,19 +29,24 @@ export default function BorrowerItemCard(props) {
           </div>
           <div className="row justify-content-between">
             <div className="col-md-4">
-              <h5>Repayment Amount:</h5>
-              <p>IDR {(item?.initialLoan + (item?.initialLoan * 0.07)).toLocaleString("id-ID")}</p>
+              <h5>Tenor :</h5>
+              <p>{item?.tenor} months</p>
             </div>
 
             <div className="col-md-2">
-              <h5>Deadline:</h5>
-              <p>in {item?.timeRemaining} days</p>
+              <h5>Profit :</h5>
+              <p>IDR {(item?.initialLoan * 0.05).toLocaleString("id-ID")}</p>
             </div>
           </div>
           <div className="row justify-content-between">
-          <div className="col-md-4">
-              <h5>Tenor:</h5>
-              <p>{item?.tenor} months</p>
+            <div className="col-md-4">
+              <h5>Borrower :</h5>
+              {/* bergantung status */}
+              {item?.Borrower === null ? (
+                <p>Not borrowed yet</p>
+              ) : (
+                <p>{item.Borrower.firstName}</p>
+              )}
             </div>
             <div className="col-md-2">
               <h5>Status :</h5>
@@ -52,18 +57,17 @@ export default function BorrowerItemCard(props) {
               ) : item?.status === "borrowed" ? (
                 <button
                   className="btn btn-warning"
-                  onClick={() => payLoan({ loanID: item?.id })}
                 >
                   Borrowed
                 </button>
-              ) : item?.status === "complete" || item?.status === "withdrawn" ? (
+              ) : item?.status === "complete" ? (
                 <button
                   className="btn btn-success"
                   onClick={() =>
                     onCompleted({ loanID: item?.id, lenderID: item?.lenderID })
                   }
                 >
-                  Paid
+                  Completed
                 </button>
               ) : item?.status === "deadline" ? (
                 <a className="btn btn-danger">PAST DUE</a>
@@ -74,12 +78,12 @@ export default function BorrowerItemCard(props) {
           </div>
         </div>
         {
-          item?.status === "borrowed" || item?.status === "deadline" ?
+          item?.status === "pending" ?
             (<div className="row justify-content-between">
-              <button className="btn btn-primary" onClick={() => payLoan({ loanID: item?.id })}>Pay Now</button>
+              <button className="btn btn-primary" onClick={() => payInvest({ loanID: item?.id })}>Pay Now</button>
             </div>) : null
         }
       </div>
     </div>
-  );
-}
+    )
+} 

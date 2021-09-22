@@ -74,57 +74,55 @@ class UserController {
             name: "InvalidRegister",
           });
         }
-      } else if (role === "lender") {
-        const newLender = {
-          firstName,
-          lastName,
-          email,
-          password,
-          phoneNumber,
-          address,
-          birthDate,
-          bankCode,
-          holderName,
-          accountNumber,
-          occupation,
-          role,
-          status: "Verified",
-        };
-        const createdLender = await Lender.create(newLender);
-        const { password: passwordStaff, ...toSend } = createdLender;
-        /* istanbul ignore else */
-        if (createdLender) {
-          res.status(201).json(toSend);
-        } else {
-          next({
-            name: "InvalidRegister",
-          });
-        }
-      } else if (role === "borrower") {
-        const currentDate = new Date();
-        const newBorrower = {
-          firstName,
-          lastName,
-          email,
-          password,
-          phoneNumber,
-          address,
-          birthDate,
-          bankCode,
-          holderName,
-          accountNumber,
-          occupation,
-          role,
-          status: "Pending",
-        };
-        const checkRoom = await createRoom(`${firstName}${currentDate.getTime()}`, email);
-        /* istanbul ignore next */
-        if (checkRoom) {
-          const createdBorrower = await Borrower.create(newBorrower);
-          const { password: passwordStaff, ...toSend } = createdBorrower;
-          /* istanbul ignore next */
-          if (createdBorrower) {
-            res.status(201).json({ ...toSend, dailyURL: checkRoom });
+      } else {
+        if (role === "lender") {
+          const newLender = {
+            firstName,
+            lastName,
+            email,
+            password,
+            phoneNumber,
+            address,
+            birthDate,
+            bankCode,
+            holderName,
+            accountNumber,
+            occupation,
+            role,
+            status: "Verified",
+          };
+          const createdLender = await Lender.create(newLender);
+          const { password: passwordStaff, ...toSend } = createdLender;
+          if (createdLender) {
+            res.status(201).json(toSend);
+          } else {
+            throw Error("register error");
+          }
+        } else if (role === "borrower") {
+          const newBorrower = {
+            firstName,
+            lastName,
+            email,
+            password,
+            phoneNumber,
+            address,
+            birthDate,
+            bankCode,
+            holderName,
+            accountNumber,
+            occupation,
+            role,
+            status: "Pending",
+          };
+          const checkRoom = await createRoom(`${email.split("@")[0]}${role}`, email);
+          if (checkRoom) {
+            const createdBorrower = await Borrower.create(newBorrower);
+            const { password: passwordStaff, ...toSend } = createdBorrower;
+            if (createdBorrower) {
+              res.status(201).json(toSend);
+            } else {
+              throw Error("register error");
+            }
           } else {
             next({
               name: "InvalidRegister",
