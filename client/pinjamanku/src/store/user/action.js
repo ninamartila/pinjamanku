@@ -244,6 +244,7 @@ export function getUserUpdateError(payload) {
 }
 
 export function fetchUserUpdate(id, status) {
+    console.log(status);
     return async function (dispatch, getState) {
         try {
             dispatch(getUserUpdateLoading(true))
