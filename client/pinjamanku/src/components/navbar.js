@@ -11,14 +11,17 @@ export default function Navbar() {
     history.push("/borrower");
   }
   function home(e) {
+    e.preventDefault();
     history.push(`/`);
   }
 
   function login(e) {
+    e.preventDefault();
     history.push(`/login`);
   }
 
   function logout(e) {
+    e.preventDefault();
     localStorage.clear();
     Swal.fire({
       title: "Logout success!",
