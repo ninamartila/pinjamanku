@@ -249,7 +249,7 @@ export function getBorrowerAmountError(payload) {
 export function borrowerAmount(id) {
     return async function (dispatch, getState) {
         try {
-            dispatch(getBorrowerAmountLoading(true))
+            dispatch(getBorrowerAmountLoading(id))
             fetch('http://localhost:3000/loans/disburse/loan', {
                 headers: {
                     'Accept': 'application/json',
@@ -303,7 +303,7 @@ export function getBorrowerPayError(payload) {
 export function borrowerPay(id) {
     return async function (dispatch, getState) {
         try {
-            dispatch(getBorrowerPayLoading(true))
+            dispatch(getBorrowerPayLoading(id))
             fetch('http://localhost:3000/loans/invoice/borrower', {
                 headers: {
                     'Accept': 'application/json',
@@ -357,7 +357,7 @@ export function getLenderGetAmountError(payload) {
 export function landerGetAmount(data) {
     return async function (dispatch, getState) {
         try {
-            dispatch(getLenderGetAmountLoading(true))
+            dispatch(getLenderGetAmountLoading(data))
             fetch('http://localhost:3000/loans/disburse/withdrawal', {
                 headers: {
                     'Accept': 'application/json',

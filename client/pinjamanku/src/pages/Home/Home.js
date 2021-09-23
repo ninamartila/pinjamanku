@@ -190,7 +190,7 @@ export default function Home() {
                 height: 200,
               }} />
           }}
-          renderItem={(item) => <ListItemPinjam item={item} isLoading={isBorrowerAmountLoading} />}
+          renderItem={(item) => <ListItemPinjam item={item} isLoading={isBorrowerAmountLoading === item.id} />}
         ></List>
       </section>
       {/* Lander Section */}
