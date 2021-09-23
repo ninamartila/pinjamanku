@@ -227,7 +227,7 @@ export default function Lender() {
                     }} />
                 }}
                 renderItem={item => (
-                  <LenderItemCard item={item} isLoading={isLanderGetAmountLoading} />
+                  <LenderItemCard item={item} isLoading={isLanderGetAmountLoading?.loanID === item.id} />
                 )}
               >
               </List>
@@ -246,6 +246,6 @@ export default function Lender() {
         dispatch(fetchLoanLender())
         setShowModalPayVisible(false)
       }} />
-    </div>
+    </div >
   );
 }

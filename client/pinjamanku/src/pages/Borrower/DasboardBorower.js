@@ -66,7 +66,7 @@ export default function DasboardBorower() {
     }
   }, [isBorrowerLoanError]);
 
-  console.log(isBorrowerLoanSuccess);
+  console.log(isBorrowerLoanSuccess, isBorrowerPayLoading);
   return (
     <div>
       <Navbar />
@@ -112,7 +112,7 @@ export default function DasboardBorower() {
                     }} />
                 }}
                 renderItem={item => (
-                  <BorrowerItemCard item={item} isLoading={isBorrowerPayLoading} />
+                  <BorrowerItemCard item={item} isLoading={isBorrowerPayLoading?.loanID === item.id} />
                 )}
               >
               </List>

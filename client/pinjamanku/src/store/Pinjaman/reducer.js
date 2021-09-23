@@ -85,6 +85,7 @@ function pinjamanReducer(state = initialState, action) {
         isLenderLoanError: action.payload,
       };
     case BORROWER_LOAN_LOADING:
+      console.log({ action })
       return {
         ...state,
         isBorrowerLoanLoading: action.payload,
@@ -112,12 +113,14 @@ function pinjamanReducer(state = initialState, action) {
       return {
         ...state,
         isBorrowerPaySuccess: action.payload,
+        isBorrowerPayLoading: null,
       };
 
     case BORROWER_PAY_ERROR:
       return {
         ...state,
         isBorrowerPayError: action.payload,
+        isBorrowerPayLoading: null,
       };
 
     case LANDER_INVEST_LOADING:
@@ -149,12 +152,14 @@ function pinjamanReducer(state = initialState, action) {
       return {
         ...state,
         isBorrowerAmountSuccess: action.payload,
+        isBorrowerAmountLoading: null,
       };
 
     case BORROWER_AMOUNT_ERROR:
       return {
         ...state,
         isBorrowerAmountError: action.payload,
+        isBorrowerAmountLoading: null,
       };
 
     case LANDER_GET_AMOUNT_LOADING:
@@ -167,12 +172,14 @@ function pinjamanReducer(state = initialState, action) {
       return {
         ...state,
         isLanderGetAmountSuccess: action.payload,
+        isLanderGetAmountLoading: null,
       };
 
     case LANDER_GET_AMOUNT_ERROR:
       return {
         ...state,
         isLanderGetAmountError: action.payload,
+        isLanderGetAmountLoading: null,
       };
     default:
       return state;

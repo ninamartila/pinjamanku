@@ -48,7 +48,9 @@ export default function ListItemPinjam(props) {
                                     onClick={() => onClick(item?.id)}
                                     style={{ width: '100px' }}
                                 >
-                                    {isLoading && <LoadingOutlined color="white" />}
+                                    {
+                                        isLoading && <LoadingOutlined color="white" />
+                                    }
                                     Pinjam
                                 </button>
                             </div>
