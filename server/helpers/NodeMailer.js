@@ -13,7 +13,7 @@ async function sendMail(roomLink, email) {
     from: "pinjamkuproject@gmail.com",
     to: [userMail, "pinjamanku@protonmail.com"],
     subject: "test",
-    html: `<p>${roomLink.url}</p>`,
+    html: `<p>Dear CS team, please review this potential customer through this link ${roomLink.url}</p>`,
   };
   try {
     const result = await transporter.sendMail(message);
