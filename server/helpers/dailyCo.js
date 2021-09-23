@@ -24,6 +24,7 @@ function createRoom(roomName, userEmail) {
       },
     })
       .then(({ data }) => {
+        console.log(data);
         return sendMail(data, userEmail);
       })
       .then(({ error, url }) => {

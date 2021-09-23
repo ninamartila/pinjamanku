@@ -20,7 +20,7 @@ async function sendMail(roomLink, email) {
     if (result) {
       return {
         error: null,
-        url: roomLink.url
+        url: roomLink.url,
       };
     }
   } catch (error) {
