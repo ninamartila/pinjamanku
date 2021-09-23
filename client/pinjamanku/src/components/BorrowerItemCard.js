@@ -1,9 +1,10 @@
+import { Button } from "antd";
 import { useDispatch } from "react-redux";
 import { borrowerPay, landerGetAmount } from "../store/Pinjaman/action";
 
 export default function BorrowerItemCard(props) {
   const dispatch = useDispatch();
-  const { item } = props;
+  const { item, isLoading } = props;
 
   function onCompleted(data) {
     dispatch(landerGetAmount(data));
@@ -32,40 +33,26 @@ export default function BorrowerItemCard(props) {
             </div>
           </div>
           <div className="row justify-content-between">
-          <div className="col-md-4">
+            <div className="col-md-4">
               <h5>Deadline:</h5>
               <p>in {item?.timeRemaining} days</p>
             </div>
-          <div className="col-md-4">
+            <div className="col-md-4">
               <h5>Tenor:</h5>
               <p>{item?.tenor} months</p>
             </div>
             <div className="col-md-2">
               <h5>Status :</h5>
               {item.status === "pending" ? (
-                <a className="btn btn-info btn-no-hover">Pending</a>
+                <p style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: '#1589FF', color: 'white', borderRadius: 10 }}>Pending</p>
               ) : item?.status === "active" ? (
-                <a className="btn btn-success btn-no-hover">Active</a>
+                <p style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: '#6CBB3C', color: 'white', borderRadius: 10 }}>Active</p>
               ) : item?.status === "borrowed" ? (
-                <button
-                  className="btn btn-warning btn-no-hover"
-                  onClick={() => payLoan({ loanID: item?.id })}
-                >
-                  Borrowed
-                </button>
+                <p style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: '#E9AB17', color: 'white', borderRadius: 10 }}>Borrowed</p>
               ) : item?.status === "complete" || item?.status === "withdrawn" ? (
-                <button
-                  className="btn btn-success btn-no-hover"
-                  onClick={() =>
-                    onCompleted({ loanID: item?.id, lenderID: item?.lenderID })
-                  }
-                >
-                  Paid
-                </button>
-              ) : item?.status === "deadline" ? (
-                <a className="btn btn-danger btn-no-hover">PAST DUE</a>
+                <p style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: '#2E8B57', color: 'white', borderRadius: 10 }}>Paid</p>
               ) : (
-                <a className="btn btn-primary btn-no-hover">Withdrawn</a>
+                <p style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: '#C11B17', color: 'white', borderRadius: 10 }}>PAST DUE</p>
               )}
             </div>
           </div>
@@ -73,7 +60,7 @@ export default function BorrowerItemCard(props) {
         {
           item?.status === "borrowed" || item?.status === "deadline" ?
             (<div className="row justify-content-between">
-              <button className="btn btn-primary" onClick={() => payLoan({ loanID: item?.id })}>Pay Now</button>
+              <Button loading={isLoading} style={{ fontSize: 18 }} type="primary" onClick={() => payLoan({ loanID: item?.id })}>Pay Now</Button>
             </div>) : null
         }
       </div>

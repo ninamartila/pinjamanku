@@ -1,10 +1,15 @@
 import { useDispatch } from "react-redux";
 import { borrowerAmount } from "../store/Pinjaman/action";
 import { useHistory } from "react-router-dom";
+import {
+    LoadingOutlined,
+} from '@ant-design/icons';
+
+
 export default function ListItemPinjam(props) {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { item } = props;
+    const { item, isLoading } = props;
 
     function onClick(loanId) {
         if (localStorage.getItem("access_token")) {
@@ -37,11 +42,13 @@ export default function ListItemPinjam(props) {
                         {localStorage.getItem("role") === "lender" ? (
                             ""
                         ) : (
-                            <div className="col-md-2  justify-content-center text-center">
+                            <div className="col-md-2 justify-content-center text-center">
                                 <button
                                     className="btn-login"
                                     onClick={() => onClick(item?.id)}
+                                    style={{ width: '100px' }}
                                 >
+                                    {isLoading && <LoadingOutlined color="white" />}
                                     Pinjam
                                 </button>
                             </div>

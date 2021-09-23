@@ -4,10 +4,14 @@ import {
   landerGetAmount,
   landerInvest,
 } from "../store/Pinjaman/action";
+import {
+  LoadingOutlined,
+} from '@ant-design/icons';
+import { Button } from "antd";
 
 export default function LenderItemCard(props) {
   const dispatch = useDispatch();
-  const { item } = props;
+  const { item, isLoading } = props;
 
   function withdrawLoan(data) {
     dispatch(landerGetAmount(data));
@@ -53,21 +57,17 @@ export default function LenderItemCard(props) {
             <div className="col-md-2">
               <h5>Status :</h5>
               {item.status === "pending" ? (
-                <a className="badge bg-info" style={{fontSize: 20}}>Pending</a>
+                <p style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: '#1589FF', color: 'white', borderRadius: 10 }}>Pending</p>
               ) : item?.status === "active" ? (
-                <a className="badge bg-success">Active</a>
+                <p style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: '#6CBB3C', color: 'white', borderRadius: 10 }}>Active</p>
               ) : item?.status === "borrowed" ? (
-                <button className="badge bg-warning">Borrowed</button>
+                <p style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: '#E9AB17', color: 'white', borderRadius: 10 }}>Borrowed</p>
               ) : item?.status === "complete" ? (
-                <button
-                  className="badge bg-success"
-                >
-                  Completed
-                </button>
+                <p style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: '#2E8B57', color: 'white', borderRadius: 10 }}>Completed</p>
               ) : item?.status === "deadline" ? (
-                <a className="badge bg-danger">PAST DUE</a>
+                <p style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: '#C11B17', color: 'white', borderRadius: 10 }}>PAST DUE</p>
               ) : (
-                <a className="badge bg-primary">Withdrawn</a>
+                <a style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: '#657383', color: 'white', borderRadius: 10 }}>Withdrawn</a>
               )}
             </div>
           </div>
@@ -84,12 +84,14 @@ export default function LenderItemCard(props) {
         ) : null} */}
         {item?.status === "complete" ? (
           <div className="row justify-content-between">
-            <button
-              className="btn btn-primary"
+            <Button
+              loading={isLoading}
+              style={{ fontSize: 18 }}
+              type="primary"
               onClick={() => withdrawLoan({ loanID: item?.id })}
             >
               Withdraw Now
-            </button>
+            </Button>
           </div>
         ) : null}
       </div>

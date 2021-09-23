@@ -1,5 +1,4 @@
-import { message, Tabs } from "antd";
-import { List, PageHeader, Button, Statistic, Descriptions } from "antd";
+import { Empty, message, Tabs, List } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LenderItemCard, Navbar } from "../../components";
@@ -42,7 +41,6 @@ export default function Lender() {
   // }
 
   useEffect(() => {
-    // console.log({ isBorrowerPaySuccess })
     if (typeof isBorrowerPaySuccess?.invoiceURL === "string") {
       setShowModalPayVisible(true);
     }
@@ -150,7 +148,7 @@ export default function Lender() {
             <section className="container">
               <div className="m-3">
                 <h4>Pending Loans :</h4>
-                <p>Loan investment that you need to pay</p>
+                <p style={{ fontSize: 16 }}>Loan investment that you need to pay</p>
               </div>
               {isLenderLoanSuccess.filter((el) => console.log(el.status))}
               <List
@@ -158,6 +156,13 @@ export default function Lender() {
                   (item) => item?.status === "pending"
                 )}
                 loading={isLenderLoanLoading}
+                locale={{
+                  emptyText: <Empty
+                    image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                    imageStyle={{
+                      height: 200,
+                    }} />
+                }}
                 renderItem={(item) => <LenderItemCard item={item} />}
               ></List>
             </section>
@@ -166,13 +171,20 @@ export default function Lender() {
             <section className="container">
               <div className="m-3">
                 <h4>Active Loans :</h4>
-                <p>Available loan that is not yet borrowed</p>
+                <p style={{ fontSize: 16 }}>Available loan that is not yet borrowed</p>
               </div>
               <List
                 dataSource={isLenderLoanSuccess.filter(
                   (item) => item?.status === "active"
                 )}
                 loading={isLenderLoanLoading}
+                locale={{
+                  emptyText: <Empty
+                    image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                    imageStyle={{
+                      height: 200,
+                    }} />
+                }}
                 renderItem={(item) => <LenderItemCard item={item} />}
               ></List>
             </section>
@@ -185,6 +197,13 @@ export default function Lender() {
               <List
                 dataSource={isLenderLoanSuccess.filter(item => item?.status === 'borrowed' || item?.status === "deadline")}
                 loading={isLenderLoanLoading}
+                locale={{
+                  emptyText: <Empty
+                    image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                    imageStyle={{
+                      height: 200,
+                    }} />
+                }}
                 renderItem={item => (
                   <LenderItemCard item={item} />
                 )}
@@ -200,8 +219,15 @@ export default function Lender() {
               <List
                 dataSource={isLenderLoanSuccess.filter(item => item?.status === 'complete' || item?.status === 'withdrawn')}
                 loading={isLenderLoanLoading}
+                locale={{
+                  emptyText: <Empty
+                    image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                    imageStyle={{
+                      height: 200,
+                    }} />
+                }}
                 renderItem={item => (
-                  <LenderItemCard item={item} />
+                  <LenderItemCard item={item} isLoading={isLanderGetAmountLoading} />
                 )}
               >
               </List>
@@ -217,6 +243,7 @@ export default function Lender() {
       <BorrowerPayModal isModalVisible={showModalPayVisible} invoiceURL={isBorrowerPaySuccess?.invoiceURL} handleCancel={() => {
         setShowModalPayVisible(false)
       }} handleOk={() => {
+        dispatch(fetchLoanLender())
         setShowModalPayVisible(false)
       }} />
     </div>

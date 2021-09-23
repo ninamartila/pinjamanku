@@ -1,4 +1,4 @@
-import { message, List } from "antd";
+import { message, List, Empty } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -112,7 +112,7 @@ export default function Home() {
                         <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z" />
                       </svg>
                     </h5>
-                    <p className="card-text">
+                    <p className="card-text" style={{ fontSize: 18 }}>
                       With supporting text below as a natural lead-in to
                       additional content.
                     </p>
@@ -137,7 +137,7 @@ export default function Home() {
                         />
                       </svg>
                     </h5>
-                    <p className="card-text">
+                    <p className="card-text" style={{ fontSize: 18 }}>
                       With supporting text below as a natural lead-in to
                       additional content.
                     </p>
@@ -163,7 +163,7 @@ export default function Home() {
                         />
                       </svg>
                     </h5>
-                    <p className="card-text">
+                    <p className="card-text" style={{ fontSize: 18 }}>
                       With supporting text below as a natural lead-in to
                       additional content.
                     </p>
@@ -182,7 +182,14 @@ export default function Home() {
         <List
           dataSource={isLoanSuccess.filter((item) => item?.status === "active")}
           loading={isLoanLoading}
-          renderItem={(item) => <ListItemPinjam item={item} />}
+          locale={{
+            emptyText: <Empty
+              image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+              imageStyle={{
+                height: 200,
+              }} />
+          }}
+          renderItem={(item) => <ListItemPinjam item={item} isLoading={isBorrowerAmountLoading} />}
         ></List>
       </section>
       {/* Lander Section */}

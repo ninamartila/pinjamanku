@@ -50,7 +50,7 @@ export default function ListUserBorrower() {
                                         />
                                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                                             <h6>Status: </h6>
-                                            <p style={{ padding: 10, backgroundColor: item?.status === 'Pending' ? 'yellow' : '#0ba6ff', color: 'black', borderRadius: 10 }}>{item?.status}</p>
+                                            <p style={{ padding: 10, backgroundColor: item?.status === 'Pending' ? '#1589FF' : item?.status === 'Verified' ? '#2E8B57' : '#C11B17', color: 'white', borderRadius: 10 }}>{item?.status}</p>
                                         </div>
                                     </List.Item>
                                 )}
