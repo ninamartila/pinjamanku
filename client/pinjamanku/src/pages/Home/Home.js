@@ -58,7 +58,7 @@ export default function Home() {
         <section class="hero-container container mt-4">
           <div className="col-md-4 ps-5">
             <div>
-              <h1>Wellcome!!</h1>
+              <h1>Welcome!</h1>
             </div>
           </div>
           <img src={log} alt="hero" />
@@ -115,8 +115,7 @@ export default function Home() {
                       </svg>
                     </h5>
                     <p className="card-text" style={{ fontSize: 18 }}>
-                      With supporting text below as a natural lead-in to
-                      additional content.
+                    We are always here to help you! 24/7 Customer Support team that are ready to help you in time of needs.
                     </p>
                   </div>
                 </div>
@@ -141,8 +140,7 @@ export default function Home() {
                       </svg>
                     </h5>
                     <p className="card-text" style={{ fontSize: 18 }}>
-                      With supporting text below as a natural lead-in to
-                      additional content.
+                    Your transactions has been calculated by our risk management team to ensure the safety of your funds. Our platform can guarantee your financial security.
                     </p>
                   </div>
                 </div>

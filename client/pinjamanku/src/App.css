@@ -32,6 +32,12 @@ body {
   box-shadow: 0 2px 4px 0 rgba(1, 1, 1, 0.1);
 }
 
+.LogoName{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .navbar > h1 {
   font-size: 20px;
   font-weight: bolder;
