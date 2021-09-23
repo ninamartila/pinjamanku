@@ -89,7 +89,7 @@ export function fetchLoan(id) {
     return async function (dispatch, getState) {
         try {
             dispatch(getAllLoanLoading(true));
-            fetch("http://localhost:3000/loans")
+            fetch("http://18.212.172.250:3000/loans")
                 .then((res) => {
                     if (res.ok) {
                         return res.json();
@@ -114,7 +114,7 @@ export function fetchLoanLender() {
     return async function (dispatch, getState) {
         try {
             dispatch(getLenderLoanLoading(true));
-            return fetch("http://localhost:3000/loans/lender", {
+            return fetch("http://18.212.172.250:3000/loans/lender", {
                 headers: {
                     access_token: localStorage.getItem("access_token"),
                 },
@@ -145,7 +145,7 @@ export function fetchLoanBorrower() {
     return async function (dispatch, getState) {
         try {
             dispatch(getBorrowerLoanLoading(true));
-            fetch("http://localhost:3000/loans/borrower", {
+            fetch("http://18.212.172.250:3000/loans/borrower", {
                 headers: {
                     access_token: localStorage.getItem("access_token"),
                 },
@@ -196,7 +196,7 @@ export function landerInvest(payload) {
     return async function (dispatch, getState) {
         try {
             dispatch(getLanderInvestLoading(true))
-            fetch('http://localhost:3000/loans/invoice/lender', {
+            fetch('http://18.212.172.250:3000/loans/invoice/lender', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -250,7 +250,7 @@ export function borrowerAmount(id) {
     return async function (dispatch, getState) {
         try {
             dispatch(getBorrowerAmountLoading(id))
-            fetch('http://localhost:3000/loans/disburse/loan', {
+            fetch('http://18.212.172.250:3000/loans/disburse/loan', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -304,7 +304,7 @@ export function borrowerPay(id) {
     return async function (dispatch, getState) {
         try {
             dispatch(getBorrowerPayLoading(id))
-            fetch('http://localhost:3000/loans/invoice/borrower', {
+            fetch('http://18.212.172.250:3000/loans/invoice/borrower', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -358,7 +358,7 @@ export function landerGetAmount(data) {
     return async function (dispatch, getState) {
         try {
             dispatch(getLenderGetAmountLoading(data))
-            fetch('http://localhost:3000/loans/disburse/withdrawal', {
+            fetch('http://18.212.172.250:3000/loans/disburse/withdrawal', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

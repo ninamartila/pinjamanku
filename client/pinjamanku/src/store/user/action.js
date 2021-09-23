@@ -44,7 +44,7 @@ export function registerUser(payload) {
   return async function (dispatch, getState) {
     try {
       dispatch(getRegisterUserLoading(true));
-      return fetch("http://localhost:3000/users/register", {
+      return fetch("http://18.212.172.250:3000/users/register", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -60,7 +60,6 @@ export function registerUser(payload) {
           }
         })
         .then((data) => {
-          console.log(data, "=========================================")
           localStorage.setItem("dailyCo", data.dailyURL);
           dispatch(getRegisterUserSuccess(data));
           return data.dataValues;
@@ -102,7 +101,7 @@ export function loginUser(payload) {
   return async function (dispatch, getState) {
     try {
       dispatch(getLoginUserLoading(true));
-      return fetch("http://localhost:3000/users/login", {
+      return fetch("http://18.212.172.250:3000/users/login", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -161,7 +160,7 @@ export function getAllUserError(payload) {
 export function fetchUser() {
   return function (dispatch, getState) {
     try {
-      fetch("http://localhost:3000/users")
+      fetch("http://18.212.172.250:3000/users")
         .then((res) => {
           if (res.ok) {
             return res.json();
@@ -207,7 +206,7 @@ export function fetchUserById(id, role) {
   return async function (dispatch, getState) {
     try {
       dispatch(getUserByIdLoading(true));
-      return fetch(`http://localhost:3000/users/${id}?role=${role}`)
+      return fetch(`http://18.212.172.250:3000/users/${id}?role=${role}`)
         .then((res) => {
           if (res.ok) {
             return res.json();
@@ -255,7 +254,7 @@ export function fetchUserUpdate(id, status) {
   return async function (dispatch, getState) {
     try {
       dispatch(getUserUpdateLoading(true));
-      return fetch(`http://localhost:3000/users/${id}`, {
+      return fetch(`http://18.212.172.250:3000/users/${id}`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -309,7 +308,7 @@ export function fetchUserDelete(id, payload) {
   return async function (dispatch, getState) {
     try {
       dispatch(getUserDeleteLoading(true));
-      return fetch(`http://localhost:3000/users/${id}`, {
+      return fetch(`http://18.212.172.250:3000/users/${id}`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
