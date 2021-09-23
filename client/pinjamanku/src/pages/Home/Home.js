@@ -63,7 +63,7 @@ export default function Home() {
           <section class="hero-container container mt-4">
             <div className="col-md-4 ps-5">
               <div>
-                <h1>Finance Problem?</h1>
+                <h2>Need fast and secure financial help?</h2>
               </div>
               {localStorage.getItem("dailyCo") ? (
                 // <button
@@ -78,7 +78,7 @@ export default function Home() {
                     interviewUser();
                   }}
                 >
-                  GO INTERVIEW
+                  INTERVIEW NOW
                   {" >"}
                 </a>
               ) : (
@@ -113,8 +113,7 @@ export default function Home() {
                       </svg>
                     </h5>
                     <p className="card-text">
-                      With supporting text below as a natural lead-in to
-                      additional content.
+                      Lending and investing has never been faster! With instant 1:1 interview your account will be eligible to loan and invest faster!
                     </p>
                   </div>
                 </div>
@@ -138,8 +137,7 @@ export default function Home() {
                       </svg>
                     </h5>
                     <p className="card-text">
-                      With supporting text below as a natural lead-in to
-                      additional content.
+                      Your transactions and risk has been calculated by our team. Our platform can guarantee your financial security.
                     </p>
                   </div>
                 </div>
@@ -164,8 +162,7 @@ export default function Home() {
                       </svg>
                     </h5>
                     <p className="card-text">
-                      With supporting text below as a natural lead-in to
-                      additional content.
+                      We are always here to help you! 24/7 Customer Support team that are ready to help you in time of needs.
                     </p>
                   </div>
                 </div>
