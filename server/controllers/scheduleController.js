@@ -33,7 +33,14 @@ class ScheduleController {
               from: "pinjamkuproject@gmail.com",
               to: email,
               subject: "Your loan is past it's deadline",
-              text: `please pay now or die`,
+              text: 
+              `Dear, ${data.dataValues.firstName},
+              Your time to pay back the loan with these details has ran out!
+              external ID: ${data.dataValues.externalID}
+              amount: ${data.dataValues.initialLoan}
+
+              You can go to your borrower dashboard to pay the loan.
+              `,
             });
           } else {
             const timeRemaining = data.dataValues.timeRemaining - 1;

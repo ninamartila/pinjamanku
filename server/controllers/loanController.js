@@ -100,8 +100,8 @@ class LoanController {
   }
 
   static async CreateInvoiceBorrower(req, res, next) {
-    // const {email} = req.user.email
-    const email = "dharmasatrya10@gmail.com";
+    const {email} = req.user.email
+    // const email = "dharmasatrya10@gmail.com";
     const { loanID } = req.body;
     try {
       const loanData = await Loan.findOne({ where: { id: loanID } });
