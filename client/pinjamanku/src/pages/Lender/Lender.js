@@ -73,7 +73,7 @@ export default function Lender() {
       let count = 0;
       for (let i = 0; i < data.length; i++) {
         if (data[i].status === "complete") {
-          count = count + data[i].initialLoan;
+          count = count + data[i].initialLoan + (data[i].initialLoan * 0.05)
         }
       }
       setBalance(count);
