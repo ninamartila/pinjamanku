@@ -47,30 +47,30 @@ export default function Navbar() {
         {!localStorage.getItem("access_token") ? (
           ""
         ) : localStorage.getItem("role") === "lender" ? (
-          <a class="nav-link" href="" onClick={(e) => goLender(e)}>
+          <a class="nav-link" href="" onClick={(e) => goLender(e)} style={{ fontSize: 18 }}>
             My Portofolio
           </a>
         ) : (
-          <a class="nav-link" href="" onClick={(e) => goBorrower(e)}>
+          <a class="nav-link" href="" onClick={(e) => goBorrower(e)} style={{ fontSize: 18 }}>
             My Portofolio
           </a>
         )}
         {localStorage.getItem("access_token") ? (
           ""
         ) : (
-          <a class="nav-link" href="" onClick={(e) => login(e)}>
+          <a class="nav-link" href="" onClick={(e) => login(e)} style={{ fontSize: 18 }}>
             Login
           </a>
         )}
 
         {localStorage.getItem("access_token") ? (
-          <a class="nav-link" href="" onClick={(e) => logout(e)}>
+          <a class="nav-link" href="" onClick={(e) => logout(e)} style={{ fontSize: 18 }}>
             Logout
           </a>
         ) : (
           ""
         )}
       </div>
-    </nav>
+    </nav >
   );
 }

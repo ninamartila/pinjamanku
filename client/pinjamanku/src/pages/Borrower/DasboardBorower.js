@@ -1,4 +1,4 @@
-import { message, Tabs, List } from "antd";
+import { message, Tabs, List, Empty } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -94,18 +94,25 @@ export default function DasboardBorower() {
         </div>
       </div>
       <div className="container">
-        <Tabs defaultActiveKey="1" style={{ paddingLeft: 10 }}>
+        <Tabs defaultActiveKey="1" style={{ paddingLeft: 10 }} renderTabBar={(props, DefaultTabBar) => <DefaultTabBar {...props} className="ant-tabs-tab" />}>
           <TabPane tab="Current Loan" key="2">
             <section className="container">
               <div className="m-3">
                 <h4>Currently borrowed:</h4>
-                <p>list of your active loans</p>
+                <p style={{ fontSize: 16 }}>list of your active loans</p>
               </div>
               <List
                 dataSource={isBorrowerLoanSuccess.filter(item => item?.status === 'borrowed')}
                 loading={isBorrowerLoanLoading}
+                locale={{
+                  emptyText: <Empty
+                    image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                    imageStyle={{
+                      height: 200,
+                    }} />
+                }}
                 renderItem={item => (
-                  <BorrowerItemCard item={item} />
+                  <BorrowerItemCard item={item} isLoading={isBorrowerPayLoading} />
                 )}
               >
               </List>
@@ -115,11 +122,18 @@ export default function DasboardBorower() {
             <section className="container">
               <div className="m-3">
                 <h4>Completed :</h4>
-                <p>list of your past loans</p>
+                <p style={{ fontSize: 16 }}>list of your past loans</p>
               </div>
               <List
                 dataSource={isBorrowerLoanSuccess.filter(item => item?.status === 'complete' || item?.status === 'withdrawn')}
                 loading={isBorrowerLoanLoading}
+                locale={{
+                  emptyText: <Empty
+                    image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                    imageStyle={{
+                      height: 200,
+                    }} />
+                }}
                 renderItem={item => (
                   <BorrowerItemCard item={item} />
                 )}

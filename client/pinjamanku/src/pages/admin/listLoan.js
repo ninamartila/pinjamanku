@@ -50,7 +50,19 @@ export default function ListLoan() {
                                         }
                                     />
                                     <div>
-                                        <p style={{ padding: 10, width: 100, textAlign: 'center', backgroundColor: item?.status === 'pending' ? 'yellow' : item?.status === 'deadline' ? 'Red' : item?.status === 'borrowed' ? '#0033ff' : 'Green', color: 'black', borderRadius: 10 }}>{item?.status}</p>
+                                        <p style={{
+                                            padding: 10,
+                                            width: 100,
+                                            textAlign: 'center',
+                                            backgroundColor:
+                                                item?.status === 'pending' ? '#1589FF' :
+                                                    item?.status === 'active' ? '#6CBB3C' :
+                                                        item?.status === 'borrowed' ? '#E9AB17' :
+                                                            item?.status === 'completed' ? '#2E8B57' :
+                                                                item?.status === 'deadline' ? '#C11B17' : '#657383',
+                                            color: 'white',
+                                            borderRadius: 10
+                                        }}>{item?.status}</p>
                                     </div>
                                 </List.Item>
                             )}

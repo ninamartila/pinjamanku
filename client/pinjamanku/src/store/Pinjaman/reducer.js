@@ -109,7 +109,6 @@ function pinjamanReducer(state = initialState, action) {
       };
 
     case BORROWER_PAY_SUCCESS:
-      console.log("testing", { action });
       return {
         ...state,
         isBorrowerPaySuccess: action.payload,

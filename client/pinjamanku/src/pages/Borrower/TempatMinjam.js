@@ -75,6 +75,7 @@ export default function TempatMinjam() {
       <BorrowerLoanModal isModalVisible={showModalVisible} data={isBorrowerAmountSuccess} handleCancel={() => {
         setShowModalVisible(false)
       }} handleOk={() => {
+        dispatch(fetchLoan())
         setShowModalVisible(false)
       }} />
     </div>

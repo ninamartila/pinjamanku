@@ -132,8 +132,8 @@ body {
   transform: 0.3s;
 }
 
-.btn-no-hover:hover{
-  cursor: none!important;
+.btn-no-hover:hover {
+  cursor: none !important;
 }
 
 .card:hover {
@@ -344,4 +344,16 @@ footer > div {
   footer {
     flex-direction: column-reverse;
   }
+}
+
+.ant-tabs-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 0;
+  font-size: 18px !important;
+  background: transparent;
+  border: 0;
+  outline: none;
+  cursor: pointer;
 }

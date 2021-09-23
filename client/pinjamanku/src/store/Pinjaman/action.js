@@ -249,7 +249,7 @@ export function getBorrowerAmountError(payload) {
 export function borrowerAmount(id) {
     return async function (dispatch, getState) {
         try {
-            dispatch(getBorrowerPayLoading(true))
+            dispatch(getBorrowerAmountLoading(true))
             fetch('http://localhost:3000/loans/disburse/loan', {
                 headers: {
                     'Accept': 'application/json',

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { message } from "antd";
+import { Button, message } from "antd";
 import { useState } from "react";
 import { Navbar } from "../../components";
 import { landerInvest } from "../../store/Pinjaman/action";
@@ -49,7 +49,6 @@ export default function AddLoan() {
             }}
           >
             <h2 className="title">Invest</h2>
-
             <div className="input-div one">
               <div className="i">
                 <i className="fas fa-user"></i>
@@ -90,8 +89,7 @@ export default function AddLoan() {
                 />
               </div>
             </div>
-
-            <input type="submit" className="btn-login" value="INVEST NOW!" />
+            <input type="submit" className="btn-login" value="INVEST NOW!" ></input>
           </form>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { message, List } from "antd";
+import { message, List, Empty } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -114,10 +114,9 @@ export default function Home() {
                         <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
                       </svg>
                     </h5>
-
-                    <p className="card-text">
-                      We are always here to help you! 24/7 Customer Support team
-                      that are ready to help you in time of needs.
+                    <p className="card-text" style={{ fontSize: 18 }}>
+                      With supporting text below as a natural lead-in to
+                      additional content.
                     </p>
                   </div>
                 </div>
@@ -141,10 +140,9 @@ export default function Home() {
                         />
                       </svg>
                     </h5>
-
-                    <p className="card-text">
-                      Your transactions and risk has been calculated by our
-                      team. Our platform can guarantee your financial security.
+                    <p className="card-text" style={{ fontSize: 18 }}>
+                      With supporting text below as a natural lead-in to
+                      additional content.
                     </p>
                   </div>
                 </div>
@@ -165,8 +163,7 @@ export default function Home() {
                         <path d="M8.5 3a4.002 4.002 0 0 0-3.8 2.745.5.5 0 1 1-.949-.313 5.002 5.002 0 0 1 9.654.595A3 3 0 0 1 13 12H4.5a.5.5 0 0 1 0-1H13a2 2 0 0 0 .001-4h-.026a.5.5 0 0 1-.5-.445A4 4 0 0 0 8.5 3zM0 7.5A.5.5 0 0 1 .5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm2 2a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-2 4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z" />
                       </svg>
                     </h5>
-
-                    <p className="card-text">
+                    <p className="card-text" style={{ fontSize: 18 }}>
                       Lending and investing has never been faster! With instant
                       1:1 interview your account will be eligible to loan and
                       invest faster!
@@ -186,7 +183,14 @@ export default function Home() {
         <List
           dataSource={isLoanSuccess.filter((item) => item?.status === "active")}
           loading={isLoanLoading}
-          renderItem={(item) => <ListItemPinjam item={item} />}
+          locale={{
+            emptyText: <Empty
+              image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+              imageStyle={{
+                height: 200,
+              }} />
+          }}
+          renderItem={(item) => <ListItemPinjam item={item} isLoading={isBorrowerAmountLoading} />}
         ></List>
       </section>
       {/* Lander Section */}
