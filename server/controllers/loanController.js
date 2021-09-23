@@ -34,9 +34,7 @@ class LoanController {
   }
 
   static async GetLenderLoan(req, res, next) {
-    // const lenderID = req.user.id;
-    console.log(req.user)
-    const lenderID = 3
+    const lenderID = req.user.id;
     try {
       const result = await Loan.findAll({ attributes: { include: ["id"] }, where: {lenderID: lenderID},include: [Borrower, Lender]});
       if (result) {
@@ -52,8 +50,7 @@ class LoanController {
   }
 
   static async GetBorrowerLoan(req, res, next) {
-    // const borrowerID = req.user.id
-    const borrowerID = 1
+    const borrowerID = req.user.id
     try {
       const result = await Loan.findAll({ attributes: { include: ["id"] }, where: {borrowerID}, include: [Borrower, Lender]});
       if (result) {
@@ -69,9 +66,8 @@ class LoanController {
   }
 
   static async CreateInvoiceLender(req, res, next) {
-    // const { userID, email } = req.user.email; //tunggu auth
-    const lenderID = 1;
-    const email = "dharmasatrya10@gmail.com";
+    const { id, email } = req.user; //tunggu auth
+    const lenderID = id;
     const { amount, tenor } = req.body;
     const randomID = Math.random().toString(36).slice(2);
     try {

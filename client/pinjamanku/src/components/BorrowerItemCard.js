@@ -22,23 +22,20 @@ export default function BorrowerItemCard(props) {
               <h5>Loan Amount:</h5>
               <p>IDR {item?.initialLoan.toLocaleString("id-ID")}</p>
             </div>
-            <div className="col-md-2">
+            <div className="col-md-4">
               <h5>Interest:</h5>
               <p>7%</p>
             </div>
-          </div>
-          <div className="row justify-content-between">
-            <div className="col-md-4">
+            <div className="col-md-2">
               <h5>Repayment Amount:</h5>
               <p>IDR {(item?.initialLoan + (item?.initialLoan * 0.07)).toLocaleString("id-ID")}</p>
             </div>
-
-            <div className="col-md-2">
+          </div>
+          <div className="row justify-content-between">
+          <div className="col-md-4">
               <h5>Deadline:</h5>
               <p>in {item?.timeRemaining} days</p>
             </div>
-          </div>
-          <div className="row justify-content-between">
           <div className="col-md-4">
               <h5>Tenor:</h5>
               <p>{item?.tenor} months</p>
@@ -46,19 +43,19 @@ export default function BorrowerItemCard(props) {
             <div className="col-md-2">
               <h5>Status :</h5>
               {item.status === "pending" ? (
-                <a className="btn btn-info">Pending</a>
+                <a className="btn btn-info btn-no-hover">Pending</a>
               ) : item?.status === "active" ? (
-                <a className="btn btn-success">Active</a>
+                <a className="btn btn-success btn-no-hover">Active</a>
               ) : item?.status === "borrowed" ? (
                 <button
-                  className="btn btn-warning"
+                  className="btn btn-warning btn-no-hover"
                   onClick={() => payLoan({ loanID: item?.id })}
                 >
                   Borrowed
                 </button>
               ) : item?.status === "complete" || item?.status === "withdrawn" ? (
                 <button
-                  className="btn btn-success"
+                  className="btn btn-success btn-no-hover"
                   onClick={() =>
                     onCompleted({ loanID: item?.id, lenderID: item?.lenderID })
                   }
@@ -66,9 +63,9 @@ export default function BorrowerItemCard(props) {
                   Paid
                 </button>
               ) : item?.status === "deadline" ? (
-                <a className="btn btn-danger">PAST DUE</a>
+                <a className="btn btn-danger btn-no-hover">PAST DUE</a>
               ) : (
-                <a className="btn btn-primary">Withdrawn</a>
+                <a className="btn btn-primary btn-no-hover">Withdrawn</a>
               )}
             </div>
           </div>

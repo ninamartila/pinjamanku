@@ -60,6 +60,7 @@ export function registerUser(payload) {
           }
         })
         .then((data) => {
+          console.log(data, "=========================================")
           localStorage.setItem("dailyCo", data.dailyURL);
           dispatch(getRegisterUserSuccess(data));
           return data.dataValues;

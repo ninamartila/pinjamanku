@@ -118,7 +118,7 @@ export default function DasboardBorower() {
                 <p>list of your past loans</p>
               </div>
               <List
-                dataSource={isBorrowerLoanSuccess.filter(item => item?.status === 'withdraw')}
+                dataSource={isBorrowerLoanSuccess.filter(item => item?.status === 'complete' || item?.status === 'withdrawn')}
                 loading={isBorrowerLoanLoading}
                 renderItem={item => (
                   <BorrowerItemCard item={item} />

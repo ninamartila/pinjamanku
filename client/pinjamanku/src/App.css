@@ -132,9 +132,12 @@ body {
   transform: 0.3s;
 }
 
+.btn-no-hover:hover{
+  cursor: none!important;
+}
+
 .card:hover {
   box-shadow: 0 4px 8px 0 rgba(1, 1, 1, 0.2);
-  cursor: pointer;
 }
 
 .card > .card-body {

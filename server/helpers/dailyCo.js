@@ -3,7 +3,7 @@ const sendMail = require("./NodeMailer");
 
 function createRoom(roomName, userEmail) {
   const currentDate = new Date();
-  let url;
+  let dailyUrl;
   let error;
   return new Promise((resolve, reject) => {
     axios({
@@ -26,16 +26,16 @@ function createRoom(roomName, userEmail) {
       .then(({ data }) => {
         return sendMail(data, userEmail);
       })
-      .then(({ error, result }) => {
+      .then(({ error, url }) => {
         if (!error) {
-          url = result.url;
+          dailyUrl = url;
         } else {
           /* istanbul ignore next */
-          url = false;
+          dailyUrl = false;
         }
         resolve({
           error,
-          url,
+          dailyUrl,
         });
       })
       .catch((err) => {
