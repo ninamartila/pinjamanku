@@ -24,16 +24,10 @@ function createRoom(roomName, userEmail) {
       },
     })
       .then(({ data }) => {
-        console.log(data);
         return sendMail(data, userEmail);
       })
       .then(({ error, url }) => {
-        if (!error) {
-          dailyUrl = url;
-        } else {
-          /* istanbul ignore next */
-          dailyUrl = false;
-        }
+        dailyUrl = url;
         resolve({
           error,
           dailyUrl,

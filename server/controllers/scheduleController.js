@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const { Borrower, Loan } = require("../models/index");
 const nodemailer = require("nodemailer");
 

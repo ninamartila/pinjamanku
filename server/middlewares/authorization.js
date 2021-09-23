@@ -1,4 +1,4 @@
-const { Lender, Borrower, Staff } = require("../models");
+const { Lender, Borrower } = require("../models");
 
 const isLender = (req, res, next) => {
   const { id, role } = req.user;
@@ -9,6 +9,7 @@ const isLender = (req, res, next) => {
           if (result) {
             next();
           } else {
+            /* istanbul ignore next */
             next({ name: "NotFound", type: "Lender" });
           }
         })
@@ -17,6 +18,7 @@ const isLender = (req, res, next) => {
           next({ name: "InvalidToken" });
         });
     } else {
+      /* istanbul ignore next */
       next({ name: "Forbidden" });
     }
   } else {
@@ -42,6 +44,7 @@ const isBorrower = (req, res, next) => {
           next({ name: "InvalidToken" });
         });
     } else {
+      /* istanbul ignore next */
       next({ name: "Forbidden" });
     }
   } else {

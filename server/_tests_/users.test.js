@@ -109,9 +109,9 @@ describe("POST /users/register [SUCCESS CASE]", () => {
   test("201 success register borrower", (done) => {
     nodemailer.mockReturnValue({
       error: null,
-      result: "testing",
+      url: "testing",
     });
-    createRoom.mockReturnValue("aku.com");
+    createRoom.mockReturnValue({ dailyUrl: "aku.com" });
     request(app)
       .post("/users/register")
       .send(borrowerRegister)

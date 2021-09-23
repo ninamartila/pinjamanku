@@ -1,7 +1,10 @@
-const app = require("../app")
+const app = require("../app");
+const ScheduleController = require("../controllers/scheduleController");
+const schedule = require("node-schedule");
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 
+schedule.scheduleJob("* 0 * * *", ScheduleController.ageLoan);
 app.listen(PORT, () => {
-    console.log(`this app running on Port ${PORT}`);
-})
+  console.log(`this app running on Port ${PORT}`);
+});

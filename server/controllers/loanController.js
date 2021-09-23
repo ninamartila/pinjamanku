@@ -9,8 +9,14 @@ class LoanController {
       if (status) {
         /* istanbul ignore next */
         queries.status = status;
+      } else {
+        queries;
       }
-      const result = await Loan.findAll({attributes: { include: ["id"] }, where: queries, include: [Borrower, Lender]});
+      const result = await Loan.findAll({
+        attributes: { include: ["id"] },
+        where: queries,
+        include: [Borrower, Lender],
+      });
       res.status(200).json(result);
     } catch (error) {
       /* istanbul ignore next */
@@ -21,7 +27,7 @@ class LoanController {
   static async GetByID(req, res, next) {
     const { loanID } = req.params;
     try {
-      const result = await Loan.findOne({ where: {id: loanID}, include: [Borrower, Lender]});
+      const result = await Loan.findOne({ where: { id: loanID }, include: [Borrower, Lender] });
       if (result) {
         res.status(200).json(result);
       } else {
@@ -36,7 +42,11 @@ class LoanController {
   static async GetLenderLoan(req, res, next) {
     const lenderID = req.user.id;
     try {
-      const result = await Loan.findAll({ attributes: { include: ["id"] }, where: {lenderID: lenderID},include: [Borrower, Lender]});
+      const result = await Loan.findAll({
+        attributes: { include: ["id"] },
+        where: { lenderID: lenderID },
+        include: [Borrower, Lender],
+      });
       if (result) {
         res.status(200).json(result);
       } else {
@@ -50,9 +60,13 @@ class LoanController {
   }
 
   static async GetBorrowerLoan(req, res, next) {
-    const borrowerID = req.user.id
+    const borrowerID = req.user.id;
     try {
-      const result = await Loan.findAll({ attributes: { include: ["id"] }, where: {borrowerID}, include: [Borrower, Lender]});
+      const result = await Loan.findAll({
+        attributes: { include: ["id"] },
+        where: { borrowerID },
+        include: [Borrower, Lender],
+      });
       if (result) {
         res.status(200).json(result);
       } else {
@@ -163,8 +177,8 @@ class LoanController {
     // const borrowerID = 1;
     try {
       const loanData = await Loan.findOne({ where: { id: loanID } });
-      const borrowerData = await Borrower.findOne({where: {id: borrowerID}})
-      await Loan.update({borrowerID: borrowerID}, {where: {id: loanID}})
+      const borrowerData = await Borrower.findOne({ where: { id: borrowerID } });
+      await Loan.update({ borrowerID: borrowerID }, { where: { id: loanID } });
       const amountWithInterest = loanData.initialLoan + loanData.initialLoan * 0.07;
 
       const loanDataInput = {

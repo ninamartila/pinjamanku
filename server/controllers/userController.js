@@ -120,7 +120,6 @@ class UserController {
         const checkRoom = await createRoom(`${firstName}${currentDate.getTime()}`, email);
         /* istanbul ignore next */
         if (checkRoom) {
-          console.log(checkRoom);
           const createdBorrower = await Borrower.create(newBorrower);
           const { password: passwordStaff, ...toSend } = createdBorrower;
           /* istanbul ignore next */

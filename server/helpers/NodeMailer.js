@@ -11,18 +11,16 @@ async function sendMail(roomLink, email) {
   });
   let message = {
     from: "pinjamkuproject@gmail.com",
-    to: [userMail, "pinjamanku@protonmail.com"],
+    to: userMail,
     subject: "test",
     html: `<p>${roomLink.url}</p>`,
   };
   try {
     const result = await transporter.sendMail(message);
-    if (result) {
-      return {
-        error: null,
-        url: roomLink.url,
-      };
-    }
+    return {
+      error: null,
+      url: roomLink.url,
+    };
   } catch (error) {
     /* istanbul ignore next */
     return {
