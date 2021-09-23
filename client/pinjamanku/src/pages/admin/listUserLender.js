@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Layout, List, message, Avatar } from 'antd'
+import { Layout, List, message, Avatar, Empty } from 'antd'
 import { AdminFooter, AdminNavbar } from '../../components'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from '../../store/user/action';
@@ -39,18 +39,25 @@ export default function ListUserLender() {
                             <List
                                 dataSource={isUserSuccess?.lender}
                                 loading={isUserLoading}
+                                locale={{
+                                    emptyText: <Empty
+                                        image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                        imageStyle={{
+                                            height: 200,
+                                        }} />
+                                }}
                                 renderItem={item => (
                                     <List.Item key={item?.id} onClick={() => onClick(item?.id)} style={{ backgroundColor: 'white', borderRadius: '5px', cursor: 'pointer', marginBottom: '8px', padding: '16px' }}>
                                         <List.Item.Meta
                                             avatar={
-                                                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style={{ width: 50, height: 50, marginTop: 10 }} />
                                             }
-                                            title={<p>Name : {item?.firstName} {item?.lastName}</p>}
-                                            description={<p>Email : {item?.email}</p>}
+                                            title={<p style={{ fontSize: 18 }}>Name : {item?.firstName} {item?.lastName}</p>}
+                                            description={<p style={{ fontSize: 18 }}>Email : {item?.email}</p>}
                                         />
                                         <div style={{ display: 'flex', flexDirection: 'column' }} >
                                             <h6>Status: </h6>
-                                            <p style={{ padding: 10, backgroundColor: item?.status === 'Pending' ? '#1589FF' : item?.status === 'Verified' ? '#2E8B57' : '#C11B17', color: 'white', borderRadius: 10 }}>{item?.status}</p>
+                                            <p style={{ fontSize: 18, padding: 10, backgroundColor: item?.status === 'Pending' ? '#1589FF' : item?.status === 'Verified' ? '#2E8B57' : '#C11B17', color: 'white', borderRadius: 10 }}>{item?.status}</p>
                                         </div>
                                     </List.Item>
                                 )}

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Layout, List, message, Avatar } from 'antd'
+import { Layout, List, message, Avatar, Empty } from 'antd'
 import { AdminFooter, AdminNavbar } from '../../components'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLoan } from '../../store/Pinjaman/action';
@@ -35,17 +35,33 @@ export default function ListLoan() {
                         <List
                             dataSource={isLoanSuccess}
                             loading={isLoanLoading}
+                            locale={{
+                                emptyText: <Empty
+                                    image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                    imageStyle={{
+                                        height: 200,
+                                    }} />
+                            }}
                             renderItem={item => (
-                                <List.Item key={item?.id} style={{ backgroundColor: 'white', borderRadius: '5px', cursor: 'pointer', marginBottom: '8px', padding: '16px' }}>
+                                <List.Item
+                                    key={item?.id}
+                                    style={{
+                                        backgroundColor: 'white',
+                                        borderRadius: '5px',
+                                        cursor: 'pointer',
+                                        marginBottom: '8px',
+                                        padding: '16px'
+                                    }}
+                                >
                                     <List.Item.Meta
                                         avatar={
                                             <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                                         }
-                                        title={<p>Name : {item?.Lender?.firstName} {item?.Lender?.firstName}</p>}
+                                        title={<p style={{ fontSize: 18 }}>Name : {item?.Lender?.firstName} {item?.Lender?.firstName}</p>}
                                         description={
                                             <div>
-                                                <p>Loan : IDR {item?.initialLoan.toLocaleString("id-ID")}</p>
-                                                <p>External Id : {item?.externalID}</p>
+                                                <p style={{ fontSize: 18 }}>Loan : IDR {item?.initialLoan.toLocaleString("id-ID")}</p>
+                                                <p style={{ fontSize: 18 }}>External Id : {item?.externalID}</p>
                                             </div>
                                         }
                                     />

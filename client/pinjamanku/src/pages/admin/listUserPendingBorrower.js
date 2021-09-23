@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Layout, List, message, Avatar, Button } from 'antd'
+import { Layout, List, message, Avatar, Button, Empty } from 'antd'
 import { AdminFooter, AdminNavbar } from '../../components'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser, fetchUserUpdate } from '../../store/user/action';
@@ -48,14 +48,21 @@ export default function ListUserPendingBorrower() {
                             <List
                                 dataSource={isUserSuccess?.borrower?.filter(item => item?.status === 'Pending')}
                                 loading={isUserLoading}
+                                locale={{
+                                    emptyText: <Empty
+                                        image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                        imageStyle={{
+                                            height: 200,
+                                        }} />
+                                }}
                                 renderItem={item => (
                                     <List.Item key={item.id} style={{ backgroundColor: 'white', borderRadius: '5px', cursor: 'pointer', marginBottom: '8px', padding: '16px' }}>
                                         <List.Item.Meta
                                             avatar={
-                                                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style={{ width: 50, height: 50, marginTop: 10 }} />
                                             }
-                                            title={<p>Name : {item?.firstName} {item?.lastName}</p>}
-                                            description={<p>Email : {item?.email}</p>}
+                                            title={<p style={{ fontSize: 18 }}>Name : {item?.firstName} {item?.lastName}</p>}
+                                            description={<p style={{ fontSize: 18 }}>Email : {item?.email}</p>}
                                         />
                                         <Button
                                             type="primary"

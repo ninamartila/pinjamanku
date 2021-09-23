@@ -34,26 +34,33 @@ export default function AdminNavbar() {
             onCollapse={(collapsed, type) => {
                 console.log(collapsed, type);
             }}
+            width={250}
         >
-            <div className="logo" style={{ height: 70 }} >
+            <div className="logo" style={{ height: 100 }} >
                 <Image
                     preview={false}
                     src={imageLogo}
-                    width={200}
+                    width={250}
+                    height={90}
                 />
             </div>
             <Menu theme="dark" mode="inline" defaultSelectedKeys={[menuKey]}>
                 <Menu.Item key="1" >
-                    <Link to='/admin-dashboard/borrower'>List Borrower</Link>
+                    <Link to='/admin-dashboard/borrower'>
+                        <p style={{ fontSize: 20, marginTop: 20 }}>List Borrower</p>
+                    </Link>
                 </Menu.Item>
                 <Menu.Item key="2" >
-                    <Link to='/admin-dashboard/lender'>List Lender</Link>
+                    <Link to='/admin-dashboard/lender'>
+                        <p style={{ fontSize: 20, marginTop: 20 }}>List Lender</p></Link>
                 </Menu.Item>
                 <Menu.Item key="3" >
-                    <Link to='/admin-dashboard/pendingborrower'>List Pending Borrower</Link>
+                    <Link to='/admin-dashboard/pendingborrower'>
+                        <p style={{ fontSize: 20, marginTop: 20 }}>List Pending Borrower</p></Link>
                 </Menu.Item>
                 <Menu.Item key="4" >
-                    <Link to='/admin-dashboard/listLoan'>List Loan</Link>
+                    <Link to='/admin-dashboard/listLoan'>
+                        <p style={{ fontSize: 20, marginTop: 20 }}>List Loan</p></Link>
                 </Menu.Item>
             </Menu>
         </Sider>
