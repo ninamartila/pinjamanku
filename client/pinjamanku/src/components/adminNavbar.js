@@ -1,5 +1,5 @@
 import { Image, Layout, Menu, } from 'antd'
-import imageLogo from '../img/Frame_2_1.png'
+import imageLogo from '../img/Frame_13_6.png'
 import {
     Link, useLocation
 } from 'react-router-dom'
@@ -36,13 +36,15 @@ export default function AdminNavbar() {
             }}
             width={250}
         >
-            <div className="logo" style={{ height: 100 }} >
+            <div className="logo" style={{ height: 100 }} style={{ flexDirection: "row", display: 'flex', alignContent: 'center', alignItems: 'center', padding: 10 }}>
                 <Image
                     preview={false}
                     src={imageLogo}
-                    width={250}
-                    height={90}
+                    width={60}
+                    height={60}
+                    style
                 />
+                <h3 style={{ color: 'white', padding: 10, paddingTop: 20 }}>PinjamanKu</h3>
             </div>
             <Menu theme="dark" mode="inline" defaultSelectedKeys={[menuKey]}>
                 <Menu.Item key="1" >
